@@ -1,0 +1,6 @@
+Es kann unterschiedliche Kombinationen von Bestandteilen einer Aufgabe geben.
+Diese können gewürfelt und kombiniert werden. 
+Es bestehen Abhängigkeiten zwischen den einzelnen Aufgaben und Parametern, diese sind festzulegen.
+Wertebereiche der Zahlen müssen festgelegt werden.
+Es braucht mehrere Formulierungen für Inhalte. Satzbausteine müssen zusammengesetzt werden.
+Unterschiedliche Sachverhalte bedingen gewisse Paragraphen. Hier muss die Abhängigkeit gefunden werden.

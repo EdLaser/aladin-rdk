@@ -1,0 +1,6 @@
+== Überlegungen
+Es gibt mehrere Parameter die die Entscheidung des Sachverhaltes beeinflussen.
+Je nachdem was im Text steht besteht eine Abhänigkeit zu einem anderen Paragraph bzw. einer anderen Herangehensweise.
+
+=== Errechnen zvE
+Das zvE wird durch Angaben von Einnahmen und Ausgaben berrechnet. Ausgaben werden je nach Ausgabe abbschreibbar oder nicht. Es kann zu STeuer Abzügen kommen. Einnahmen können relevant oder auch nicht relevant sein. 
