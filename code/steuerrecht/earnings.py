@@ -10,10 +10,10 @@ VERMIETUNG = ["vermietet eine Wohnung, er verlangt"]
 
 ALL = { "GEHALT": GEHALT, "BETEILIGUNG": BETEILIGUNG, "DIVIDENDE": DIVIDENDE, "VERMIETUNG": VERMIETUNG }
 
-def set_params(char, number):
+def set_params(char):
     arr = ""
-    NUMBERS = dependecys.generate_number_dep()
+    numbers = dependecys.generate_number_dep()
     for key, value in ALL.items():
-        arr += f"{char} {value[0]} {NUMBERS[key]}. "
+        arr += f"{char} {value[0]} {numbers[key]}. "
     print(NUMBERS)
     return arr
