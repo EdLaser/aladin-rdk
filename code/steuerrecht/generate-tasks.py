@@ -5,8 +5,7 @@ from steuerrecht import numbers
 import string
 
 if __name__ == '__main__':
-    task = ""
     char = random.choice(string.ascii_letters).upper()
-    task = earnings.set_params(char, 3000)
+    task = earnings.set_params(char)
    
     print(task)
