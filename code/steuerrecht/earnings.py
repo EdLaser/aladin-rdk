@@ -1,10 +1,11 @@
 from steuerrecht import dependecys
+import random
 
-GEHALT = ["verdient als Mitarbieter"]
+GEHALT = ["verdient als Mitarbieter", "erhält als Geschäftsführer ein Gehalt von", "bekommt pro Monat"]
 
-BETEILIGUNG = ["erhält durch Beteiligung"]
+BETEILIGUNG = ["erhält durch Beteiligung", ""]
 
-DIVIDENDE = ["bekommt eine Dividende i.H.v"]
+DIVIDENDE = ["bekommt eine Dividende i.H.v", ""]
 
 VERMIETUNG = ["vermietet eine Wohnung, er verlangt"]
 
@@ -14,6 +15,5 @@ def set_params(char):
     arr = ""
     numbers = dependecys.generate_number_dep()
     for key, value in ALL.items():
-        arr += f"{char} {value[0]} {numbers[key]}. "
-    print(NUMBERS)
+        arr += f"{char} {random.choice(value)} {numbers[key]}. "
     return arr
