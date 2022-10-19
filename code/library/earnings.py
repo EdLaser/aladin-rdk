@@ -2,13 +2,15 @@ import dependecys
 import sentenceparts
 import random
 
-GEHALT = ["verdient als Mitarbieter", "erhält als Geschäftsführer ein Gehalt von", "bekommt pro Monat"]
+GEHALT = {1: "verdient als Mitarbieter",
+          2: "erhält als Geschäftsführer ein Gehalt von",
+          3: "bekommt pro Monat"}
 
-BETEILIGUNG = ["erhält durch Beteiligung", ""]
+BETEILIGUNG = {1: "erhält durch Beteiligung"}
 
-DIVIDENDE = ["bekommt eine Dividende i.H.v", ""]
+DIVIDENDE = {1: "bekommt eine Dividende i.H.v"}
 
-VERMIETUNG = ["vermietet eine Wohnung, er verlangt"]
+VERMIETUNG = {1: "vermietet eine Wohnung, er verlangt"}
 
 ALL = { "GEHALT": GEHALT, "BETEILIGUNG": BETEILIGUNG, "DIVIDENDE": DIVIDENDE, "VERMIETUNG": VERMIETUNG }
 
