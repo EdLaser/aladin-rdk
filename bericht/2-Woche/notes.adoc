@@ -6,10 +6,21 @@ Es braucht mehrere Formulierungen für Inhalte. Satzbausteine müssen zusammenge
 Unterschiedliche Sachverhalte bedingen gewisse Paragraphen. Hier muss die Abhängigkeit gefunden werden.
 
 Tasks:
-Tasks sollten als String mit unterschiedlichen Formulierungen versehen werden. Dabei müssen am Anfang, in der Mitte oder am Ende der Strings werte bzw. Variablen eingesetzt werden. Zwischen unterschiedlichen Formulierungen soll zufällig entschieden werden.
+Tasks sollten als String mit unterschiedlichen Formulierungen versehen werden.
+Dabei müssen am Anfang, in der Mitte oder am Ende der Strings werte bzw.Variablen eingesetzt werden.
+Zwischen unterschiedlichen Formulierungen soll zufällig entschieden werden.
 
 Abhängigkeiten:
-Wir müssen Abhängigkeiten definieren um zu Wissen, welche Aufgabe welches Gesetz bedingt und wie mit dieser Grundlage gerechnet wird. Am besten ist hier ein Dictionary mit den Gesetzen als Keys und Arrays der abhängigen Ausgaben / Einnahmen als Value. Eine Unterscheidung fällt hier nach den EInkunftsarten und mit Werbungskosten bzw. Betriebsausgaben. Abhängigkeiten sollten generiert werden, wenn sich die Elemente gleichen. Sie können dann durch ein Dictionary generiert werden. 
+Wir müssen Abhängigkeiten definieren um zu Wissen, welche Aufgabe welches Gesetz bedingt und wie mit dieser Grundlage gerechnet wird.
+Am besten ist hier ein Dictionary mit den Gesetzen als Keys und Arrays der abhängigen Ausgaben / Einnahmen als Value.
+Eine Unterscheidung fällt hier nach den EInkunftsarten und mit Werbungskosten bzw. Betriebsausgaben.
+Abhängigkeiten sollten generiert werden, wenn sich die Elemente gleichen.
+Sie können dann durch ein Dictionary generiert werden.
+Bei der Generierung muss eine Datenstruktur erzeugt werden, die die Aufgabe mit ihrer Lösung darstellt.
+Dabei sollen Abhängigkeiten aufgelöst werden um die notwendigen Schlüsse zu ziehen.
+Außerdem sollte es Sätze ohne bzw. mit Subjekt geben. Auch hier braucht es Abhängigkeiten.
+Als erstes sollten die Kombinationen aufgelöst werden, dann die Satzteile mit ihren Tokens.
 
 Zahlen:
-Alle Zahlen müssen mit sinvollen Rundungsbereichen je nach Einnahme oder Ausgabe versehen werden. Dabei ist ein weiteres Modul notwendig. Dabei müssen gleichfalls die Abhängigkeiten festgelegt werden.
+Alle Zahlen müssen mit sinvollen Rundungsbereichen je nach Einnahme oder Ausgabe versehen werden.
+Dabei ist ein weiteres Modul notwendig, gleichfalls die Abhängigkeiten festgelegt werden.
