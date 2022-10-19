@@ -1,4 +1,4 @@
-from vertex import Vertex
+from graph.vertex import Vertex
 
 class Graph():
     def __init__(self):
@@ -8,9 +8,9 @@ class Graph():
     def __iter__(self):
         return iter(self.vertices.values())
 
-    def add_vertex(self, node):
+    def add_vertex(self, node, value):
         self.count_vertices += 1
-        new_vertex = Vertex(node)
+        new_vertex = Vertex(node, value)
         self.vertices[node] = new_vertex
         return new_vertex
 

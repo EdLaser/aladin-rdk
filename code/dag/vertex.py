@@ -1,6 +1,7 @@
 class Vertex:
-    def __init__(self, node):
+    def __init__(self, node, value):
         self.id = node
+        self.value = value
         self.adjacent = {}
 
     def __str__(self):
@@ -14,3 +15,6 @@ class Vertex:
 
     def get_id(self):
         return self.id
+
+    def get_value(self):
+        return self.value
