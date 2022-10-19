@@ -1,0 +1,1 @@
+NOUNS = ["Er", "Sie"]

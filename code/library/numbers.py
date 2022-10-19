@@ -1,5 +1,6 @@
 import random
 
+
 def round_to_base(number, base):
     return base * round(number/base)
 

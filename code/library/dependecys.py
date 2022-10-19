@@ -1,11 +1,14 @@
-from steuerrecht import earnings, spendings, numbers
+import earnings, spendings, numbers
+
+COMBINATIONS = {"COMB_1": ["Subjekt", "Verb", "Object"], "COMB_2": [""]}
+
 
 def generate_number_dep():
-    numbers = {}
+    NUMBERS = {}
     for earn in earnings.ALL:
         for key, num in numbers.ALL.items():
             if earn is key:
-                numbers[earn] = num
+                NUMBERS[earn] = num
             else:
                 pass
     return NUMBERS
