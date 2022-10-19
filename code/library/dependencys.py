@@ -1,4 +1,6 @@
-import earnings, spendings, numbers
+import earnings
+import spendings
+import numbers
 
 COMBINATIONS = {"COMB_1": ["Subjekt", "Verb", "Object"],
                 "COMB_2": ["Verb", "Subject", "Object"],
