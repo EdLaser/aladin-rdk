@@ -21,8 +21,8 @@ class Graph():
         if to not in self.vertices:
             self.add_vertex(to)
 
-        self.vertices[frm].add_neighbour(self.vertices[to], cost)
-        self.vertices[to].add_neighbour(self.vertices[frm], cost)
+        self.vertices[frm].add_next(self.vertices[to], cost)
+        self.vertices[to].add_previous(self.vertices[frm], cost)
 
     def get_vertices(self):
         return self.vertices.keys()
