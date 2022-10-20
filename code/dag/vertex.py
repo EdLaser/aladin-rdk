@@ -7,7 +7,8 @@ class Vertex:
         self.previous = {}
 
     def __str__(self):
-        return str(self.id) + ' ajdacent: ' + str([x.id for x in self.adjacent])
+        return str(self.id) + ' next: ' + str([x.id for x in self.next]) \
+            + " previous: "  + str([x.id for x in self.previous])
 
     def add_neighbour(self, neighbour, weight=0):
         self.adjacent[neighbour] = weight
