@@ -1,4 +1,5 @@
-from graph.vertex import Vertex
+from dag.vertex import Vertex
+
 
 class Graph():
     def __init__(self):
@@ -14,7 +15,7 @@ class Graph():
         self.vertices[node] = new_vertex
         return new_vertex
 
-    def add_edge(self, frm, to, cost = 0):
+    def add_edge(self, frm, to, cost=0):
         if frm not in self.vertices:
             self.add_vertex(frm)
         if to not in self.vertices:
