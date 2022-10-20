@@ -1,5 +1,5 @@
-import dependecys
-import sentenceparts
+from library import dependencys
+from library import sentenceparts
 import random
 
 GEHALT = {1: "verdient als Mitarbieter",
@@ -12,12 +12,12 @@ DIVIDENDE = {1: "bekommt eine Dividende i.H.v"}
 
 VERMIETUNG = {1: "vermietet eine Wohnung, er verlangt"}
 
-ALL = { "GEHALT": GEHALT, "BETEILIGUNG": BETEILIGUNG, "DIVIDENDE": DIVIDENDE, "VERMIETUNG": VERMIETUNG }
+ALL = {"GEHALT": GEHALT, "BETEILIGUNG": BETEILIGUNG, "DIVIDENDE": DIVIDENDE, "VERMIETUNG": VERMIETUNG}
 
 
-def set_params(char):
-    arr = ""
-    numbers = dependecys.generate_number_dep()
-    for key, value in ALL.items():
-        arr += f"{char} {random.choice(value)} {numbers[key]}. "
-    return arr
+# def set_params(char):
+#     arr = ""
+#     numbers = dependencys.generate_number_dep()
+#     for key, value in ALL.items():
+#         arr += f"{char} {random.choice(value)} {numbers[key]}. "
+#     return arr
