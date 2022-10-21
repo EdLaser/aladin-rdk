@@ -13,4 +13,4 @@ DIVIDENDE = round_to_base(random.randrange(50000, 100000), 1000)
 
 VERMIETUNG = round_to_base(random.randrange(500, 2000), 50)
 
-ALL = { "GEHALT": GEHALT, "BETEILIGUNG":BETEILIGUNG, "DIVIDENDE": DIVIDENDE, "VERMIETUNG" :VERMIETUNG }
+ALL = { "Gehalt": GEHALT, "Beteiligung":BETEILIGUNG, "Dividende": DIVIDENDE, "Vermietung" :VERMIETUNG }

@@ -1,6 +1,6 @@
 import imp
 from library import earnings
-from library import spendings
+from library import numbers as num
 from library import sentenceparts as sen
 import random
 import string
@@ -12,13 +12,14 @@ COMBINATIONS = {"COMB_1": ["Subject", "Verb", "Object"],
 
 def map_parts():
     mapped = {}
+    ch = random.choice(string.ascii_letters).upper()
     for k, v in COMBINATIONS.items():
-        mapped[k] = generate_combs(sen.ALL, v, sen.VERBS, random.choice(string.ascii_letters).upper())
+        mapped[k] = generate_combs(sen.ALL, v, sen.VERBS, ch, num.ALL)
     
     return mapped
             
 
-def generate_combs(formulation, sent_parts, verbs, obj):
+def generate_combs(formulation, sent_parts, verbs, obj, numbers):
     combs = {}
     for elem, value in formulation.items():
         part_dict = {}
@@ -30,6 +31,7 @@ def generate_combs(formulation, sent_parts, verbs, obj):
                 part_dict[val] = random.choice(verbs)
             elif val == 'Object':
                 part_dict[val] = obj
+            part_dict['Number'] = numbers.get(elem)
         combs[elem] = part_dict
     
     return combs
