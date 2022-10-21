@@ -1,12 +1,29 @@
 import random
 
-GEHALT = ["verdient als Mitarbieter",
-          "erhält als Geschäftsführer ein Gehalt von",
-          "bekommt pro Monat"]
+GEHALT = {
+    "COMB_1": 
+        [
+            "verdient als Mitarbieter",
+            "erhält als Geschäftsführer ein Gehalt von",
+            "bekommt pro Monat"
+        ],
+    "COMB_2": 
+        [
+            "Als Mitarbeiter verdient",
+            "Als Geschäftsführer verdient"
+            "Die Entlohnung von"
+        ],
+}
 
-BETEILIGUNG = ["erhält durch Beteiligung"]
+BETEILIGUNG = {
+    "COMB_1": ["erhält durch Beteiligung", "verdient durch Beteiligung"],
+    "COMB_2": ["Durch seine Beteiligung bekommt" ],
+}
 
-DIVIDENDE = ["bekommt eine Dividende i.H.v"]
+DIVIDENDE = {
+    "COMB_1": ["bekommt eine Dividende i.H.v"],
+    "COMB_2": [""]
+}
 
 VERMIETUNG = ["vermietet eine Wohnung, er verlangt"]
 
