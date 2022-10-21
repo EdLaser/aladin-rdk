@@ -1,5 +1,6 @@
 import random
 import string
+import pprint
 import networkx as nx
 import matplotlib.pyplot as plt
 from dag.graph import Graph
@@ -12,30 +13,32 @@ from library import dependencys
 def setup_graph():
     g = nx.DiGraph()
     g.add_node("start", value="")
-
-    for key_comb, value_comb in dependencys.COMBINATIONS.items():
+    combos = dependencys.map_parts()
+    
+    for key_comb, value_comb in combos.items():
         g.add_node(node_for_adding=key_comb, value=value_comb)
         g.add_edge("start", key_comb)
         
-        for key_earn, value_earn in earnings.ALL.items():
-            g.add_node(node_for_adding= f"{key_comb}.{key_earn}", value=value_earn, nodetype=key_earn)
-            g.add_edge(key_comb, f"{key_comb}.{key_earn}")
+        for earning_type, parts_earning in value_comb.items():
+            g.add_node(node_for_adding= f"{key_comb}.{earning_type}", value=parts_earning)
+            g.add_edge(key_comb, f"{key_comb}.{earning_type}")
         
-            for value_num in numbers.ALL.items():
-                g.add_node(node_for_adding=f"{key_comb}.{key_earn}.{value_num}", value=value_num)
-                g.add_edge(f"{key_comb}.{key_earn}", f"{key_comb}.{key_earn}.{value_num}")
+            for phrase, value in parts_earning.items():
+                g.add_node(node_for_adding=f"{key_comb}.{earning_type}.{phrase}", value=value)
+                g.add_edge(f"{key_comb}.{earning_type}", f"{key_comb}.{earning_type}.{phrase}")
 
     print("\n")
     
     print(g.nodes)
-    print(g.edges)
+    print(g)
     pos = nx.spring_layout(g)
     plt.figure()
-    nx.draw_planar(g, arrows=True)
+    nx.draw_networkx(g, arrows=True)
     plt.savefig("graph.png", format="PNG")
     plt.clf()
 
 
 if __name__ == '__main__':
-    char = random.choice(string.ascii_letters).upper()
+    # char = random.choice(string.ascii_letters).upper()
     setup_graph()
+    pprint.pprint(dependencys.map_parts())
