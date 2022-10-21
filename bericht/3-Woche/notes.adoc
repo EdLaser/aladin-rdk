@@ -1,0 +1,7 @@
+Ich habe versucht die Datenstuktur als DAG zu modelieren. Dazu nutze ich networkx von Python.
+Jeder Knoten repräsentiert eine Kombi, einen Satzteil bzw. die Formulierung. 
+Zur Generierung soll folgender Algorithmus verwendet werden:
+1. Beginne am Start
+2. Wähle eine zufällige Kombi
+3. Wähle einen Sachverhalt
+4. Kombiniere die nötigen Satzteile nach dem Kombinationsschema
