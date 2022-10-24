@@ -12,7 +12,7 @@ GEHALT_WK = [
     'Smartphone',
     ]
 
-VERMIETUBG_WK = [
+VERMIETUNG_WK = [
     'Abschreibung',
     'Grundsteuer',
     'Heizkosten',
@@ -21,3 +21,5 @@ VERMIETUBG_WK = [
     'Verwaltungskosten',
     'Kosten für Entwässerung'
 ]
+
+ALL = {'GEHALT_WK': GEHALT_WK, 'VERMIETUNG_WK': VERMIETUNG_WK}
