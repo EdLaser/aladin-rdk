@@ -5,10 +5,16 @@ from library import sentenceparts as sen
 import random
 import string
 
-COMBINATIONS = {"COMB_1": {1: "Subject", 2: "Verb", 3: "Object"},
-                "COMB_2": {1: "Verb", 2: "Subject", 3: "Object"},
+COMBINATIONS = {
+    "COMB_1": {1: "Subject", 2: "Verb", 3: "Object"},
+    "COMB_2": {1: "Verb", 2: "Subject", 3: "Object"},
                 # "COMB_3": ["Subject", "Object", "Verb"]
-                }
+    }
+
+CONJUNCTION = {
+    'COMB_1': [''],
+    'COMB_2': ['']
+    }
 
 def map_parts():
     mapped = {}
@@ -19,7 +25,7 @@ def map_parts():
     return mapped
             
 
-def generate_combs(formulation, sent_parts, verbs, obj, numbers):
+def generate_combs(formulation: dict, sent_parts: dict, verbs: list, obj: list, numbers: dict):
     combs = {}
     for elem, value in formulation.items():
         part_dict = {}
