@@ -5,8 +5,8 @@ from library import sentenceparts as sen
 import random
 import string
 
-COMBINATIONS = {"COMB_1": ["Subject", "Verb", "Object"],
-                "COMB_2": ["Verb", "Subject", "Object"],
+COMBINATIONS = {"COMB_1": {1: "Subject", 2: "Verb", 3: "Object"},
+                "COMB_2": {1: "Verb", 2: "Subject", 3: "Object"},
                 # "COMB_3": ["Subject", "Object", "Verb"]
                 }
 
@@ -14,7 +14,7 @@ def map_parts():
     mapped = {}
     ch = random.choice(string.ascii_letters).upper()
     for k, v in COMBINATIONS.items():
-        mapped[k] = generate_combs(sen.ALL, v, sen.VERBS, ch, num.ALL)
+        mapped[k] = generate_combs(formulation=sen.ALL, sent_parts=v, verbs=sen.VERBS, obj=ch, numbers=num.ALL)
     
     return mapped
             
@@ -23,13 +23,13 @@ def generate_combs(formulation, sent_parts, verbs, obj, numbers):
     combs = {}
     for elem, value in formulation.items():
         part_dict = {}
-        for val in sent_parts:
+        for key, val in sent_parts.items():
             if val == 'Subject':
-                part_dict[val] = random.choice(value)
+                part_dict[key] = random.choice(value)
             elif val == 'Verb':
-                part_dict[val] = random.choice(verbs)
+                part_dict[key] = random.choice(verbs)
             elif val == 'Object':
-                part_dict[val] = obj
+                part_dict[key] = obj
             part_dict['Number'] = numbers.get(elem)
         combs[elem] = part_dict
     
