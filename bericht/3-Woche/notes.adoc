@@ -6,6 +6,8 @@ Zur Generierung soll folgender Algorithmus verwendet werden:
 3. Wähle einen Sachverhalt
 4. Kombiniere die nötigen Satzteile nach dem Kombinationsschema
 
+Der Iterator des Graphen traversiert einen Pfad bis zu den untersten knoten, dann alle auf einer Ebene. Danach einen Knoten wieder hoch und darauf wieder nach Unten. COMB_1 -> COMB_1.Gehalt -> COMB_1.Gehalt.1 -> ... -> COMB_1.Dividende -> COMB_1.Dividende.1 -> ... -> COMB_2 -> ...
+
 Knoten:
 ID: Combination der IDs der anderen Knoten
 Value: Ein zufälliges Listenelement aus den Satzteilen je Sachverhalt, bzw. das jeweils tiefer Dokument des folgenden Knotens/Knoten
