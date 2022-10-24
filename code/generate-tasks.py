@@ -18,8 +18,6 @@ def setup_graph():
     for earning_key, earning_type in combos.items():
         g.add_node(node_for_adding=earning_key, value=earning_type, depth=1)
         g.add_edge("start", earning_key)
-        print(earning_key)
-        print(earning_type)
         
         for key, phrase in earning_type.items():
             g.add_node(node_for_adding= f"{earning_key}.{key}", value=phrase, depth=2)
