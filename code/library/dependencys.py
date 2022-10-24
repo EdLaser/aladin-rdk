@@ -25,7 +25,7 @@ def map_parts():
     return mapped
             
 
-def generate_combs(formulation: dict, sent_parts: dict, verbs: list, obj: list, numbers: dict):
+def generate_combs(formulation: dict, sent_parts: dict, verbs: list, obj: str, numbers: dict):
     combs = {}
     for elem, value in formulation.items():
         part_dict = {}
