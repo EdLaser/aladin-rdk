@@ -30,7 +30,7 @@ def setup_graph():
     print("\n")
     
     for elem in g:
-        print(elem)
+        print(f"Node: {elem}\n---\tValue: {g.nodes[elem]}")
     pos = nx.spring_layout(g)
     plt.figure()
     nx.draw_planar(g, arrows=True)
