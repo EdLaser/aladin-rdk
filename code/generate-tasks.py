@@ -29,11 +29,11 @@ def setup_graph():
 
     print("\n")
     
-    print(g.nodes)
-    print(g)
+    for elem in g:
+        print(elem)
     pos = nx.spring_layout(g)
     plt.figure()
-    nx.draw_networkx(g, arrows=True)
+    nx.draw_planar(g, arrows=True)
     plt.savefig("graph.png", format="PNG")
     plt.clf()
 
