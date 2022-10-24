@@ -1,3 +1,5 @@
+
+# Regex sollte klappen
 NOUNS = ["Er", "Sie"]
 
 VERBS = ['verdient', 'erhält', 'bekommt']
