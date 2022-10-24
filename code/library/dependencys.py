@@ -11,6 +11,8 @@ COMBINATIONS = {
                 # "COMB_3": ["Subject", "Object", "Verb"]
     }
 
+PARTS = ['Subject', 'Verb', 'Object']
+
 CONJUNCTION = {
     'COMB_1': [''],
     'COMB_2': ['']
@@ -19,23 +21,22 @@ CONJUNCTION = {
 def map_parts():
     mapped = {}
     ch = random.choice(string.ascii_letters).upper()
-    for k, v in COMBINATIONS.items():
-        mapped[k] = generate_combs(formulation=sen.ALL, sent_parts=v, verbs=sen.VERBS, obj=ch, numbers=num.ALL)
+    mapped = generate_combs(formulation=sen.ALL, sent_parts=PARTS, verbs=sen.VERBS, obj=ch, numbers=num.ALL)
     
     return mapped
             
 
-def generate_combs(formulation: dict, sent_parts: dict, verbs: list, obj: str, numbers: dict):
+def generate_combs(formulation: dict, sent_parts: list, verbs: list, obj: str, numbers: dict):
     combs = {}
     for elem, value in formulation.items():
         part_dict = {}
-        for key, val in sent_parts.items():
-            if val == 'Subject':
-                part_dict[key] = random.choice(value)
-            elif val == 'Verb':
-                part_dict[key] = random.choice(verbs)
-            elif val == 'Object':
-                part_dict[key] = obj
+        for part in sent_parts:
+            if part == 'Subject':
+                part_dict[part] = random.choice(value)
+            elif part == 'Verb':
+                part_dict[part] = random.choice(verbs)
+            elif part == 'Object':
+                part_dict[part] = obj
             part_dict['Number'] = numbers.get(elem)
         combs[elem] = part_dict
     
@@ -43,16 +44,8 @@ def generate_combs(formulation: dict, sent_parts: dict, verbs: list, obj: str, n
 
 
 TEST = {
-    'COMB_1': {
         'G': {'S': 'test', 'O': 'test'},
         'V': {'S': 'test', 'O': 'test'},
         'D': {'S': 'test', 'O': 'test'},
         'B': {'S': 'test', 'O': 'test'},
-    },
-    'COMB_2': {
-        'G': {'S': 'test', 'O': 'test'},
-        'V': {'S': 'test', 'O': 'test'},
-        'D': {'S': 'test', 'O': 'test'},
-        'B': {'S': 'test', 'O': 'test'},
-    }
 }
