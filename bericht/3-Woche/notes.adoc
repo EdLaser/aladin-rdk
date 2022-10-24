@@ -8,4 +8,4 @@ Zur Generierung soll folgender Algorithmus verwendet werden:
 
 Knoten:
 ID: Combination der IDs der anderen Knoten
-Value: Ein zufälliges Listenelement aus den Satzteilen je Sachverhalt, bzw. eine 
+Value: Ein zufälliges Listenelement aus den Satzteilen je Sachverhalt, bzw. das jeweils tiefer Dokument des folgenden Knotens/Knoten
