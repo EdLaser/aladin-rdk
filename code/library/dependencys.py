@@ -23,7 +23,6 @@ def generate_combs(formulation, sent_parts, verbs, obj, numbers):
     combs = {}
     for elem, value in formulation.items():
         part_dict = {}
-        print(value)
         for val in sent_parts:
             if val == 'Subject':
                 part_dict[val] = random.choice(value)
