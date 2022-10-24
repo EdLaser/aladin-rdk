@@ -15,33 +15,35 @@ def setup_graph():
     g.add_node("start", value="", depth=0)
     combos = dependencys.map_parts()
     
-    for key_comb, value_comb in combos.items():
-        g.add_node(node_for_adding=key_comb, value=value_comb, depth=1)
-        g.add_edge("start", key_comb)
+    for earning_key, earning_type in combos.items():
+        g.add_node(node_for_adding=earning_key, value=earning_type, depth=1)
+        g.add_edge("start", earning_key)
+        print(earning_key)
+        print(earning_type)
         
-        for earning_type, parts_earning in value_comb.items():
-            g.add_node(node_for_adding= f"{key_comb}.{earning_type}", value=parts_earning, depth=2)
-            g.add_edge(key_comb, f"{key_comb}.{earning_type}")
-        
-            for phrase, value in parts_earning.items():
-                g.add_node(node_for_adding=f"{key_comb}.{earning_type}.{phrase}", value=value, depth=3)
-                g.add_edge(f"{key_comb}.{earning_type}", f"{key_comb}.{earning_type}.{phrase}")
+        for key, phrase in earning_type.items():
+            g.add_node(node_for_adding= f"{earning_key}.{phrase}", value=phrase, depth=2)
+            g.add_edge(earning_key, f"{earning_key}.{phrase}")
 
     print("\n")
     
     for elem in g:
-        print(f"Node: {elem}\n---\tValue: {g.nodes[elem]}\n")
+        print(f"Node: {elem}\n---\tValue: {g.nodes[elem]}\n")   
+    
+    return g
+
+def traverse(difficculty: int, graph):
+    # Traversiere immer wieder mit einer zufälligen Kombination
+    for i in range(difficculty):
+        successors = graph.successors()
+
+if __name__ == '__main__':
+    # char = random.choice(string.ascii_letters).upper()
+    g = setup_graph()
+    pprint.pprint(dependencys.map_parts())
+   
     pos = nx.spring_layout(g)
     plt.figure()
     nx.draw_planar(g, arrows=True)
     plt.savefig("graph.png", format="PNG")
     plt.clf()
-
-def traverse(dicciculty: int, graph):
-    for node in graph:
-        pass
-
-if __name__ == '__main__':
-    # char = random.choice(string.ascii_letters).upper()
-    setup_graph()
-    pprint.pprint(dependencys.map_parts())
