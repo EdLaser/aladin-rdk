@@ -22,8 +22,8 @@ def setup_graph():
         print(earning_type)
         
         for key, phrase in earning_type.items():
-            g.add_node(node_for_adding= f"{earning_key}.{phrase}", value=phrase, depth=2)
-            g.add_edge(earning_key, f"{earning_key}.{phrase}")
+            g.add_node(node_for_adding= f"{earning_key}.{key}", value=phrase, depth=2)
+            g.add_edge(earning_key, f"{earning_key}.{key}")
 
     print("\n")
     
