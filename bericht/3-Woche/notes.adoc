@@ -5,3 +5,7 @@ Zur Generierung soll folgender Algorithmus verwendet werden:
 2. Wähle eine zufällige Kombi
 3. Wähle einen Sachverhalt
 4. Kombiniere die nötigen Satzteile nach dem Kombinationsschema
+
+Knoten:
+ID: Combination der IDs der anderen Knoten
+Value: Ein zufälliges Listenelement aus den Satzteilen je Sachverhalt, bzw. eine 
