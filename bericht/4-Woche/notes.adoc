@@ -1,5 +1,10 @@
 Abhängigkeit zwischen geschlecht Wort und Verbform.
 Trennwörter je Sachverhalt und Substantiv.
+KI zum Wörter deklinieren
+
+Verb als Klasse mit regelmäßig und unregelmäßig
+Dann deklinationen bzw stamm 
+
 Zeitliche Konjunktionen (temporal): bis, als, nachdem, seit
 Konjunktionen der Art und Weise (modal): indem, wie, insofern, insoweit
 Konjunktionen des Grundes (kausal): wenn, obwohl, weil, so dass, da
@@ -20,3 +25,8 @@ so, sobald, sodass, so dass, sofern, solange, sondern, sonst, sooft, soviel, sow
 um, umso, und
 wobei, während, währenddessen, weder noch, weil, wenn, wie, wo, wohingegen
 zumal, zwar
+
+Probleme:
+- AI sehr komplex
+- schreibt nur eigene Texte, keine Konjunktionen einfügung
+- Mit Kanonen auf Spatzen
