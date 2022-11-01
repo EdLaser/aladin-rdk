@@ -1,4 +1,3 @@
-from library import earnings
 from library import numbers as num
 from library import sentenceparts as sen
 import random
@@ -23,7 +22,7 @@ def map_parts():
     return mapped
 
 
-def generate_combs(formulation: dict, sent_parts: list, verbs: list, obj: list, numbers: dict):
+def generate_combs(formulation: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict):
     combs = {}
     for elem, value in formulation.items():
         print(elem, value)
@@ -40,7 +39,8 @@ def generate_combs(formulation: dict, sent_parts: list, verbs: list, obj: list, 
                 else:
                     part_dict[part] = random.choice(value)
             elif part == 'Verb':
-                part_dict[part] = random.choice(verbs)
+                word_list = verbs.get(elem)
+                part_dict[part] = random.choice(word_list)  # type: ignore
             elif part == 'Object':
                 part_dict[part] = object
         part_dict['Number'] = numbers.get(elem)
