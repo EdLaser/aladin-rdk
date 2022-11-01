@@ -6,8 +6,8 @@ CONJUNCTIONS = [
     'Als',
     'Zusätzlich',
     'Nebenbei',
-    'Außerdem',
-    '']
+    'Außerdem'
+]
 
 VERBS = ['verdient', 'erhält', 'bekommt']
 

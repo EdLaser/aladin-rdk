@@ -1,16 +1,16 @@
 ABSCHREIBUNG = ["Abschreibungen"]
 
 GEHALT_WK = [
-    'Arbeitsmittel', 
-    'Reisekosten', 
+    'Arbeitsmittel',
+    'Reisekosten',
     'Arbeitszimmer',
-    'Fahrtkosten', 
+    'Fahrtkosten',
     'Fachbücher',
     'Bekleidung',
-    'Notebook', 
+    'Notebook',
     'Telefonkosten',
     'Smartphone',
-    ]
+]
 
 VERMIETUNG_WK = [
     'Abschreibung',
