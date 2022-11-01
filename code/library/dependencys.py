@@ -43,13 +43,15 @@ def generate_combs(earnings: dict, spendings: dict, sent_parts: list, verbs: dic
             if part == 'Subject':
                 choice = random.choice(value)
                 set_subject(part_dict, part, choice, obj)
-                
+
                 keys_wk = list(spendings.keys())
-                wk[part] = random.choice(spendings.get(random.choice(keys_wk)))  # type: ignore
+                wk[part] = random.choice(spendings.get(
+                    random.choice(keys_wk)))  # type: ignore
 
             elif part == 'Verb':
                 word_list = verbs.get(elem)
-                wk[part] = random.choice(verbs.get('Werbungskosten'))  # type: ignore
+                wk[part] = random.choice(
+                    verbs.get('Werbungskosten'))  # type: ignore
                 part_dict[part] = random.choice(word_list)  # type: ignore
 
             elif part == 'Object':
@@ -58,9 +60,8 @@ def generate_combs(earnings: dict, spendings: dict, sent_parts: list, verbs: dic
 
         part_dict['Number'] = numbers.get(elem)
 
-        print(wk)
         combs[elem] = part_dict
-        combs['Werbungskosten'] = wk
+        combs[elem + '-Werbungskosten'] = wk
 
     return combs
 
