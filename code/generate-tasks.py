@@ -1,3 +1,4 @@
+from platform import node
 import random
 import pprint
 import networkx as nx
@@ -27,6 +28,12 @@ def setup_graph():
 
 def build_variatons(key, parts):
     variations = []
+
+    if 'Werbungskosten' in key:
+        wk_var = [
+            f"{parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')}"
+        ]
+        variations.append(random.choice(wk_var))
     if key == 'Gehalt':
         ge_var = [
             f"Als {parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}.",
@@ -51,7 +58,7 @@ def build_variatons(key, parts):
 
     if key == 'Vermietung':
         ve_var = [
-            f"Da {parts.get('Object')} eine {parts.get('Subject')} {parts.get('Verb')} bezieht sie {parts.get('Number')}.",
+            f"Da {parts.get('Object')} eine {parts.get('Subject')} {parts.get('Verb')} bezieht {parts.get('Object')} {parts.get('Number')}.",
             f"{parts.get('Object')} {parts.get('Verb')} eine {parts.get('Subject')} und erwirtschaftet {parts.get('Number')}.",
             f"Nebenbei {parts.get('Verb')} {parts.get('Object')} eine {parts.get('Subject')} und verlangt {parts.get('Number')}.",
         ]
@@ -63,14 +70,14 @@ def build_variatons(key, parts):
 def build_sent(key, parts: dict):
     if isinstance(parts, dict):
         variations = build_variatons(key, parts)
-        print(random.choice(variations))
+        if variations:
+            print(random.choice(variations))
 
 
 def traverse(difficculty: int, graph):
     # Traversiere immer wieder mit einer zufälligen Kombination
     nodes = list(graph.nodes(data='value'))
     node_values = random.sample(nodes, difficculty)
-
     print("\n")
     for i in node_values:
         build_sent(i[0], i[1])
