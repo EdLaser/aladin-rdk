@@ -1,4 +1,3 @@
-import imp
 from library import earnings
 from library import numbers as num
 from library import sentenceparts as sen
@@ -21,12 +20,13 @@ CONJUNCTION = {
 def map_parts():
     mapped = {}
     ch = random.choice(string.ascii_letters).upper()
-    mapped = generate_combs(formulation=sen.ALL, sent_parts=PARTS, verbs=sen.VERBS, obj=ch, numbers=num.ALL)
+    sub = [ch, random.choice(sen.NOUNS)]
+    mapped = generate_combs(formulation=sen.ALL, sent_parts=PARTS, verbs=sen.VERBS, obj=sub, numbers=num.ALL)
     
     return mapped
             
 
-def generate_combs(formulation: dict, sent_parts: list, verbs: list, obj: str, numbers: dict):
+def generate_combs(formulation: dict, sent_parts: list, verbs: list, obj: list, numbers: dict):
     combs = {}
     for elem, value in formulation.items():
         part_dict = {}
@@ -36,7 +36,7 @@ def generate_combs(formulation: dict, sent_parts: list, verbs: list, obj: str, n
             elif part == 'Verb':
                 part_dict[part] = random.choice(verbs)
             elif part == 'Object':
-                part_dict[part] = obj
+                part_dict[part] = random.choice(obj)
             part_dict['Number'] = numbers.get(elem)
         combs[elem] = part_dict
     
