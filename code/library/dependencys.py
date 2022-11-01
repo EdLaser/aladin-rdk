@@ -12,16 +12,6 @@ COMBINATIONS = {
 PARTS = ['Subject', 'Verb', 'Object']
 
 
-def map_parts():
-    mapped = {}
-    ch = random.choice(string.ascii_letters).upper()
-    sub = [ch, random.choice(sen.NOUNS)]
-    mapped = generate_combs(formulation=sen.ALL, sent_parts=PARTS,
-                            verbs=sen.VERBS, obj=sub, numbers=num.ALL)
-
-    return mapped
-
-
 def set_subject(part_dict, part, choice, object):
     if type(choice) is dict:
         if 'Er' in object:
@@ -31,9 +21,20 @@ def set_subject(part_dict, part, choice, object):
     else:
         part_dict[part] = choice
 
-def generate_combs(formulation: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict):
+
+def map_parts():
+    mapped = {}
+    ch = random.choice(string.ascii_letters).upper()
+    sub = [ch, random.choice(sen.NOUNS)]
+    mapped = generate_combs(earnings=sen.EARNINGS, spendings=sen.SPENDINGS, sent_parts=PARTS,
+                            verbs=sen.VERBS, obj=sub, numbers=num.ALL)
+
+    return mapped
+
+
+def generate_combs(earnings: dict, spendings: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict):
     combs = {}
-    for elem, value in formulation.items():
+    for elem, value in earnings.items():
         part_dict = {}
         for part in sent_parts:
             object = random.choice(obj)
