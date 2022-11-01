@@ -30,3 +30,5 @@ Probleme:
 - AI sehr komplex
 - schreibt nur eigene Texte, keine Konjunktionen einfügung
 - Mit Kanonen auf Spatzen
+- Generator benutzt unmengen an Daten
+- Gängige Generatoren zu komplex
