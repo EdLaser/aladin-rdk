@@ -1,6 +1,9 @@
 Abhängigkeit zwischen geschlecht Wort und Verbform.
 Trennwörter je Sachverhalt und Substantiv.
 KI zum Wörter deklinieren
+Sichergehen das Sachverhalte nicht mehrmals vorkommen
+Welchen Sinn hat der Graph
+Mapping für Auslesen der Values aus Knoten
 
 Verb als Klasse mit regelmäßig und unregelmäßig
 Dann deklinationen bzw stamm 
@@ -22,9 +25,6 @@ nachdem
 ob, obgleich, obschon, obwohl, obzwar, oder, ohne dass
 respektive
 so, sobald, sodass, so dass, sofern, solange, sondern, sonst, sooft, soviel, soweit, sowie, sowohl als auch, statt
-um, umso, und
-wobei, während, währenddessen, weder noch, weil, wenn, wie, wo, wohingegen
-zumal, zwar
 
 Probleme:
 - AI sehr komplex
