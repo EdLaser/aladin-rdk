@@ -1,2 +1,6 @@
 Abhängigkeit zwischen geschlecht Wort und Verbform.
 Trennwörter je Sachverhalt und Substantiv.
+Zeitliche Konjunktionen (temporal): bis, als, nachdem, seit
+Konjunktionen der Art und Weise (modal): indem, wie, insofern, insoweit
+Konjunktionen des Grundes (kausal): wenn, obwohl, weil, so dass, da
+Konjunktionen des Ortes (lokal): woher, wo
