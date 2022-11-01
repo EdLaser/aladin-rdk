@@ -9,7 +9,11 @@ CONJUNCTIONS = [
     'Außerdem'
 ]
 
-VERBS = ['verdient', 'erhält', 'bekommt']
+VERBS = {'Gehalt': ['verdient', 'erhält', 'bekommt'],
+         'Beteiligung': ['erhält', 'bekommt'],
+         'Dividende': ['erhält', 'bekommt'],
+         'Vermietung': ['vermietet']
+         }
 
 GEHALT_PROFESSIONS = [
     {'Er': 'Mitarbeiter', 'Sie': 'Mitarbeiterin'},
