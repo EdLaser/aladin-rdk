@@ -22,6 +22,15 @@ def map_parts():
     return mapped
 
 
+def set_subject(part_dict, part, choice, object):
+    if type(choice) is dict:
+        if 'Er' in object:
+            part_dict[part] = choice.get('Er')
+        elif 'Sie' in object:
+            part_dict[part] = choice.get('Sie')
+    else:
+        part_dict[part] = choice
+
 def generate_combs(formulation: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict):
     combs = {}
     for elem, value in formulation.items():
@@ -30,13 +39,8 @@ def generate_combs(formulation: dict, sent_parts: list, verbs: dict, obj: list, 
             object = random.choice(obj)
             if part == 'Subject':
                 choice = random.choice(value)
-                if isinstance(choice, dict):
-                    if 'Er' in object:
-                        part_dict[part] = choice.get('Er')
-                    if 'Sie' in object:
-                        part_dict[part] = choice.get('Sie')
-                else:
-                    part_dict[part] = random.choice(value)
+                print(f"type: {type(choice)} choice: {choice}")
+                set_subject(part_dict, part, choice, obj)
             elif part == 'Verb':
                 word_list = verbs.get(elem)
                 part_dict[part] = random.choice(word_list)  # type: ignore
