@@ -26,17 +26,19 @@ def setup_graph():
 
 
 def build_sent(parts: dict):
-    print(
-        f"{parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}")
+    if isinstance(parts, dict):
+        print(
+            f"{parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}")
 
 
 def traverse(difficculty: int, graph):
     # Traversiere immer wieder mit einer zufälligen Kombination
     nodes = list(graph.nodes(data='value'))
-    # pprint.pprint(nodes)
-    for i in range(difficculty):
-        node_value = random.choice(nodes)[1]
-        build_sent(node_value)
+    node_values = random.sample(nodes, difficculty)
+
+    print("\n")
+    for i in node_values:
+        build_sent(i[1])
 
 
 if __name__ == '__main__':
