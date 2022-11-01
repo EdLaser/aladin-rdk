@@ -37,7 +37,7 @@ def generate_combs(formulation: dict, sent_parts: list, verbs: list, obj: list, 
                 part_dict[part] = random.choice(verbs)
             elif part == 'Object':
                 part_dict[part] = random.choice(obj)
-            part_dict['Number'] = numbers.get(elem)
+        part_dict['Number'] = numbers.get(elem)
         combs[elem] = part_dict
     
     return combs
