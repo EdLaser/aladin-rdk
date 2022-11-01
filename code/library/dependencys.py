@@ -26,14 +26,23 @@ def map_parts():
 def generate_combs(formulation: dict, sent_parts: list, verbs: list, obj: list, numbers: dict):
     combs = {}
     for elem, value in formulation.items():
+        print(elem, value)
         part_dict = {}
         for part in sent_parts:
+            object = random.choice(obj)
             if part == 'Subject':
-                part_dict[part] = random.choice(value)
+                choice = random.choice(value)
+                if isinstance(choice, dict):
+                    if 'Er' in object:
+                        part_dict[part] = choice.get('Er')
+                    if 'Sie' in object:
+                        part_dict[part] = choice.get('Sie')
+                else:
+                    part_dict[part] = random.choice(value)
             elif part == 'Verb':
                 part_dict[part] = random.choice(verbs)
             elif part == 'Object':
-                part_dict[part] = random.choice(obj)
+                part_dict[part] = object
         part_dict['Number'] = numbers.get(elem)
         combs[elem] = part_dict
 
