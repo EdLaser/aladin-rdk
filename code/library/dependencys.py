@@ -25,7 +25,6 @@ def map_parts():
 def generate_combs(formulation: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict):
     combs = {}
     for elem, value in formulation.items():
-        print(elem, value)
         part_dict = {}
         for part in sent_parts:
             object = random.choice(obj)
