@@ -40,7 +40,6 @@ def generate_combs(earnings: dict, spendings: dict, sent_parts: list, verbs: dic
             object = random.choice(obj)
             if part == 'Subject':
                 choice = random.choice(value)
-                print(f"type: {type(choice)} choice: {choice}")
                 set_subject(part_dict, part, choice, obj)
             elif part == 'Verb':
                 word_list = verbs.get(elem)
