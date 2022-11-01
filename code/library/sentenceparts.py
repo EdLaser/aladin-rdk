@@ -2,12 +2,12 @@
 # Regex sollte klappen
 NOUNS = ["Er", "Sie"]
 
-CONJUNCTIONS = [
-    'Als',
-    'Zusätzlich',
-    'Nebenbei',
-    'Außerdem'
-]
+CONJUNCTIONS = {
+    'Gehalt': ['Als'],
+    'Dividende':'Zusätzlich',
+    'Vermietung':'Nebenbei',
+    'Beteiligung':'Außerdem'
+}
 
 VERBS = {'Gehalt': ['verdient', 'erhält', 'bekommt'],
          'Beteiligung': ['erhält', 'bekommt'],
