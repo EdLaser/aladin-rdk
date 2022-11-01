@@ -3,8 +3,8 @@
 NOUNS = ["Er", "Sie"]
 
 CONJUNCTIONS = [
-    'Als', 
-    'Zusätzlich', 
+    'Als',
+    'Zusätzlich',
     'Nebenbei',
     'Außerdem',
     '']
@@ -12,7 +12,10 @@ CONJUNCTIONS = [
 VERBS = ['verdient', 'erhält', 'bekommt']
 
 GEHALT_PROFESSIONS = [
-    'Mitarbeiter', 'Geschäftsführer', 'Angestellter', 'Arbeitnehmer'
+    {'Er': 'Mitarbeiter', 'Sie': 'Mitarbeiterin'},
+    {'Er': 'Geschäftsführer', 'Sie': 'Geschäftsführerin'},
+    {'Er': 'Angestellter', 'Sie': 'Angestellte'},
+    {'Er': 'Arbeitnehmer', 'Sie': 'Arbeitnehmerin'}
 ]
 
 BETEILIGUNG_VARIATIONS = [
@@ -26,8 +29,8 @@ VERMIETUNG_OBJECTS = [
 ]
 
 ALL = {
-    'Gehalt': GEHALT_PROFESSIONS, 
-    'Beteiligung': BETEILIGUNG_VARIATIONS, 
-    'Dividende': DIVIDENDE, 
+    'Gehalt': GEHALT_PROFESSIONS,
+    'Beteiligung': BETEILIGUNG_VARIATIONS,
+    'Dividende': DIVIDENDE,
     'Vermietung': VERMIETUNG_OBJECTS
 }
