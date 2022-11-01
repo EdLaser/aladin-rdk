@@ -13,7 +13,7 @@ VERBS = {'Gehalt': ['verdient', 'erhält', 'bekommt'],
          'Beteiligung': ['erhält', 'bekommt'],
          'Dividende': ['erhält', 'bekommt'],
          'Vermietung': ['vermietet'],
-         'Werbungskosten': ['verzeichnet', 'meldet', 'rechnet mit']
+         'Werbungskosten': ['verzeichnet', 'meldet', 'rechnet']
          }
 
 GEHALT_PROFESSIONS = [
