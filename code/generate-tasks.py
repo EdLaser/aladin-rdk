@@ -9,7 +9,7 @@ def setup_graph():
     g = nx.DiGraph()
     g.add_node("start", value="", depth=0)
     combos = dependencys.map_parts()
-    
+    pprint.pprint(combos)
     for earning_key, earning_type in combos.items():
         g.add_node(node_for_adding=earning_key, value=earning_type, depth=1)
         g.add_edge("start", earning_key)
@@ -20,8 +20,8 @@ def setup_graph():
 
     print("\n")
     
-    for elem in g:
-        print(f"Node: {elem}\n---\tValue: {g.nodes[elem]}\n")   
+    # for elem in g:
+    #     print(f"Node: {elem}\n---\tValue: {g.nodes[elem]}\n")   
     
     return g
 
@@ -33,7 +33,6 @@ def traverse(difficculty: int, graph):
 if __name__ == '__main__':
     # char = random.choice(string.ascii_letters).upper()
     g = setup_graph()
-    pprint.pprint(dependencys.map_parts())
    
     pos = nx.spring_layout(g)
     plt.figure()
