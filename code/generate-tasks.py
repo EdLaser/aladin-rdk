@@ -1,10 +1,7 @@
-import random
 import string
 import pprint
 import networkx as nx
 import matplotlib.pyplot as plt
-from dag.graph import Graph
-from dag.vertex import Vertex
 from library import dependencys
 
 
