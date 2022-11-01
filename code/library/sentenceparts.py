@@ -2,6 +2,13 @@
 # Regex sollte klappen
 NOUNS = ["Er", "Sie"]
 
+CONJUNCTIONS = [
+    'Als', 
+    'Zusätzlich', 
+    'Nebenbei',
+    'Außerdem',
+    '']
+
 VERBS = ['verdient', 'erhält', 'bekommt']
 
 GEHALT_PROFESSIONS = [
