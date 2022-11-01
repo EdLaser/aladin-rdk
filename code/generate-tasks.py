@@ -25,10 +25,45 @@ def setup_graph():
     return g
 
 
-def build_sent(parts: dict):
+def build_variatons(key, parts):
+    variations = []
+    if key == 'Gehalt':
+        ge_var = [
+            f"Als {parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}.",
+            f"{parts.get('Object')} ist {parts.get('Subject')} und {parts.get('Verb')} {parts.get('Number')}.",
+            f"{parts.get('Object')} {parts.get('Verb')} als {parts.get('Subject')} {parts.get('Number')}."
+        ]
+        variations.append(random.choice(ge_var))
+
+    if key == 'Dividende':
+        di_var = [
+            f"Durch eine {parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}.",
+            f"{parts.get('Object')} {parts.get('Verb')} eine {parts.get('Subject')} i.H.v {parts.get('Number')}.",
+        ]
+        variations.append(random.choice(di_var))
+
+    if key == 'Beteiligung':
+        be_var = [
+            f"Aufgrund einer {parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}.",
+            f"Durch eine {parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}.",
+        ]
+        variations.append(random.choice(be_var))
+
+    if key == 'Vermietung':
+        ve_var = [
+            f"Da {parts.get('Object')} eine {parts.get('Subject')} {parts.get('Verb')} bezieht sie {parts.get('Number')}.",
+            f"{parts.get('Object')} {parts.get('Verb')} eine {parts.get('Subject')} und erwirtschaftet {parts.get('Number')}.",
+            f"Nebenbei {parts.get('Verb')} {parts.get('Object')} eine {parts.get('Subject')} und verlangt {parts.get('Number')}.",
+        ]
+        variations.append(random.choice(ve_var))
+
+    return variations
+
+
+def build_sent(key, parts: dict):
     if isinstance(parts, dict):
-        print(
-            f"{parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}")
+        variations = build_variatons(key, parts)
+        print(random.choice(variations))
 
 
 def traverse(difficculty: int, graph):
@@ -38,7 +73,7 @@ def traverse(difficculty: int, graph):
 
     print("\n")
     for i in node_values:
-        build_sent(i[1])
+        build_sent(i[0], i[1])
 
 
 if __name__ == '__main__':
