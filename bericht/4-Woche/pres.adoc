@@ -1,0 +1,26 @@
+= Woche 4 Aladin
+
+=== Erreichtes
+* Sätze können mit unterschiedlichen Formulierungen generiert werden
+* Werbungskosten werden im Graph ebenfalls generiert
+* Der Graph wurde vereinfacht
+* Anzahl der Traversierungen steuerbar
+
+=== Weitere Schritte
+* Unterstützung der Werbungskosten
+* Einbindung von Paragraphen zur Lösung
+* Weitere Formulierungen
+* Berechnung des Ergebnises für Lösung
+* Darstellung als Flask Anwendung im Browser
+
+=== Ideen
+* Wörter als Klassen und suchen nach Bibliothek mit allen Formen von deutschen Wörtern für effektive Nutzung
+* GTP-2 KI nutzen, sinnvoll / nicht sinnvoll?
+
+=== Probleme
+* Keine KI gefunden welche  nur Konjunktionen und einzelne Wörter zu den Sachverhalten generiert
+* Oft kostenpflichtig oder sehr schwer einzurichten
+* Andere KIs generieren oft nur eigene Texte mit Stichwörtern -> nicht asureichend steuerbar
+* Für eigenes KI fehlt Datengrundlage
+* Aufwand / Nutzen Verhältniss KI
+* Abhängigkeizen zwischen Satzbausteinen werden sehr komplex
