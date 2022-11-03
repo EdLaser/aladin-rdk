@@ -20,20 +20,29 @@ def setup_pool(name: str, cases: list[Case]) -> NodePool:
     return pool
 
 
-def build_sent(key, parts: dict):
-    if isinstance(parts, dict):
-        variations = var.build_variatons(key, parts)
-        if variations:
-            print(random.choice(variations))
+def build_sent(case: Case):
+    '''
+    Build a sentence for the given case.
+
+    Parameters:
+        case(Case): The case to build the sentence for.
+    '''
+    variation = var.build_variaton(case)
+    if variation:
+        print(variation)
 
 
-def traverse(difficculty: int, graph):
+def traverse(difficculty: int, nodepool: NodePool):
+    '''
+    Pick a node of the pool the given ammount of times.
+
+    Parameters:
+        difficulty(int): Ammount of pickings from the nodepool.
+        nodepool(NodePool): The nodepool to pick the nodes from.
+    '''
     # Traversiere immer wieder mit einer zufälligen Kombination
-    nodes = list(graph.nodes(data='value'))
-    node_values = random.sample(nodes, difficculty)
-    print("\n")
-    for i in node_values:
-        build_sent(i[0], i[1])
+    for x in range(difficculty):
+        build_sent(nodepool.pick_random_node())
 
 
 if __name__ == '__main__':
@@ -44,3 +53,5 @@ if __name__ == '__main__':
     
     for c in pool:
         print(c)
+
+    traverse(3, pool)
