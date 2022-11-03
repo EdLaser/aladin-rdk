@@ -6,6 +6,9 @@ class NodePool:
         self.name = name
         self.nodes = []
 
+    def __iter__(self):
+        return iter(self.nodes)
+
     def show_nodes(self) -> list[Case]:
         '''Show all nodes of the pool.'''
         return self.nodes
