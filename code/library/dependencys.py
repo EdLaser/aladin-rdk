@@ -24,7 +24,7 @@ def determine_subject(case: Case, choice, object):
         case.set_object(choice)
 
 
-def map_cases() -> list:
+def map_cases() -> list[Case]:
     mapped = []
     ch = random.choice(string.ascii_letters).upper()
     sub = [ch, random.choice(sen.NOUNS)]
