@@ -4,7 +4,7 @@ from library.nodepool.case import Case
 
 def build_variaton(case: Case) -> str:
     '''
-    Build a random variations for the given case.
+    Build a random variation for the given case.
 
     Parameters:
         case(Case): The case to generate the variation for.
