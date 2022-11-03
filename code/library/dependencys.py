@@ -4,11 +4,6 @@ from library.nodepool.case import Case
 import random
 import string
 
-COMBINATIONS = {
-    "COMB_1": {1: "Subject", 2: "Verb", 3: "Object"},
-    "COMB_2": {1: "Verb", 2: "Subject", 3: "Object"},
-    # "COMB_3": ["Subject", "Object", "Verb"]
-}
 
 PARTS = ['Subject', 'Verb', 'Object']
 
@@ -45,7 +40,7 @@ def generate_all_cases(earnings: dict, spendings: dict, sent_parts: list, verbs:
     for case_name, subject_name in earnings.items():
         earning_case = Case()
         earning_case.set_name(case_name)
-        
+
         for sentence_part in sent_parts:
             object = random.choice(obj)
 
@@ -72,11 +67,3 @@ def generate_all_cases(earnings: dict, spendings: dict, sent_parts: list, verbs:
         # combs[elem + '-Werbungskosten'] = wk
 
     return cases
-
-
-TEST = {
-    'G': {'S': 'test', 'O': 'test'},
-    'V': {'S': 'test', 'O': 'test'},
-    'D': {'S': 'test', 'O': 'test'},
-    'B': {'S': 'test', 'O': 'test'},
-}
