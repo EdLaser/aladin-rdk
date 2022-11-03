@@ -7,7 +7,7 @@ class Case:
         self.number = number
 
     def __str__(self) -> str:
-        return f"Name of case: {self.name}\nSubject: {self.subject}\nVerb: {self.verb}\nObject: {self.object}\nNumber: {self.number}"
+        return f"Name of case: {self.name}\n\tSubject: {self.subject}\n\tVerb: {self.verb}\n\tObject: {self.object}\n\tNumber: {self.number}"
 
     def set_name(self, name: str) -> str:
         '''
