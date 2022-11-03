@@ -7,11 +7,7 @@ class Case:
         self.number = number
 
     def __str__(self) -> str:
-        return f"Name of case: {self.name}\n \
-            Subject: {self.subject}\n \
-            Verb: {self.verb}\n \
-            Object: {self.object}\n \
-            Number: {self.number}"
+        return f"Name of case: {self.name}\nSubject: {self.subject}\nVerb: {self.verb}\nObject: {self.object}\nNumber: {self.number}"
 
     def set_name(self, name: str) -> str:
         '''
@@ -34,7 +30,7 @@ class Case:
 
     def set_verb(self, verb: str) -> str:
         '''Set verb of the case.
-                
+
         Returns:
                 self.verb (str): Verb of the case.
         '''
@@ -43,7 +39,7 @@ class Case:
 
     def set_object(self, object: str) -> str:
         '''Set object of the case.
-                
+
         Returns:
                 self.object (str): Object of the case.
         '''
