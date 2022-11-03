@@ -37,9 +37,9 @@ def generate_all_cases(earnings: dict, spendings: dict, sent_parts: list, verbs:
         cases(list): A list of all cases generated.
     '''
     cases = []
-    for case_name, subject_name in earnings.items():
+    for category_name, subject_name in earnings.items():
         earning_case = Case()
-        earning_case.set_name(case_name)
+        earning_case.set_name(category_name)
 
         for sentence_part in sent_parts:
             object = random.choice(obj)
@@ -53,7 +53,7 @@ def generate_all_cases(earnings: dict, spendings: dict, sent_parts: list, verbs:
                 #    random.choice(keys_wk)))  # type: ignore
 
             elif sentence_part == 'Verb':
-                verb_list = verbs.get(case_name)
+                verb_list = verbs.get(category_name)
                 # wk[part] = random.choice(
                 #     verbs.get('Werbungskosten'))  # type: ignore
                 earning_case.set_verb(random.choice(verb_list))  # type: ignore
@@ -62,7 +62,7 @@ def generate_all_cases(earnings: dict, spendings: dict, sent_parts: list, verbs:
                 earning_case.set_object = object
                 # wk[part] = object
 
-        earning_case.set_number(numbers.get(case_name))
+        earning_case.set_number(numbers.get(category_name))
         cases.append(earning_case)
         # combs[elem + '-Werbungskosten'] = wk
 
