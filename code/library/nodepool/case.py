@@ -1,15 +1,17 @@
 class Case:
-    def __init__(self, name="", subject="", verb="", object="") -> None:
+    def __init__(self, name="", subject="", verb="", object="", number=0) -> None:
         self.name = name
         self.subject = subject
         self.verb = verb
         self.object = object
+        self.number = number
 
     def __str__(self) -> str:
         return f"Name of case: {self.name}\n \
             Subject: {self.subject}\n \
             Verb: {self.verb}\n \
-            Object: {self.object}\n"
+            Object: {self.object}\n \
+            Number: {self.number}"
 
     def set_name(self, name: str) -> str:
         '''
@@ -47,3 +49,13 @@ class Case:
         '''
         self.object = object
         return self.object
+
+    def set_number(self, number: int) -> int:
+        '''
+        Set the ammount of the case.#
+
+        Returns:
+            self.number (int): Ammount given in the case.
+        '''
+        self.number = number
+        return self.number
