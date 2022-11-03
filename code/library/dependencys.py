@@ -22,46 +22,46 @@ def set_subject(part_dict, part, choice, object):
         part_dict[part] = choice
 
 
-def map_parts():
+def map_cases() -> dict:
     mapped = {}
     ch = random.choice(string.ascii_letters).upper()
     sub = [ch, random.choice(sen.NOUNS)]
-    mapped = generate_combs(earnings=sen.EARNINGS, spendings=sen.SPENDINGS, sent_parts=PARTS,
-                            verbs=sen.VERBS, obj=sub, numbers=num.ALL)
+    mapped = generate_all_cases(earnings=sen.EARNINGS, spendings=sen.SPENDINGS, sent_parts=PARTS,
+                                verbs=sen.VERBS, obj=sub, numbers=num.ALL)
 
     return mapped
 
 
-def generate_combs(earnings: dict, spendings: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict):
+def generate_all_cases(earnings: dict, spendings: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict) -> dict:
     combs = {}
-    for elem, value in earnings.items():
-        part_dict = {}
+    for case_name, subject_name in earnings.items():
+        earning_case = {}
         wk = {}
-        for part in sent_parts:
+        for sentence_part in sent_parts:
             object = random.choice(obj)
 
-            if part == 'Subject':
-                choice = random.choice(value)
-                set_subject(part_dict, part, choice, obj)
+            if sentence_part == 'Subject':
+                choice = random.choice(subject_name)
+                set_subject(earning_case, sentence_part, choice, obj)
 
                 keys_wk = list(spendings.keys())
-                wk[part] = random.choice(spendings.get(
-                    random.choice(keys_wk)))  # type: ignore
+                # wk[part] = random.choice(spendings.get(
+                #    random.choice(keys_wk)))  # type: ignore
 
-            elif part == 'Verb':
-                word_list = verbs.get(elem)
-                wk[part] = random.choice(
-                    verbs.get('Werbungskosten'))  # type: ignore
-                part_dict[part] = random.choice(word_list)  # type: ignore
+            elif sentence_part == 'Verb':
+                word_list = verbs.get(case_name)
+                # wk[part] = random.choice(
+                #     verbs.get('Werbungskosten'))  # type: ignore
+                earning_case[part] = random.choice(word_list)  # type: ignore
 
-            elif part == 'Object':
-                part_dict[part] = object
-                wk[part] = object
+            elif sentence_part == 'Object':
+                earning_case[sentence_part] = object
+                # wk[part] = object
 
-        part_dict['Number'] = numbers.get(elem)
+        earning_case['Number'] = numbers.get(case_name)
 
-        combs[elem] = part_dict
-        combs[elem + '-Werbungskosten'] = wk
+        combs[case_name] = earning_case
+        # combs[elem + '-Werbungskosten'] = wk
 
     return combs
 
