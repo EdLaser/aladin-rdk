@@ -1,41 +1,49 @@
 import random
 
-def build_variatons(key, parts):
+from library.nodepool.case import Case
+
+def build_variaton(case: Case) -> str:
+    '''
+    Build a random variations for the given case.
+
+    Parameters:
+        case(Case): The case to generate the variation for.
+        parts()
+    
+    Returns:
+       String containing the generated sentence.
+    '''
     variations = []
 
-    if 'Werbungskosten' in key:
-        wk_var = [
-            f"{parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')}"
-        ]
-        variations.append(random.choice(wk_var))
-    if key == 'Gehalt':
-        ge_var = [
-            f"Als {parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}.",
-            f"{parts.get('Object')} ist {parts.get('Subject')} und {parts.get('Verb')} {parts.get('Number')}.",
-            f"{parts.get('Object')} {parts.get('Verb')} als {parts.get('Subject')} {parts.get('Number')}."
-        ]
-        variations.append(random.choice(ge_var))
+    if 'Werbungskosten' in case.name:
+        return random.choice([
+            f"{case.subject} {case.verb} {case.verb}"
+        ])
+        
+    if case.name == 'Gehalt':
+        return random.choice([
+            f"Als {case.subject} {case.verb} {case.object} {case.number}.",
+            f"{case.object} ist {case.subject} und {case.verb} {case.object}.",
+            f"{case.object} {case.verb} als {case.subject} {case.number}."
+        ])
 
-    if key == 'Dividende':
-        di_var = [
-            f"Durch eine {parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}.",
-            f"{parts.get('Object')} {parts.get('Verb')} eine {parts.get('Subject')} i.H.v {parts.get('Number')}.",
-        ]
-        variations.append(random.choice(di_var))
+    if case.name == 'Dividende':
+        return random.choice([
+            f"Durch eine {case.subject} {case.verb} {case.object} {case.number}.",
+            f"{case.object} {case.verb} eine {case.subject} i.H.v {case.number}.",
+        ])
 
-    if key == 'Beteiligung':
-        be_var = [
-            f"Aufgrund einer {parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}.",
-            f"Durch eine {parts.get('Subject')} {parts.get('Verb')} {parts.get('Object')} {parts.get('Number')}.",
-        ]
-        variations.append(random.choice(be_var))
+    if case.name == 'Beteiligung':
+        return random.choice([
+            f"Aufgrund einer {case.subject} {case.verb} {case.object} {case.number}.",
+            f"Durch eine {case.subject} {case.verb} {case.object} {case.number}.",
+        ])
 
-    if key == 'Vermietung':
-        ve_var = [
-            f"Da {parts.get('Object')} eine {parts.get('Subject')} {parts.get('Verb')} bezieht {parts.get('Object')} {parts.get('Number')}.",
-            f"{parts.get('Object')} {parts.get('Verb')} eine {parts.get('Subject')} und erwirtschaftet {parts.get('Number')}.",
-            f"Nebenbei {parts.get('Verb')} {parts.get('Object')} eine {parts.get('Subject')} und verlangt {parts.get('Number')}.",
-        ]
-        variations.append(random.choice(ve_var))
+    if case.name == 'Vermietung':
+        random.choice([
+            f"Da {case.object} eine {case.subject} {case.verb} bezieht {case.object} {case.number}.",
+            f"{case.object} {case.verb} eine {case.subject} und erwirtschaftet {case.number}.",
+            f"Nebenbei {case.verb} {case.object} eine {case.subject} und verlangt {case.number}.",
+        ])
 
-    return variations
+    return ""
