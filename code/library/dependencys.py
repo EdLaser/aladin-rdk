@@ -1,5 +1,6 @@
 from library import numbers as num
 from library import sentenceparts as sen
+from library.nodepool.case import Case
 import random
 import string
 
@@ -12,18 +13,19 @@ COMBINATIONS = {
 PARTS = ['Subject', 'Verb', 'Object']
 
 
-def set_subject(part_dict, part, choice, object):
+def determine_subject(case: Case, choice, object):
+    '''Set the subject of the according case. Chooses based on gender'''
     if type(choice) is dict:
         if 'Er' in object:
-            part_dict[part] = choice.get('Er')
+            case.set_subject(choice.get('Er'))
         elif 'Sie' in object:
-            part_dict[part] = choice.get('Sie')
+            case.set_subject(choice.get('Sie'))
     else:
-        part_dict[part] = choice
+        case.set_object(choice)
 
 
-def map_cases() -> dict:
-    mapped = {}
+def map_cases() -> list:
+    mapped = []
     ch = random.choice(string.ascii_letters).upper()
     sub = [ch, random.choice(sen.NOUNS)]
     mapped = generate_all_cases(earnings=sen.EARNINGS, spendings=sen.SPENDINGS, sent_parts=PARTS,
@@ -32,38 +34,44 @@ def map_cases() -> dict:
     return mapped
 
 
-def generate_all_cases(earnings: dict, spendings: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict) -> dict:
-    combs = {}
+def generate_all_cases(earnings: dict, spendings: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict) -> list:
+    '''
+    Takes earnings from sentence parts and transform them to a dictionary.
+
+    Returns:
+        cases(list): A list of all cases generated.
+    '''
+    cases = []
     for case_name, subject_name in earnings.items():
-        earning_case = {}
-        wk = {}
+        earning_case = Case()
+        earning_case.set_name(case_name)
+        
         for sentence_part in sent_parts:
             object = random.choice(obj)
 
             if sentence_part == 'Subject':
                 choice = random.choice(subject_name)
-                set_subject(earning_case, sentence_part, choice, obj)
+                determine_subject(earning_case, choice, obj)
 
                 keys_wk = list(spendings.keys())
                 # wk[part] = random.choice(spendings.get(
                 #    random.choice(keys_wk)))  # type: ignore
 
             elif sentence_part == 'Verb':
-                word_list = verbs.get(case_name)
+                verb_list = verbs.get(case_name)
                 # wk[part] = random.choice(
                 #     verbs.get('Werbungskosten'))  # type: ignore
-                earning_case[part] = random.choice(word_list)  # type: ignore
+                earning_case.set_verb(random.choice(verb_list))  # type: ignore
 
             elif sentence_part == 'Object':
-                earning_case[sentence_part] = object
+                earning_case.set_object = object
                 # wk[part] = object
 
-        earning_case['Number'] = numbers.get(case_name)
-
-        combs[case_name] = earning_case
+        earning_case.set_number(numbers.get(case_name))
+        cases.append(earning_case)
         # combs[elem + '-Werbungskosten'] = wk
 
-    return combs
+    return cases
 
 
 TEST = {
