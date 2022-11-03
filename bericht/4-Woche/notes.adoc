@@ -41,7 +41,7 @@ Pro Knoten unterschiedliche Sachverhalte des selben Typs -> WK Knoten gibt Werbu
 Knoten in Collection, dann einen rausziehen, und generieren
 Knoten je nach Komplexität verwenden oder nicht
 Auf *Template* Basis arbeiten
-Konfigurationsdatei für Satzstrukturen in generate-tasks.py
+Konfigurationsdatei für Satzstrukturen in generate-tasks.py also json einlesen oä
 Sätze verbinden: KI Modelle (Bert bzw.alle daraus resultierenden) -> Mask Filling, Wort Ergänzung
 Artikel: Regelbasiert, Surfice realizer -> Je nach Geschlecth, etc wird Artikel gewählt, NLTK Python Bib
 Lemmatisierte Ausprägung Wort und dann je nach Feature auf richtige Version zugreifen
