@@ -1,7 +1,9 @@
 import random
-import pprint
-from library import dependencys
+
+from library import dependencys as dep
+from library import sentenceparts as sen
 from library import variations as var
+from library import numbers as num
 from library.nodepool.nodepool import NodePool
 from library.nodepool.case import Case
 
@@ -10,7 +12,7 @@ from library.nodepool.case import Case
 # Then we either put it back in the pool or take it out to make more easier tasks
 
 
-def setup_pool(name, cases) -> NodePool:
+def setup_pool(name: str, cases: list[Case]) -> NodePool:
     pool = NodePool(name)
     for c in cases:
         pool.add_node(c)
@@ -36,4 +38,9 @@ def traverse(difficculty: int, graph):
 
 if __name__ == '__main__':
     # char = random.choice(string.ascii_letters).upper()
-    pass
+    all_cases = dep.generate_all_cases(formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
+    
+    pool = setup_pool('test_pool', all_cases)
+    
+    for c in pool:
+        print(c)
