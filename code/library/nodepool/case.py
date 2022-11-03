@@ -1,5 +1,5 @@
 class Case:
-    def __init__(self, name, subject, verb, object) -> None:
+    def __init__(self, name="", subject="", verb="", object="") -> None:
         self.name = name
         self.subject = subject
         self.verb = verb
