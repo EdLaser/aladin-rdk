@@ -15,8 +15,8 @@ class Case:
         '''
         Set name of the case.
 
-            Returns:
-                self.name (str): Name of the case.
+        Returns:
+            self.name (str): Name of the case.
         '''
         self.name = name
         return self.name
@@ -24,8 +24,8 @@ class Case:
     def set_subject(self, subject: str) -> str:
         '''Set subject of the case.
 
-            Returns:
-                    self.subject (str): Subject of the case.
+        Returns:
+                self.subject (str): Subject of the case.
         '''
         self.subject = subject
         return self.subject
@@ -33,8 +33,8 @@ class Case:
     def set_verb(self, verb: str) -> str:
         '''Set verb of the case.
                 
-            Returns:
-                    self.verb (str): Verb of the case.
+        Returns:
+                self.verb (str): Verb of the case.
         '''
         self.verb = verb
         return self.verb
@@ -42,8 +42,8 @@ class Case:
     def set_object(self, object: str) -> str:
         '''Set object of the case.
                 
-            Returns:
-                    self.object (str): Object of the case.
+        Returns:
+                self.object (str): Object of the case.
         '''
         self.object = object
         return self.object
