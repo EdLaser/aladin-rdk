@@ -8,62 +8,50 @@ import string
 PARTS = ['Subject', 'Verb', 'Object']
 
 
-def determine_subject(case: Case, choice, object):
-    '''Set the subject of the according case. Chooses based on gender'''
-    if type(choice) is dict:
-        if 'Er' in object:
-            case.set_subject(choice.get('Er'))
-        elif 'Sie' in object:
-            case.set_subject(choice.get('Sie'))
+def determine_subject(case: Case, choice_of_subject: dict[str, str], object_of_sentence: list[str]) -> bool:
+    '''
+    Set the subject of the according case. Chooses based on gender by checking the object list for 'er' or 'sie'.
+
+    Parameters:
+        case(Case): The case the subject should be assigned to.
+        choice(dict[str, str]): Random choice of the subject out of all possible versions.
+        object(lsit[str]): A list of possible objects
+    Returns:
+        None, just sets the cases subject.
+    '''
+    if 'Er' in object_of_sentence and 'Er' in choice_of_subject:
+        case.set_subject(choice_of_subject.get('Er'))   # type: ignore
+        return True
+    elif 'Sie' in object_of_sentence and 'Sie' in choice_of_subject:
+        case.set_subject(choice_of_subject.get('Sie'))  # type: ignore
+        return True
     else:
-        case.set_object(choice)
+        return False
 
 
-def map_cases() -> list[Case]:
-    mapped = []
-    ch = random.choice(string.ascii_letters).upper()
-    sub = [ch, random.choice(sen.NOUNS)]
-    mapped = generate_all_cases(earnings=sen.EARNINGS, spendings=sen.SPENDINGS, sent_parts=PARTS,
-                                verbs=sen.VERBS, obj=sub, numbers=num.ALL)
-
-    return mapped
-
-
-def generate_all_cases(earnings: dict, spendings: dict, sent_parts: list, verbs: dict, obj: list, numbers: dict) -> list:
+def generate_all_cases(formulation_dict: dict, verbs: dict, numbers: dict) -> list:
     '''
     Takes earnings from sentence parts and transform them to a dictionary.
 
     Returns:
         cases(list): A list of all cases generated.
     '''
+    ch = random.choice(string.ascii_letters).upper()
+    objects_for_sentence = [ch, random.choice(sen.NOUNS)]
     cases = []
-    for category_name, subject_name in earnings.items():
-        earning_case = Case()
-        earning_case.set_name(category_name)
 
-        for sentence_part in sent_parts:
-            object = random.choice(obj)
+    for category_name, chosen_subject in formulation_dict.items():
+        case = Case()
+        case.set_name(category_name)
 
-            if sentence_part == 'Subject':
-                choice = random.choice(subject_name)
-                determine_subject(earning_case, choice, obj)
+        choice_of_subject = random.choice(chosen_subject)
+        if not determine_subject(case, choice_of_subject, objects_for_sentence):
+            case.set_subject(random.choice(chosen_subject))
 
-                keys_wk = list(spendings.keys())
-                # wk[part] = random.choice(spendings.get(
-                #    random.choice(keys_wk)))  # type: ignore
+        case.set_verb(random.choice(verbs[category_name]))
 
-            elif sentence_part == 'Verb':
-                verb_list = verbs.get(category_name)
-                # wk[part] = random.choice(
-                #     verbs.get('Werbungskosten'))  # type: ignore
-                earning_case.set_verb(random.choice(verb_list))  # type: ignore
+        case.set_number(numbers[category_name])
 
-            elif sentence_part == 'Object':
-                earning_case.set_object = object
-                # wk[part] = object
-
-        earning_case.set_number(numbers.get(category_name))
-        cases.append(earning_case)
-        # combs[elem + '-Werbungskosten'] = wk
+        cases.append(case)
 
     return cases
