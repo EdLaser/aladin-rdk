@@ -10,3 +10,23 @@ class Case:
             Subject: {self.subject}\n \
             Verb: {self.verb}\n \
             Object: {self.object}\n"
+
+    def set_name(self, name: str) -> str:
+        '''Set name of the case'''
+        self.name = name
+        return self.name
+
+    def set_subject(self, subject: str) -> str:
+        '''Set subject of the case'''
+        self.subject = subject
+        return self.subject
+
+    def set_verb(self, verb: str) -> str:
+        '''Set verb of the case'''
+        self.verb = verb
+        return self.verb
+
+    def set_object(self, object: str) -> str:
+        '''Set object of the case'''
+        self.object = object
+        return self.object
