@@ -12,7 +12,7 @@ EXPOSE 8000
 # copy every content from the local file to the image
 COPY . /app
  
-ENV FLASK_APP=flask
+ENV FLASK_APP=recht
 ENV FLASK_ENV=development
 # configure the container to run in an executed manner
-CMD [ "gunicorn", "-w 4", "--bind=0.0.0.0:8000", "flask:create_app()" ]
+CMD [ "gunicorn", "-w 4", "--bind=0.0.0.0:8000", "recht:create_app()" ]
