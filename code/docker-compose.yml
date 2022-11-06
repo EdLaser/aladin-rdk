@@ -8,6 +8,8 @@ services:
     expose:
       - 8000
     container_name: steuerrecht
+    volumes:
+      - ./recht:/app/recht
   
   nginx:
     build: ./nginx
