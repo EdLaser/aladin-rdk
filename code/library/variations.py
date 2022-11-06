@@ -15,7 +15,7 @@ def build_variaton(case: Case) -> str:
     '''
     variations = []
 
-    if 'Werbungskosten' in case.name:
+    if case.name == 'Werbungskosten':
         return random.choice([
             f"{case.subject} {case.verb} {case.verb}"
         ])
