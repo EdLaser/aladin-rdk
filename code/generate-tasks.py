@@ -20,6 +20,12 @@ def setup_pool(name: str, cases: list[Case]) -> NodePool:
     return pool
 
 
+def add_all(pool: NodePool, cases: list[Case]) -> None:
+    for c in cases:
+        pool.add_node(c)
+
+
+
 def build_sent(case: Case):
     '''
     Build a sentence for the given case.
@@ -47,11 +53,15 @@ def traverse(difficculty: int, nodepool: NodePool):
 
 if __name__ == '__main__':
     # char = random.choice(string.ascii_letters).upper()
-    all_cases = dep.generate_all_cases(formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
-    
-    pool = setup_pool('test_pool', all_cases)
-    
+    earning_cases = dep.generate_all_earning_cases(
+        formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
+    spending_cases = dep.generate_all_spending_cases(
+        formulation_dict=sen.SPENDINGS, verbs=sen.VERBS, numbers=num.ALL, object=earning_cases[0].subject)
+
+    pool = setup_pool('test_pool', spending_cases)
+    add_all(pool, spending_cases)
+
     for c in pool:
         print(c)
 
-    traverse(3, pool)
+    traverse(10, pool)
