@@ -29,7 +29,7 @@ def determine_subject(case: Case, choice_of_subject: dict[str, str], object_of_s
         return False
 
 
-def generate_all_cases(formulation_dict: dict, verbs: dict, numbers: dict) -> list:
+def generate_all_spending_cases(formulation_dict: dict, verbs: dict, numbers: dict) -> list:
     '''
     Takes earnings from sentence parts and transform them to a dictionary.
 
