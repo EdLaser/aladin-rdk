@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'head.html' %}
+    <title>Steuerrecht</title>
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">
+                    Steuerrecht Aufgaben
+                </h3>
+            </div>
+        </header>
+        <main class="px-3">
+            <h1>Generierung einer Aufgabe</h1>
+            <p class="lead">
+                Hier werden Aufgaben zum Steuerrecht generiert!
+            </p>
+            <p class="lead">
+                <button type="button" class="btn btn-primary">Generieren</button>
+            </p>
+            <p>
+                {% block aufgabe %}
+                {% endblock %}
+            </p>
+        </main>
+    </div>
+</body>
+
+</html>
