@@ -35,7 +35,8 @@ def build_sent(case: Case):
     '''
     variation = var.build_variaton(case)
     if variation:
-        print(variation)
+        return variation
+
 
 
 def traverse(difficculty: int, nodepool: NodePool):
@@ -47,21 +48,23 @@ def traverse(difficculty: int, nodepool: NodePool):
         nodepool(NodePool): The nodepool to pick the nodes from.
     '''
     # Traversiere immer wieder mit einer zufälligen Kombination
+    elements = []
     for x in range(difficculty):
-        build_sent(nodepool.pick_random_node())
+        elements.append(build_sent(nodepool.pick_random_node()))
+    return elements
 
 
-if __name__ == '__main__':
+def generate():
     # char = random.choice(string.ascii_letters).upper()
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
     spending_cases = dep.generate_all_spending_cases(
         formulation_dict=sen.SPENDINGS, verbs=sen.VERBS, numbers=num.ALL, object=earning_cases[0].subject)
 
-    pool = setup_pool('test_pool', spending_cases)
+    pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
 
     for c in pool:
         print(c)
 
-    traverse(10, pool)
+    li = traverse(5, pool)
