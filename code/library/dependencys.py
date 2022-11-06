@@ -50,6 +50,8 @@ def generate_all_cases(formulation_dict: dict, verbs: dict, numbers: dict) -> li
 
         case.set_verb(random.choice(verbs[category_name]))
 
+        case.set_object(random.choice(objects_for_sentence))
+
         case.set_number(numbers[category_name])
 
         cases.append(case)
