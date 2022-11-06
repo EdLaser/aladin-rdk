@@ -17,7 +17,7 @@ def build_variaton(case: Case) -> str:
 
     if case.name == 'Werbungskosten':
         return random.choice([
-            f"{case.subject} {case.verb} {case.verb}"
+            f"{case.object} {case.verb} {case.subject}"
         ])
         
     if case.name == 'Gehalt':
@@ -46,4 +46,4 @@ def build_variaton(case: Case) -> str:
             f"Nebenbei {case.verb} {case.object} eine {case.subject} und verlangt {case.number}.",
         ])
 
-    return ""
+    return "Generation failed."
