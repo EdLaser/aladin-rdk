@@ -1,4 +1,3 @@
-from library import numbers as num
 from library import sentenceparts as sen
 from library.nodepool.case import Case
 import random
@@ -29,10 +28,14 @@ def determine_subject(case: Case, choice_of_subject: dict[str, str], object_of_s
         return False
 
 
-def generate_all_spending_cases(formulation_dict: dict, verbs: dict, numbers: dict) -> list:
+def generate_all_earning_cases(formulation_dict: dict, verbs: dict, numbers: dict) -> list[Case]:
     '''
-    Takes earnings from sentence parts and transform them to a dictionary.
+    Takes sentence parts and transforms them to a list of case elements.
 
+    Parameters:
+        formulation_dict(dict): A dict with all formulations of the cases.
+        verbs(dict): Verbs corresponding to the cases.
+        numbers(dict): Given amounts for each case.
     Returns:
         cases(list): A list of all cases generated.
     '''
@@ -53,6 +56,36 @@ def generate_all_spending_cases(formulation_dict: dict, verbs: dict, numbers: di
         case.set_object(random.choice(objects_for_sentence))
 
         case.set_number(numbers[category_name])
+
+        cases.append(case)
+
+    return cases
+
+
+def generate_all_spending_cases(formulation_dict: dict, verbs: dict, numbers: dict, object: str) -> list[Case]:
+    '''
+    Generate all cases in which the user spends money (Werbungskosten).
+
+    Parameters:
+        formulation_dict(dict): A dict with all formulations of the cases.
+        verbs(dict): Verbs corresponding to the cases.
+        numbers(dict): Given amounts for each case.
+    Returns:
+        cases(list): A list of all cases generated.
+    '''
+    cases = []
+
+    for category_name, chosen_wk in formulation_dict.items():
+        case = Case()
+        case.set_name(category_name)
+
+        case.set_verb(random.choice(verbs['Werbungskosten']))
+
+        case.set_object(object)
+
+        case.set_subject(random.choice(chosen_wk))
+
+        case.set_number(numbers['Werbungskosten'])
 
         cases.append(case)
 
