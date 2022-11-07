@@ -64,16 +64,13 @@ def generate():
     pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
 
-    for c in pool:
-        print(c)
-
-    li = traverse(10, pool)
-
+    li = traverse(4, pool)
+    print(f"Liste: {li}")
+    
     return li
 
-def call_ai():
-    return var.test("")
 
 if __name__ == '__main__':
-    for e in var.test(""):
-        print(e)
+    # for e in var.test(""):
+    #     print(e)
+    generate()
