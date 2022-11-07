@@ -8,9 +8,9 @@ tokenizer = AutoTokenizer.from_pretrained("dbmdz/bert-base-german-cased")
 model = AutoModelForMaskedLM.from_pretrained("dbmdz/bert-base-german-cased")
 
 
-def test_multi_mask(text):
+def test_multi_mask(text) -> str:
     import torch
-
+    # text = "The capital of France [MASK] contains the Eiffel [MASK]."
     # Converts a string to a sequence of ids (integer), using the tokenizer and vocabulary.
     token_ids = tokenizer.encode(text, return_tensors='pt')
 
@@ -20,14 +20,10 @@ def test_multi_mask(text):
 
     masked_pos = [mask.item() for mask in masked_position ]
 
-    print (f"Masked Pos: {masked_pos}")
-
     with torch.no_grad():
         output = model(token_ids)
 
     last_hidden_state = output[0].squeeze()
-
-    print ("Sentence : ",text)
 
     print ("\n")
 
@@ -43,15 +39,19 @@ def test_multi_mask(text):
 
         list_of_list.append(words)
 
-        print (words)
+        print (f"Words: {words}")
 
 
     best_guess = ""
-
+    # list of possible token replicas for each token
     for j in list_of_list:
+        text = text.replace("[MASK]", j[0], 1)
+        print(f"ELEM: {j} SENT: {text}")
         best_guess = best_guess+" "+j[0]
     
     print(f"Best gues: {best_guess}")
+    print(text)
+    return best_guess
 
 
 def test(text):
@@ -78,41 +78,40 @@ def build_variaton(case: Case) -> str:
 
     Parameters:
         case(Case): The case to generate the variation for.
-        parts()
 
     Returns:
        String containing the generated sentence.
     '''
 
     if case.name == 'Werbungskosten':
-        return random.choice([
+        return test_multi_mask(random.choice([
             f"{case.object} {case.verb} {case.subject}"
-        ])
+        ]))
 
     if case.name == 'Gehalt':
-        return random.choice([
-            f"Als {case.subject} {case.verb} {case.object} {case.number}.",
-            f"{case.object} ist {case.subject} und {case.verb} {case.object}.",
-            f"{case.object} {case.verb} als {case.subject} {case.number}."
-        ])
+        return test_multi_mask(random.choice([
+            f"[MASK] {case.subject} {case.verb} {case.object} {case.number}.",
+            f"{case.object} [MASK] {case.subject} [MASK] {case.verb} {case.object}.",
+            f"{case.object} {case.verb} [MASK] {case.subject} {case.number}."
+        ]))
 
     if case.name == 'Dividende':
-        return random.choice([
-            f"Durch eine {case.subject} {case.verb} {case.object} {case.number}.",
-            f"{case.object} {case.verb} eine {case.subject} i.H.v {case.number}.",
-        ])
+        return test_multi_mask(random.choice([
+            f"[MASK] [MASK] {case.subject} {case.verb} {case.object} {case.number}.",
+            f"{case.object} {case.verb} [MASK] {case.subject} i.H.v {case.number}.",
+        ]))
 
     if case.name == 'Beteiligung':
-        return random.choice([
-            f"Aufgrund einer {case.subject} {case.verb} {case.object} {case.number}.",
-            f"Durch eine {case.subject} {case.verb} {case.object} {case.number}.",
-        ])
+        return test_multi_mask(random.choice([
+            f"[MASK] [MASK] {case.subject} {case.verb} {case.object} {case.number}.",
+            f"[MASK] [MASK] {case.subject} {case.verb} {case.object} {case.number}.",
+        ]))
 
     if case.name == 'Vermietung':
-        return random.choice([
-            f"Da {case.object} eine {case.subject} {case.verb} bezieht {case.object} {case.number}.",
-            f"{case.object} {case.verb} eine {case.subject} und erwirtschaftet {case.number}.",
-            f"Nebenbei {case.verb} {case.object} eine {case.subject} und verlangt {case.number}.",
-        ])
+        return test_multi_mask(random.choice([
+            f"[MASK] {case.object} [MASK] {case.subject} {case.verb} [MASK] {case.object} {case.number}.",
+            f"{case.object} {case.verb} [MASK] {case.subject} [MASK] [MASK] {case.number}.",
+            f"[MASK] {case.verb} {case.object} [MASK] {case.subject} [MASK] [MASK] {case.number}.",
+        ]))
 
     return "Generation failed."
