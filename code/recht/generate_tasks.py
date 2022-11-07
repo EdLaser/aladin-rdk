@@ -70,3 +70,7 @@ def generate():
     li = traverse(10, pool)
 
     return li
+
+
+if __name__ == '__main__':
+    print(var.test())
