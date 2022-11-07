@@ -36,6 +36,8 @@ def build_sent(case: Case):
     variation = var.build_variaton(case)
     if variation:
         return variation
+    else:
+        return "Failure"
 
 
 
@@ -54,7 +56,7 @@ def traverse(difficculty: int, nodepool: NodePool):
     return elements
 
 
-def generate():
+def generate() -> list[str]:
     # char = random.choice(string.ascii_letters).upper()
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
