@@ -39,19 +39,15 @@ def test_multi_mask(text) -> str:
 
         list_of_list.append(words)
 
-        print (f"Words: {words}")
-
-
     best_guess = ""
     # list of possible token replicas for each token
     for j in list_of_list:
         text = text.replace("[MASK]", j[0], 1)
         print(f"ELEM: {j} SENT: {text}")
         best_guess = best_guess+" "+j[0]
-    
-    print(f"Best gues: {best_guess}")
+
     print(text)
-    return best_guess
+    return text
 
 
 def test(text):
@@ -74,7 +70,7 @@ def test(text):
 
 def build_variaton(case: Case) -> str:
     '''
-    Build a random variation for the given case.
+    Build a random variation for the given case, with the help of mask filling.
 
     Parameters:
         case(Case): The case to generate the variation for.
@@ -85,33 +81,33 @@ def build_variaton(case: Case) -> str:
 
     if case.name == 'Werbungskosten':
         return test_multi_mask(random.choice([
-            f"{case.object} {case.verb} {case.subject}"
+            f"[MASK] {case.object} [MASK] {case.verb} [MASK] {case.subject}"
         ]))
 
     if case.name == 'Gehalt':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.subject} {case.verb} {case.object} {case.number}.",
+            f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
             f"{case.object} [MASK] {case.subject} [MASK] {case.verb} {case.object}.",
-            f"{case.object} {case.verb} [MASK] {case.subject} {case.number}."
+            f"{case.object} {case.verb} [MASK] {case.subject} {case.number}€."
         ]))
 
     if case.name == 'Dividende':
         return test_multi_mask(random.choice([
-            f"[MASK] [MASK] {case.subject} {case.verb} {case.object} {case.number}.",
-            f"{case.object} {case.verb} [MASK] {case.subject} i.H.v {case.number}.",
+            f"[MASK] {case.subject} {case.verb} {case.object} {case.number}.",
+            f"{case.object} {case.verb} [MASK] {case.subject} i.H.v {case.number}€.",
         ]))
 
     if case.name == 'Beteiligung':
         return test_multi_mask(random.choice([
-            f"[MASK] [MASK] {case.subject} {case.verb} {case.object} {case.number}.",
-            f"[MASK] [MASK] {case.subject} {case.verb} {case.object} {case.number}.",
+            f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
+            f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
         ]))
 
     if case.name == 'Vermietung':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.object} [MASK] {case.subject} {case.verb} [MASK] {case.object} {case.number}.",
-            f"{case.object} {case.verb} [MASK] {case.subject} [MASK] [MASK] {case.number}.",
-            f"[MASK] {case.verb} {case.object} [MASK] {case.subject} [MASK] [MASK] {case.number}.",
+            f"[MASK] {case.object} [MASK] {case.subject} {case.verb} [MASK] {case.object} {case.number}€.",
+            f"{case.object} {case.verb} [MASK] {case.subject} [MASK] {case.number}€.",
+            f"[MASK] {case.verb} {case.object} [MASK] {case.subject} [MASK] {case.number}€.",
         ]))
 
     return "Generation failed."
