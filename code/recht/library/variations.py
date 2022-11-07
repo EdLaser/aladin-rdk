@@ -81,7 +81,7 @@ def build_variaton(case: Case) -> str:
 
     if case.name == 'Werbungskosten':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.object} [MASK] {case.verb} [MASK] {case.subject}"
+            f"[MASK] {case.object} [MASK] {case.verb} [MASK] {case.subject} {case.number}€."
         ]))
 
     if case.name == 'Gehalt':
@@ -93,7 +93,7 @@ def build_variaton(case: Case) -> str:
 
     if case.name == 'Dividende':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.subject} {case.verb} {case.object} {case.number}.",
+            f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
             f"{case.object} {case.verb} [MASK] {case.subject} i.H.v {case.number}€.",
         ]))
 
