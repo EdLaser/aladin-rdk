@@ -71,6 +71,9 @@ def generate():
 
     return li
 
+def call_ai():
+    return var.test("")
 
 if __name__ == '__main__':
-    print(var.test())
+    for e in var.test(""):
+        print(e)
