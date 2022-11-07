@@ -67,4 +67,6 @@ def generate():
     for c in pool:
         print(c)
 
-    li = traverse(5, pool)
+    li = traverse(10, pool)
+
+    return li
