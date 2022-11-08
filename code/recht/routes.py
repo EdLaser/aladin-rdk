@@ -7,11 +7,11 @@ bp = Blueprint('routes', __name__)
 @bp.route("/", methods=['GET', 'POST'])
 def index():
     all_cases = gen.generate()
-    print(all_cases)
+    print(f"Pool_list: {all_cases['pool']}")
     if request.method == 'GET':
-        return render_template('index.html', li=all_cases, test=all_cases)
+        return render_template('index.html', li=all_cases['li'], test=all_cases['pool'])
 
     if request.method == 'POST':
-        return render_template('index.html', li=all_cases, test=all_cases)
+        return render_template('index.html', li=all_cases['li'], test=all_cases['pool'])
     else:
         return render_template('index.html')
