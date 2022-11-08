@@ -35,9 +35,11 @@ def build_sent(case: Case):
     '''
     variation = var.build_variaton(case)
     if variation:
+        print(f"Generated: {variation}")
         return variation
     else:
-        return "Failure"
+        print(f"Generated: {variation}")
+        return "Failure in Generation."
 
 
 
@@ -52,11 +54,13 @@ def traverse(difficculty: int, nodepool: NodePool):
     # Traversiere immer wieder mit einer zufälligen Kombination
     elements = []
     for x in range(difficculty):
-        elements.append(build_sent(nodepool.pick_random_node()))
+        random_case = nodepool.pick_random_node()
+        elements.append(build_sent(random_case))
+        nodepool.remove_node(random_case)
     return elements
 
 
-def generate() -> list[str]:
+def generate() -> dict:
     # char = random.choice(string.ascii_letters).upper()
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
@@ -67,9 +71,13 @@ def generate() -> list[str]:
     add_all(pool, spending_cases)
 
     li = traverse(4, pool)
+
+    pool_list = []
+    for c in pool.nodes:
+        pool_list.append(str(c))
     print(f"Liste: {li}")
     
-    return li
+    return {'li': li, 'pool': pool_list}
 
 
 if __name__ == '__main__':
