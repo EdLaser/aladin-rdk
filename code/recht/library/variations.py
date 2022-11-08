@@ -46,7 +46,6 @@ def test_multi_mask(text) -> str:
         print(f"ELEM: {j} SENT: {text}")
         best_guess = best_guess+" "+j[0]
 
-    print(text)
     return text
 
 
@@ -87,7 +86,7 @@ def build_variaton(case: Case) -> str:
     if case.name == 'Gehalt':
         return test_multi_mask(random.choice([
             f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
-            f"{case.object} [MASK] {case.subject} [MASK] {case.verb} {case.object}.",
+            f"{case.object} [MASK] {case.subject} [MASK] {case.verb} {case.number}€.",
             f"{case.object} {case.verb} [MASK] {case.subject} {case.number}€."
         ]))
 
