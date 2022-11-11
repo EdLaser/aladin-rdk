@@ -1,0 +1,13 @@
+= Woche 5 Aladin
+
+=== Erreichtes
+* Ersetzen des Graphen durch eine NodePool mit einzelnen Sachverhalten
+* Werbungskosten werden generiert
+* Darstellung als Flask Anwendung
+* Auseinandersetzung mit Mask Filling und erste Schritte
+
+=== Weitere Schritte
+* Einbindung von Paragraphen zur Lösung
+* Weitere Formulierungen
+* Berechnung des Ergebnises für Lösung
+* Recherche zu Mask Filling -> Named entry recognition nutzen
