@@ -1,11 +1,11 @@
 import random
 
-from .library import dependencys as dep
-from .library import sentenceparts as sen
-from .library import variations as var
-from .library import numbers as num
-from .library.nodepool.nodepool import NodePool
-from .library.nodepool.case import Case
+from library import dependencys as dep
+from library import sentenceparts as sen
+from library import variations as var
+from library import numbers as num
+from library.nodepool.nodepool import NodePool
+from library.nodepool.case import Case
 
 # Lets create a node pool with all possible cases
 # According to difficulty we pull a node out of the pool and get the associated case
