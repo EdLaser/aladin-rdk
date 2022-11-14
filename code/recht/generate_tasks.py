@@ -1,5 +1,5 @@
 import random
-
+from typing import List, Dict
 from library import dependencys as dep
 from library import sentenceparts as sen
 from library import variations as var
@@ -14,7 +14,7 @@ from library.nodepool.case import Case
 # Then we either put it back in the pool or take it out to make more easier tasks
 
 
-def setup_pool(name: str, cases: list[Case]) -> NodePool:
+def setup_pool(name: str, cases: List[Case]) -> NodePool:
     pool = NodePool(name)
     for c in cases:
         pool.add_node(c)
@@ -22,7 +22,7 @@ def setup_pool(name: str, cases: list[Case]) -> NodePool:
     return pool
 
 
-def add_all(pool: NodePool, cases: list[Case]) -> None:
+def add_all(pool: NodePool, cases: List[Case]) -> None:
     for c in cases:
         pool.add_node(c)
 
@@ -61,7 +61,7 @@ def map_laws(sol: Solution, rand_case: Case) -> Solution:
     sol.number = rand_case.number
     return sol
 
-def traverse(difficculty: int, nodepool: NodePool, sol:dict):
+def traverse(difficculty: int, nodepool: NodePool, sol:Dict):
     '''
     Pick a node of the pool the given ammount of times.
 
@@ -81,7 +81,7 @@ def traverse(difficculty: int, nodepool: NodePool, sol:dict):
     return elements
 
 
-def generate() -> dict:
+def generate() -> Dict:
     solution = {}
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
