@@ -25,14 +25,29 @@
             <p class="lead">
                 Hier werden Aufgaben zum Steuerrecht generiert!
             </p>
-            <p class="lead">
+            <div class="lead">
                 <form action="" method="post">
                     <button type="submit" value="generate" class="btn btn-primary">Generieren</button>
                 </form> 
             </p>
-            {% include 'task_space.html' %}
-            {% include 'ai_space.html' %}
-            {% include 'sol_space.html' %}
+            <div class="container">
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="d-flex justify-content-center"">
+                        {% include 'task_space.html' %}
+                    </div>
+                </div>
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="d-flex justify-content-center"">
+                        {% include 'task_debug.html' %}
+                    </div>
+                    <div class="d-flex justify-content-center"">
+                        {% include 'ai_space.html' %}
+                    </div>
+                    <div class="d-flex justify-content-center"">
+                        {% include 'sol_space.html' %}
+                    </div>
+                </div>
+            </div>
         </main>
         <footer class="mt-auto text-white-50">
             Test

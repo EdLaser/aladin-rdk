@@ -1,5 +1,8 @@
 <div class="container">
-    <p>
-        DEBUG AI: {{test}}
-    </p>
+    DEBUG AI:
+    <ul class="list-group">
+        {% for t in test %}
+        <li class="list-group-item list-group-item-dark">{{ test }}</li>
+        {% endfor %}
+    </ul>
 </div>
