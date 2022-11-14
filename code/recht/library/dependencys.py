@@ -2,12 +2,13 @@ from library import sentenceparts as sen
 from library.nodepool.case import Case
 import random
 import string
+from typing import List, Dict
 
 
 PARTS = ['Subject', 'Verb', 'Object']
 
 
-def determine_subject(case: Case, choice_of_subject: dict[str, str], object_of_sentence: list[str]) -> bool:
+def determine_subject(case: Case, choice_of_subject: Dict[str, str], object_of_sentence: List[str]) -> bool:
     '''
     Set the subject of the according case. Chooses based on gender by checking the object list for 'er' or 'sie'.
 
@@ -28,7 +29,7 @@ def determine_subject(case: Case, choice_of_subject: dict[str, str], object_of_s
         return False
 
 
-def generate_all_earning_cases(formulation_dict: dict, verbs: dict, numbers: dict) -> list[Case]:
+def generate_all_earning_cases(formulation_dict: Dict, verbs: Dict, numbers: Dict) -> List[Case]:
     '''
     Takes sentence parts and transforms them to a list of case elements.
 
@@ -62,7 +63,7 @@ def generate_all_earning_cases(formulation_dict: dict, verbs: dict, numbers: dic
     return cases
 
 
-def generate_all_spending_cases(formulation_dict: dict, verbs: dict, numbers: dict, object: str) -> list[Case]:
+def generate_all_spending_cases(formulation_dict: Dict, verbs: Dict, numbers: Dict, object: str) -> List[Case]:
     '''
     Generate all cases in which the user spends money (Werbungskosten).
 
