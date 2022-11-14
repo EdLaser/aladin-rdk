@@ -35,7 +35,7 @@ VERMIETUNG_OBJECTS = [
     'Wohnung', 'Apartment', 'Unterkunft', 'Lagerhalle'
 ]
 
-ABSCHREIBUNG = ["Abschreibungen an"]
+ABSCHREIBUNG = ["Abschreibungen"]
 
 GEHALT_WK = [
     'Arbeitsmittel', 'Reisekosten', 'Arbeitszimmer', 'Fahrtkosten',
@@ -44,7 +44,7 @@ GEHALT_WK = [
 ]
 
 VERMIETUNG_WK = [
-    'Abschreibung', 'Grundsteuer', 'Heizkosten', 'Finanzierungskosten',
+    'Grundsteuer', 'Heizkosten', 'Finanzierungskosten',
     'Kabelanschluss', 'Verwaltungskosten', 'Kosten für Entwässerung'
 ]
 
