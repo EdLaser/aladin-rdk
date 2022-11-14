@@ -100,7 +100,7 @@ def generate() -> Dict:
     for s, o in solution.items():
         print(f"Key: {s} Value (Solution): {o}")
     
-    return {'li': li, 'pool': pool_list}
+    return {'li': li, 'pool': pool_list, 'solution': solution}
 
 
 if __name__ == '__main__':
