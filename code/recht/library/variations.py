@@ -4,8 +4,8 @@ import torch
 from library.nodepool.case import Case
 from transformers import AutoModelForMaskedLM, AutoTokenizer, pipeline
 
-tokenizer = AutoTokenizer.from_pretrained("dbmdz/bert-base-german-cased")
-model = AutoModelForMaskedLM.from_pretrained("dbmdz/bert-base-german-cased")
+tokenizer = AutoTokenizer.from_pretrained("bert-base-german-cased")
+model = AutoModelForMaskedLM.from_pretrained("bert-base-german-cased")
 
 
 def test_multi_mask(text) -> str:
@@ -78,7 +78,17 @@ def build_variaton(case: Case) -> str:
        String containing the generated sentence.
     '''
 
-    if case.name == 'Werbungskosten':
+    if case.name == 'Abschreibung':
+        return test_multi_mask(random.choice([
+            f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK]."
+        ]))
+
+    if case.name == 'Vermietung-WK':
+        return test_multi_mask(random.choice([
+            f"[MASK] {case.object} [MASK] {case.verb} [MASK] {case.subject} {case.number}€."
+        ]))
+
+    if case.name == 'Gehalt-WK':
         return test_multi_mask(random.choice([
             f"[MASK] {case.object} [MASK] {case.verb} [MASK] {case.subject} {case.number}€."
         ]))
@@ -109,4 +119,4 @@ def build_variaton(case: Case) -> str:
             f"[MASK] {case.verb} {case.object} [MASK] {case.subject} [MASK] {case.number}€.",
         ]))
 
-    return "Generation failed."
+    return f"Generation failed. {str(case)}"
