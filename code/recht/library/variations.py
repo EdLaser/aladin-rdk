@@ -85,12 +85,12 @@ def build_variaton(case: Case) -> str:
 
     if case.name == 'Vermietung-WK':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.object} [MASK] {case.verb} [MASK] {case.subject} {case.number}€ [MASK]."
+            f"[MASK] {case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK]."
         ]))
 
     if case.name == 'Gehalt-WK':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.object} [MASK] {case.verb} [MASK] {case.subject} {case.number}€."
+            f"[MASK] {case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€."
         ]))
 
     if case.name == 'Gehalt':
