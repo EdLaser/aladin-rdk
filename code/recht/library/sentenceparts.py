@@ -15,7 +15,7 @@ VERBS = {'Gehalt': ['verdient', 'erhält', 'bekommt'],
          'Vermietung': ['vermietet'],
          'Abschreibung': ['setzt'],
          'Gehalt-WK': ['kauft', 'meldet', 'zahlt'],
-         'Vermeitung-WK': ['setzt', 'meldet']
+         'Vermietung-WK': ['setzt', 'meldet']
          }
 
 GEHALT_PROFESSIONS = [
