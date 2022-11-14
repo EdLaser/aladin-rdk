@@ -1,4 +1,4 @@
-FROM pytorch/pytorch
+FROM huggingface/transformers-pytorch-gpu
 
 RUN pip3 install --upgrade pip
 # copy the requirements file into the image
@@ -17,4 +17,4 @@ ENV FLASK_APP=recht
 ENV FLASK_ENV=development
 ENV PYTHONPATH "${PYTHONPATH}:/app/recht/"
 # configure the container to run in an executed manner
-CMD [ "gunicorn", "-w 4", "--bind=0.0.0.0:8000", "recht:create_app()" ]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=80"]
