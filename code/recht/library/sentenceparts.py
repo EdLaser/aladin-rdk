@@ -13,7 +13,9 @@ VERBS = {'Gehalt': ['verdient', 'erhält', 'bekommt'],
          'Beteiligung': ['erhält', 'bekommt'],
          'Dividende': ['erhält', 'bekommt'],
          'Vermietung': ['vermietet'],
-         'Werbungskosten': ['verzeichnet', 'meldet', 'rechnet']
+         'Abschreibung': ['setzt'],
+         'Gehalt-WK': ['kauft', 'meldet', 'zahlt'],
+         'Vermeitung-WK': ['setzt', 'meldet']
          }
 
 GEHALT_PROFESSIONS = [
@@ -33,7 +35,7 @@ VERMIETUNG_OBJECTS = [
     'Wohnung', 'Apartment', 'Unterkunft', 'Lagerhalle'
 ]
 
-ABSCHREIBUNG = ["Abschreibungen"]
+ABSCHREIBUNG = ["Abschreibungen an"]
 
 GEHALT_WK = [
     'Arbeitsmittel', 'Reisekosten', 'Arbeitszimmer', 'Fahrtkosten',
@@ -54,7 +56,7 @@ EARNINGS = {
 }
 
 SPENDINGS = {
-    'Gehalt': GEHALT_WK,
-    'Vermietung': VERMIETUNG_WK,
+    'Gehalt-WK': GEHALT_WK,
+    'Vermietung-WK': VERMIETUNG_WK,
     'Abschreibung': ABSCHREIBUNG
 }

@@ -77,9 +77,9 @@ def generate_all_spending_cases(formulation_dict: dict, verbs: dict, numbers: di
 
     for category_name, chosen_wk in formulation_dict.items():
         case = Case()
-        case.set_name('Werbungskosten')
+        case.set_name(category_name)
 
-        case.set_verb(random.choice(verbs['Werbungskosten']))
+        case.set_verb(random.choice(verbs[category_name]))
 
         case.set_object(object)
 
