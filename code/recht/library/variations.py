@@ -5,7 +5,7 @@ from library.nodepool.case import Case
 from transformers import AutoModelForMaskedLM, AutoTokenizer, pipeline
 
 tokenizer = AutoTokenizer.from_pretrained("bert-base-german-cased")
-model = AutoModelForMaskedLM.from_pretrained("bert-base-german-cased")
+model = AutoModelForMaskedLM.from_pretrained("bert-base-german-cased")  # type: ignore
 
 
 def test_multi_mask(text) -> str:
@@ -85,7 +85,7 @@ def build_variaton(case: Case) -> str:
 
     if case.name == 'Vermietung-WK':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.object} [MASK] {case.verb} [MASK] {case.subject} {case.number}€."
+            f"[MASK] {case.object} [MASK] {case.verb} [MASK] {case.subject} {case.number}€ [MASK]."
         ]))
 
     if case.name == 'Gehalt-WK':
