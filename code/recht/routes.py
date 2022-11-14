@@ -1,5 +1,5 @@
 from flask import render_template, request, Blueprint
-from . import generate_tasks as gen
+import generate_tasks as gen
 
 bp = Blueprint('routes', __name__)
 
