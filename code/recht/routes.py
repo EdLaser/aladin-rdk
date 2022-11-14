@@ -9,9 +9,9 @@ def index():
     all_cases = gen.generate()
     print(f"Pool_list: {all_cases['pool']}")
     if request.method == 'GET':
-        return render_template('index.html', li=all_cases['li'], test=all_cases['pool'])
+        return render_template('index.html', li=all_cases['li'], test=all_cases['pool'], sol=all_cases['solution'])
 
     if request.method == 'POST':
-        return render_template('index.html', li=all_cases['li'], test=all_cases['pool'])
+        return render_template('index.html', li=all_cases['li'], test=all_cases['pool'], sol=all_cases['solution'])
     else:
         return render_template('index.html')
