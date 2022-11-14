@@ -1,3 +1,25 @@
 = Aladin 6. Woche
 
+Generieren der Lösung als eigene Klasse je Fall. Gesetze als Dictionary mit einer Liste an Fällen, auf welche das Gesetz zutrifft. Die Lösung wird mit dem Namen des Cases, der Summe des Sachverhalts, sowie dem Gesetz versehen. Für jeden Sachverhalt gibt es eine dedizierte Lösung. Am Ende besteht die vollständige Lösung in Form einer Liste aus einzelnen Lösungen der Sachverhalte. Weiterhin soll es pro Lösung einen Tipp zur Lösung geben. Dieser Hinweis kann dann im Text farblich hinterlegt werden. Die Lösung soll mit Gesetzen aus Tabelle ausgegeben werden. Dabei kann auf die Einzelnen Elemente des Dictionaries zugegriffen werden bzw auf die Lösung.
+Die Nodes von Werbungskosten dürfen jedoch nur eingetragen werden, wenn vorher eine zugehörige Node für die Einnahmen gezogen wurde.
+Docker Container geht nicht so richtig, da das Sprachmodel erst auf Anfrage hertungerladen wird. Man müsste es bei __init__ heruntergeladen werden.
+DIe Sätze wählen doch zum Teil falsche und nicht ganz passende Tokens um die Lücken zu füllen. Wie kann ich davon ausgehen das für die Anzahl und Position der Token die richtigen Wörter gewählt werden ? Selber trainieren ?
+
+- Algorithmus zur generierung darstellen.
+- Bezeichner Mitten im Satz kleinschreiben / SIE, ER
+- An welchen sellen schlägt sowas fehl ? kann ich Einfluss auf die Fehlerquellen nehmen
+- Ist die KI dafür richtig geeignet ?
+
+
 === Erreichtes
+* Entwickeln einer Klasse für die Lösung der Aufgabe
+* Einbinden von Gesetzen
+* Start der Generierung der Lösung
+
+=== In Arbeit
+* Generierung der Lösung
+* Neue Position der Masken für die Sätze
+* Ausrechnen der Lösung und Darstellung
+
+=== Probleme
+* KI generiert oft nicht korrekt
