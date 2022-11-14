@@ -1,5 +1,7 @@
 = Woche 5 Aladin
 
+Schreiben einer eigenen Klasse Nodepool und Case. Case fasst alle notwendigen Teile des Satzes (Verb, Object, Sachverhalt, Summe). Nodepool als Menge an n Cases. Die Cases werden aus dem Nodepool gepickt und dann eine Variation des Satzes gebildet. Nutzen von Mask Filling durch eine bereits trainierte KI (Tokenizer und Sprachmodel). 
+
 === Erreichtes
 * Ersetzen des Graphen durch eine NodePool mit einzelnen Sachverhalten
 * Werbungskosten werden generiert
