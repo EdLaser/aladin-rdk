@@ -4,7 +4,7 @@ services:
   steuerrecht:
     build: ./
     # gunicorn project_finance.wsgi:application -w 4 --bind 0.0.0.0:8000 
-    command: python3 -m flask run --host=0.0.0.0:8000 --port=80
+    command: python3 -m flask run --host=0.0.0.0:8000 --port=8000
     expose:
       - 8000
     container_name: steuerrecht
