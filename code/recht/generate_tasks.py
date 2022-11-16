@@ -46,6 +46,11 @@ def build_sent(case: Case):
 
 def map_laws(sol: Solution, rand_case: Case) -> Solution:
     sol.case_name = rand_case.name
+    if 'WK' in sol.case_name or 'Abschreibung' in sol.case_name:
+        sol.type_of_case = 'Ausgabe'
+    else:
+        sol.type_of_case = 'Einnahme'
+        
     for key_nst, val_nst in law.NICHT_SELBSTSTÄNDIG.items():
         if rand_case.name in val_nst:
             sol.law = key_nst
