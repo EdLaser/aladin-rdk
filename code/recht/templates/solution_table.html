@@ -1,34 +1,39 @@
-<a class="btn btn-primary" data-bs-toggle="collapse" href="#solution" role="button" aria-expanded="false"
-    aria-controls="solution">
-    Lösung anzeigen
-</a>
-<div class="collapse" id="solution">
-    <div class="card card-body">
-        <table class="table table-dark table-hover">
-            <thead>
+<div class="container">
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#solution" role="button" aria-expanded="false"
+        aria-controls="solution">
+        Lösung anzeigen
+    </a>
+</div>
+<div class="container">
+    <div class="collapse" id="solution">
+        <div class="card card-body bg-dark mb-3">
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <td>Sachverhalt</td>
+                        <td>Gesetzesgrundlage</td>
+                        <td>Summe des Sachverhalts</td>
+                    </tr>
+                </thead>
+                {% for value in sol.values() %}
                 <tr>
-                    <td>Sachverhalt</td>
-                    <td>Gesetzesgrundlage</td>
-                    <td>Summe des Sachverhalts</td>
+                    <td>
+                        {{ value.case_name }}
+                    </td>
+                    <td>
+                        {{ value.law }}
+                    </td>
+                    <td>
+                        {{ value.number }}
+                    </td>
                 </tr>
-            </thead>
-            {% for value in sol.values() %}
-            <tr>
-                <td>
-                    {{ value.case_name }}
-                </td>
-                <td>
-                    {{ value.law }}
-                </td>
-                <td>
-                    {{ value.number }}
-                </td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td>zvE</td>
-                <td>{{ sum }}</td>
-            </tr>
-        </table>
+                {% endfor %}
+                <tr>
+                    <td>zvE</td>
+                    <td></td>
+                    <td>{{ sum }}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
