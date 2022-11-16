@@ -5,9 +5,6 @@ import string
 from typing import List, Dict
 
 
-PARTS = ['Subject', 'Verb', 'Object']
-
-
 def determine_subject(case: Case, choice_of_subject: Dict[str, str], object_of_sentence: List[str]) -> bool:
     '''
     Set the subject of the according case. Chooses based on gender by checking the object list for 'er' or 'sie'.
