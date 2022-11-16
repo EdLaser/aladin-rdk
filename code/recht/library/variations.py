@@ -77,20 +77,27 @@ def build_variaton(case: Case) -> str:
     Returns:
        String containing the generated sentence.
     '''
-
+    if case.object == 'Er' or case.object == 'Sie':
+        pass
     if case.name == 'Abschreibung':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK]."
+            f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
+            f"{case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
+            f"[MASK] {case.verb} {case.object} {case.subject} [MASK] {case.number}€ [MASK].",
         ]))
 
     if case.name == 'Vermietung-WK':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK]."
+            f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
+            f"{case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
+            f"[MASK] {case.verb} {case.object} {case.subject} [MASK] {case.number}€ [MASK].",
         ]))
 
     if case.name == 'Gehalt-WK':
         return test_multi_mask(random.choice([
-            f"[MASK] {case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€."
+            f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
+            f"{case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
+            f"[MASK] {case.verb} {case.object} {case.subject} [MASK] {case.number}€ [MASK].",
         ]))
 
     if case.name == 'Gehalt':
@@ -104,12 +111,14 @@ def build_variaton(case: Case) -> str:
         return test_multi_mask(random.choice([
             f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
             f"{case.object} {case.verb} [MASK] {case.subject} i.H.v {case.number}€.",
+            f"[MASK] [MASK] {case.subject} {case.verb} {case.object} {case.number}€."
         ]))
 
     if case.name == 'Beteiligung':
         return test_multi_mask(random.choice([
             f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
-            f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
+            f"[MASK] {case.subject} [MASK] {case.verb} {case.object} {case.number}€.",
+            f"[MASK] {case.object} {case.subject} hält {case.verb} [MASK] {case.number}€.",
         ]))
 
     if case.name == 'Vermietung':
