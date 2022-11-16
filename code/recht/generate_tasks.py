@@ -83,6 +83,9 @@ def traverse(difficculty: int, nodepool: NodePool, sol:Dict):
 
 def generate() -> Dict:
     solution = {}
+    pool_list = []
+    sum_of_solution = 0
+
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
     spending_cases = dep.generate_all_spending_cases(
@@ -93,14 +96,14 @@ def generate() -> Dict:
 
     li = traverse(4, pool, solution)
 
-    pool_list = []
     for c in pool.nodes:
         pool_list.append(str(c))
     print(f"Liste: {li}")
     for s, o in solution.items():
         print(f"Key: {s} Value (Solution): {o}")
+        sum_of_solution += o.number
     
-    return {'li': li, 'pool': pool_list, 'solution': solution}
+    return {'li': li, 'pool': pool_list, 'solution': solution, 'sum': sum_of_solution}
 
 
 if __name__ == '__main__':
