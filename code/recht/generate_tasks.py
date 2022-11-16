@@ -44,13 +44,25 @@ def build_sent(case: Case):
         return "Failure in Generation."
 
 
+def calculate_zve(solutions: Dict[str, Solution]) -> int:
+    zve = 0
+    for sol in solutions.values():
+        if sol.type_of_case == 'Einnahme':
+            zve += sol.number
+        elif sol.type_of_case == 'Ausagbe':
+            zve -= sol.number
+        else:
+            pass
+    return zve
+
+
 def map_laws(sol: Solution, rand_case: Case) -> Solution:
     sol.case_name = rand_case.name
     if 'WK' in sol.case_name or 'Abschreibung' in sol.case_name:
         sol.type_of_case = 'Ausgabe'
     else:
         sol.type_of_case = 'Einnahme'
-        
+
     for key_nst, val_nst in law.NICHT_SELBSTSTÄNDIG.items():
         if rand_case.name in val_nst:
             sol.law = key_nst
@@ -87,9 +99,8 @@ def traverse(difficculty: int, nodepool: NodePool, sol:Dict):
 
 
 def generate() -> Dict:
-    solution = {}
+    solutions = {}
     pool_list = []
-    sum_of_solution = 0
 
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
@@ -99,16 +110,17 @@ def generate() -> Dict:
     pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
 
-    li = traverse(4, pool, solution)
+    li = traverse(4, pool, solutions)
 
     for c in pool.nodes:
         pool_list.append(str(c))
     print(f"Liste: {li}")
-    for s, o in solution.items():
+    for s, o in solutions.items():
         print(f"Key: {s} Value (Solution): {o}")
-        sum_of_solution += o.number
+
+    zve = calculate_zve(solutions)
     
-    return {'li': li, 'pool': pool_list, 'solution': solution, 'sum': sum_of_solution}
+    return {'li': li, 'pool': pool_list, 'solution': solutions, 'sum': zve}
 
 
 if __name__ == '__main__':
