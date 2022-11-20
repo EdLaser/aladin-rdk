@@ -9,6 +9,7 @@ from library.solution import Solution
 from library.nodepool.nodepool import NodePool
 from library.nodepool.case import Case
 
+
 # Lets create a node pool with all possible cases
 # According to difficulty we pull a node out of the pool and get the associated case
 # Then we either put it back in the pool or take it out to make more easier tasks
@@ -27,14 +28,13 @@ def add_all(pool: NodePool, cases: List[Case]) -> None:
         pool.add_node(c)
 
 
-
 def build_sent(case: Case):
-    '''
+    """
     Build a sentence for the given case.
 
     Parameters:
         case(Case): The case to build the sentence for.
-    '''
+    """
     variation = var.build_variaton(case)
     if variation:
         print(f"Generated: {variation}")
@@ -78,18 +78,19 @@ def map_laws(sol: Solution, rand_case: Case) -> Solution:
     sol.number = rand_case.number
     return sol
 
-def traverse(difficculty: int, nodepool: NodePool, sol:Dict):
-    '''
+
+def traverse(difficulty: int, nodepool: NodePool, sol: Dict):
+    """
     Pick a node of the pool the given ammount of times.
 
     Parameters:
         difficulty(int): Ammount of pickings from the nodepool.
         nodepool(NodePool): The nodepool to pick the nodes from.
         sol(dict): Dictionary of the Solutions
-    '''
+    """
     # Traversiere immer wieder mit einer zufälligen Kombination
     elements = []
-    for x in range(difficculty):
+    for x in range(difficulty):
         so = Solution()
         random_case = nodepool.pick_random_node()
         elements.append(build_sent(random_case))
@@ -119,7 +120,7 @@ def generate() -> Dict:
         print(f"Key: {s} Value (Solution): {o}")
 
     zve = calculate_zve(solutions)
-    
+
     return {'li': li, 'pool': pool_list, 'solution': solutions, 'sum': zve}
 
 
