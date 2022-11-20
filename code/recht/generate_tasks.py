@@ -99,7 +99,7 @@ def traverse(difficulty: int, nodepool: NodePool, sol: Dict):
     return elements
 
 
-def generate() -> Dict:
+def generate(difficulty: int) -> Dict:
     solutions = {}
     pool_list = []
 
@@ -111,7 +111,10 @@ def generate() -> Dict:
     pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
 
-    li = traverse(4, pool, solutions)
+    if difficulty in range(2, 11):
+        li = traverse(difficulty, pool, solutions)
+    else:
+        li = traverse(5, pool, solutions)
 
     for c in pool.nodes:
         pool_list.append(str(c))
@@ -127,4 +130,4 @@ def generate() -> Dict:
 if __name__ == '__main__':
     # for e in var.test(""):
     #     print(e)
-    generate()
+    generate(5)
