@@ -1,0 +1,8 @@
+= Aladin 7 Woche
+
+Sachverhalte erhalten den Typp Ausgaben und einnahmen. Dadurch kann bei der Generierung der Lösung hinzugerechnet oder Abgezogen werden.
+Generierung einer Anzeigbaren Lösung mit dem zvE. Die Generierung loopt über alle Sachverhalte die ausgewählt wurden und rechnet anhand des Typs hinzu bzw. zieht ab. Die Tabelle ist in ein Collapse das eine Tabelle enthält. Die Tabelle nutzt das Jinja Template System um dynamisch die Anzahl der Sachverhalte zu Generieren.
+
+== Weitere Ideen
+* Hints mit teilweisem Preisgeben von Paragraphen
+* Highlight der Hinweise in den Text
