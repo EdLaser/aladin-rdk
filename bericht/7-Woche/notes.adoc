@@ -3,6 +3,17 @@
 Sachverhalte erhalten den Typp Ausgaben und einnahmen. Dadurch kann bei der Generierung der Lösung hinzugerechnet oder Abgezogen werden.
 Generierung einer Anzeigbaren Lösung mit dem zvE. Die Generierung loopt über alle Sachverhalte die ausgewählt wurden und rechnet anhand des Typs hinzu bzw. zieht ab. Die Tabelle ist in ein Collapse das eine Tabelle enthält. Die Tabelle nutzt das Jinja Template System um dynamisch die Anzahl der Sachverhalte zu Generieren.
 
+- Auslassen von Tokens z.B. Raute #
+- Dependencies aufstellen -> Diagramm
+- Dependencies auslagern
+- mehr Parameter für Schwierigkeit -> z.B. ich möchte dieses Gesetz oder dieses Gesetz
+- Sachverhalte die Unbedingt dabei sein sollen
+- Vergleich durch Nutzereingabe, zvE eingeben lassen und dann Response bzw. Auswertung -> Automatische Korrektur
+- Eine Zeile mit Lösung, dann per + Button weitere Zeile hinzufügen bis man fertig ist (Variable Zeilenanzahl)
+- Lösung mit Einnahme / Ausgabe, Paragraph und Summe
+
+Ausblick formulieren -> in Richtung sprache und generierung korrigieren
+
 == Weitere Ideen
 * Hints mit teilweisem Preisgeben von Paragraphen
 * Highlight der Hinweise in den Text
