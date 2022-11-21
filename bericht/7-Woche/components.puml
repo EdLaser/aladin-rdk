@@ -1,4 +1,4 @@
-@startuml Algorithm
+@startuml Components
 node "Server" {
 
   package "Library" {
@@ -10,7 +10,9 @@ node "Server" {
     [laws.py] ..> [generate_tasks.py]
     [numbers.py] ..> [generate_tasks.py]
     [sentenceparts.py] ..> [generate_tasks.py]
+    [sentenceparts.py] ..> [dependencys.py]
     [solution.py] ..> [generate_tasks.py]
+    [variations.py] ..> [generate.tasks.py]
   }
 
   package "templates" {
