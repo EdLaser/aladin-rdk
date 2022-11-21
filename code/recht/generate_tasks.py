@@ -1,6 +1,6 @@
 import random
 from typing import List, Dict
-from library import dependencys as dep
+from library import dependencies as dep
 from library import sentenceparts as sen
 from library import variations as var
 from library import numbers as num
