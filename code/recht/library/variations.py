@@ -49,6 +49,13 @@ def multi_mask(text) -> str:
     return text
 
 
+def object_lower_or_upper(sentence: str):
+    if ('Er' in sentence or 'Sie' in sentence) and not sentence.startswith('Er') and not sentence.startswith('Sie'):
+        return sentence.replace('Er', 'er').replace('Sie', 'sie')
+    else:
+        return sentence
+
+
 def build_variaton(case: Case) -> str:
     '''
     Build a random variation for the given case, with the help of mask filling.
@@ -59,55 +66,67 @@ def build_variaton(case: Case) -> str:
     Returns:
        String containing the generated sentence.
     '''
-    if case.object == 'Er' or case.object == 'Sie':
-        pass
     if case.name == 'Abschreibung':
-        return multi_mask(random.choice([
+        return multi_mask(
+            object_lower_or_upper(
+                random.choice([
             f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"{case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"[MASK] {case.verb} {case.object} {case.subject} [MASK] {case.number}€ [MASK].",
-        ]))
+        ])))
 
     if case.name == 'Vermietung-WK':
-        return multi_mask(random.choice([
+        return multi_mask(
+            object_lower_or_upper(
+                random.choice([
             f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"{case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"[MASK] {case.verb} {case.object} {case.subject} [MASK] {case.number}€ [MASK].",
-        ]))
+        ])))
 
     if case.name == 'Gehalt-WK':
-        return multi_mask(random.choice([
+        return multi_mask(
+            object_lower_or_upper(
+                random.choice([
             f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"{case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"[MASK] {case.verb} {case.object} {case.subject} [MASK] {case.number}€ [MASK].",
-        ]))
+        ])))
 
     if case.name == 'Gehalt':
-        return multi_mask(random.choice([
+        return multi_mask(
+            object_lower_or_upper(
+                random.choice([
             f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
             f"{case.object} [MASK] {case.subject} [MASK] {case.verb} {case.number}€.",
             f"{case.object} {case.verb} [MASK] {case.subject} {case.number}€."
-        ]))
+        ])))
 
     if case.name == 'Dividende':
-        return multi_mask(random.choice([
+        return multi_mask(
+            object_lower_or_upper(
+                random.choice([
             f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
             f"{case.object} {case.verb} [MASK] {case.subject} i.H.v {case.number}€.",
             f"[MASK] [MASK] {case.subject} {case.verb} {case.object} {case.number}€."
-        ]))
+        ])))
 
     if case.name == 'Beteiligung':
-        return multi_mask(random.choice([
+        return multi_mask(
+            object_lower_or_upper(
+                random.choice([
             f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
             f"[MASK] {case.subject} [MASK] {case.verb} {case.object} {case.number}€.",
             f"[MASK] {case.object} {case.subject} hält {case.verb} [MASK] {case.number}€.",
-        ]))
+        ])))
 
     if case.name == 'Vermietung':
-        return multi_mask(random.choice([
+        return multi_mask(
+            object_lower_or_upper(
+                random.choice([
             f"[MASK] {case.object} [MASK] {case.subject} {case.verb} [MASK] {case.object} {case.number}€.",
             f"{case.object} {case.verb} [MASK] {case.subject} [MASK] {case.number}€.",
             f"[MASK] {case.verb} {case.object} [MASK] {case.subject} [MASK] {case.number}€.",
-        ]))
+        ])))
 
     return f"Generation failed. {str(case)}"
