@@ -1,35 +1,35 @@
 @startuml Components
-node "Server" {
-
-  package "Library" {
-    package "Nodepool" {
-      [Nodepool.py] ..> [Case.py] : consists of n
-    }
-
-    [dependencys.py] ..> [generate_tasks.py]
-    [laws.py] ..> [generate_tasks.py]
-    [numbers.py] ..> [generate_tasks.py]
-    [sentenceparts.py] ..> [generate_tasks.py]
-    [sentenceparts.py] ..> [dependencys.py]
-    [solution.py] ..> [generate_tasks.py]
-    [variations.py] ..> [generate.tasks.py]
+package "Library" {
+  package "Nodepool" {
+    [Nodepool.py] ..> [Case.py] : consists of n
   }
 
-  package "templates" {
-    [head.html]
-    [index.html]
-    [sol_space.html]
-    [solution_table.html]
-    [task_space.html]
-  }
-
-  [routes.py] ..> [generate_tasks.py] : utilizes
-  [routes.py] ..> Flask : hands generated content
-  [routes.py] ..> templates : builds with
-
-  Library -[hidden]d-> templates
+  [dependencys.py] ..> [generate_tasks.py]
+  [laws.py] ..> [generate_tasks.py]
+  [numbers.py] ..> [generate_tasks.py]
+  [sentenceparts.py] ..> [generate_tasks.py]
+  [sentenceparts.py] ..> [dependencys.py]
+  [solution.py] ..> [generate_tasks.py]
+  [variations.py] ..> [generate.tasks.py]
 }
 
+package "templates" {
+  [head.html]
+  [index.html]
+  [sol_space.html]
+  [solution_table.html]
+  [task_space.html]
+}
+
+[routes.py] ..> [generate_tasks.py] : utilizes
+[routes.py] ..> Flask : hands generated content
+[routes.py] ..> templates : builds with
+
+Library -[hidden]d-> templates
+
+node "Flask" {
+  
+}
 node "Client" {
 
 }
