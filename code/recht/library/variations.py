@@ -8,7 +8,7 @@ tokenizer = AutoTokenizer.from_pretrained("bert-base-german-cased")
 model = AutoModelForMaskedLM.from_pretrained("bert-base-german-cased")  # type: ignore
 
 
-def test_multi_mask(text) -> str:
+def multi_mask(text) -> str:
     import torch
     # text = "The capital of France [MASK] contains the Eiffel [MASK]."
     # Converts a string to a sequence of ids (integer), using the tokenizer and vocabulary.
@@ -49,24 +49,6 @@ def test_multi_mask(text) -> str:
     return text
 
 
-def test(text):
-    text = "Er [MASK] Geschäftsführer [MASK] verdient 8000€."
-    
-    inputs = tokenizer(text, return_tensors="pt")
-    token_logits = model(**inputs).logits
-    # Find the location of [MASK] and extract its logits
-    mask_token_index = torch.where(inputs["input_ids"] == tokenizer.mask_token_id)[1]  # type: ignore
-    mask_token_logits = token_logits[0, mask_token_index, :]
-    # Pick the [MASK] candidates with the highest logits
-    top_5_tokens = torch.topk(mask_token_logits, 3, dim=1).indices[0].tolist()
-    var_list = []
-    for token in top_5_tokens:
-        var_list.append(
-            f"'{text.replace(tokenizer.mask_token, tokenizer.decode([token]))}'")
-
-    return var_list
-
-
 def build_variaton(case: Case) -> str:
     '''
     Build a random variation for the given case, with the help of mask filling.
@@ -80,49 +62,49 @@ def build_variaton(case: Case) -> str:
     if case.object == 'Er' or case.object == 'Sie':
         pass
     if case.name == 'Abschreibung':
-        return test_multi_mask(random.choice([
+        return multi_mask(random.choice([
             f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"{case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"[MASK] {case.verb} {case.object} {case.subject} [MASK] {case.number}€ [MASK].",
         ]))
 
     if case.name == 'Vermietung-WK':
-        return test_multi_mask(random.choice([
+        return multi_mask(random.choice([
             f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"{case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"[MASK] {case.verb} {case.object} {case.subject} [MASK] {case.number}€ [MASK].",
         ]))
 
     if case.name == 'Gehalt-WK':
-        return test_multi_mask(random.choice([
+        return multi_mask(random.choice([
             f"[MASK] {case.object} {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"{case.object} [MASK] {case.verb} {case.subject} [MASK] {case.number}€ [MASK].",
             f"[MASK] {case.verb} {case.object} {case.subject} [MASK] {case.number}€ [MASK].",
         ]))
 
     if case.name == 'Gehalt':
-        return test_multi_mask(random.choice([
+        return multi_mask(random.choice([
             f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
             f"{case.object} [MASK] {case.subject} [MASK] {case.verb} {case.number}€.",
             f"{case.object} {case.verb} [MASK] {case.subject} {case.number}€."
         ]))
 
     if case.name == 'Dividende':
-        return test_multi_mask(random.choice([
+        return multi_mask(random.choice([
             f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
             f"{case.object} {case.verb} [MASK] {case.subject} i.H.v {case.number}€.",
             f"[MASK] [MASK] {case.subject} {case.verb} {case.object} {case.number}€."
         ]))
 
     if case.name == 'Beteiligung':
-        return test_multi_mask(random.choice([
+        return multi_mask(random.choice([
             f"[MASK] {case.subject} {case.verb} {case.object} {case.number}€.",
             f"[MASK] {case.subject} [MASK] {case.verb} {case.object} {case.number}€.",
             f"[MASK] {case.object} {case.subject} hält {case.verb} [MASK] {case.number}€.",
         ]))
 
     if case.name == 'Vermietung':
-        return test_multi_mask(random.choice([
+        return multi_mask(random.choice([
             f"[MASK] {case.object} [MASK] {case.subject} {case.verb} [MASK] {case.object} {case.number}€.",
             f"{case.object} {case.verb} [MASK] {case.subject} [MASK] {case.number}€.",
             f"[MASK] {case.verb} {case.object} [MASK] {case.subject} [MASK] {case.number}€.",
