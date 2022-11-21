@@ -4,13 +4,13 @@ package "Library" {
     [Nodepool.py] ..> [Case.py] : consists of n
   }
 
-  [dependencys.py] ..> [generate_tasks.py]
-  [laws.py] ..> [generate_tasks.py]
-  [numbers.py] ..> [generate_tasks.py]
-  [sentenceparts.py] ..> [generate_tasks.py]
+  [dependencys.py] ..> [generate-tasks.py]
+  [laws.py] ..> [generate-tasks.py]
+  [numbers.py] ..> [generate-tasks.py]
+  [sentenceparts.py] ..> [generate-tasks.py]
   [sentenceparts.py] ..> [dependencys.py]
-  [solution.py] ..> [generate_tasks.py]
-  [variations.py] ..> [generate.tasks.py]
+  [solution.py] ..> [generate-tasks.py]
+  [variations.py] ..> [generate-tasks.py]
 }
 
 package "templates" {
@@ -21,14 +21,14 @@ package "templates" {
   [task_space.html]
 }
 
-[routes.py] ..> [generate_tasks.py] : utilizes
+[routes.py] ..> [generate-tasks.py] : utilizes
 [routes.py] ..> Flask : hands generated content
 [routes.py] ..> templates : builds with
 
 Library -[hidden]d-> templates
 
 node "Flask" {
-  
+
 }
 node "Client" {
 
