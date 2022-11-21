@@ -49,7 +49,7 @@ def calculate_zve(solutions: Dict[str, Solution]) -> int:
     for sol in solutions.values():
         if sol.type_of_case == 'Einnahme':
             zve += sol.number
-        elif sol.type_of_case == 'Ausagbe':
+        elif sol.type_of_case == 'Ausgabe':
             zve -= sol.number
         else:
             pass
@@ -79,7 +79,7 @@ def map_laws(sol: Solution, rand_case: Case) -> Solution:
     return sol
 
 
-def traverse(difficulty: int, nodepool: NodePool, sol: Dict):
+def pick(difficulty: int, nodepool: NodePool, sol: Dict):
     """
     Pick a node of the pool the given ammount of times.
 
@@ -95,7 +95,7 @@ def traverse(difficulty: int, nodepool: NodePool, sol: Dict):
         random_case = nodepool.pick_random_node()
         elements.append(build_sent(random_case))
         sol[random_case.name] = map_laws(so, random_case)
-        nodepool.remove_node(random_case)
+        # nodepool.remove_node(random_case)
     return elements
 
 
@@ -111,16 +111,10 @@ def generate(difficulty: int) -> Dict:
     pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
 
-    if difficulty in range(2, 11):
-        li = traverse(difficulty, pool, solutions)
+    if difficulty in range(1, 11):
+        li = pick(difficulty, pool, solutions)
     else:
-        li = traverse(5, pool, solutions)
-
-    for c in pool.nodes:
-        pool_list.append(str(c))
-    print(f"Liste: {li}")
-    for s, o in solutions.items():
-        print(f"Key: {s} Value (Solution): {o}")
+        li = pick(5, pool, solutions)
 
     zve = calculate_zve(solutions)
 
