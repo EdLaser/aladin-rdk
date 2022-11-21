@@ -11,7 +11,7 @@ package "Library" {
   [sentenceparts.py] ..> [dependencys.py]
   [solution.py] ..> [generate-tasks.py]
   [variations.py] ..> [generate-tasks.py]
-  [Nodepool] ..> [generate-tasks.py]
+  Nodepool ..> [generate-tasks.py]
 }
 
 package "templates" {
@@ -21,7 +21,6 @@ package "templates" {
   [solution_table.html]
   [task_space.html]
 }
-
 [routes.py] -u-> [generate-tasks.py] : utilizes
 [routes.py] -d-> Flask : hands generated content
 [routes.py] <-d- templates : supplies
