@@ -101,7 +101,6 @@ def pick(difficulty: int, nodepool: NodePool, sol: Dict):
 
 def generate(difficulty: int) -> Dict:
     solutions = {}
-    pool_list = []
 
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
@@ -118,7 +117,7 @@ def generate(difficulty: int) -> Dict:
 
     zve = calculate_zve(solutions)
 
-    return {'li': li, 'pool': pool_list, 'solution': solutions, 'sum': zve}
+    return {'li': li, 'solution': solutions, 'sum': zve}
 
 
 if __name__ == '__main__':
