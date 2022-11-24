@@ -79,7 +79,7 @@ def map_laws(sol: Solution, rand_case: Case) -> Solution:
     return sol
 
 
-def pick(difficulty: int, nodepool: NodePool, sol: Dict):
+def pick(difficulty: int, nodepool: NodePool, sol: Dict) -> List[str]:
     """
     Pick a node of the pool the given ammount of times.
 
@@ -89,14 +89,14 @@ def pick(difficulty: int, nodepool: NodePool, sol: Dict):
         sol(dict): Dictionary of the Solutions
     """
     # Traversiere immer wieder mit einer zufälligen Kombination
-    elements = []
+    sentences = []
     for x in range(difficulty):
         so = Solution()
         random_case = nodepool.pick_random_node()
-        elements.append(build_sent(random_case))
+        sentences.append(build_sent(random_case))
         sol[random_case.name] = map_laws(so, random_case)
         # nodepool.remove_node(random_case)
-    return elements
+    return sentences
 
 
 def generate(difficulty: int) -> Dict:
@@ -111,13 +111,13 @@ def generate(difficulty: int) -> Dict:
     add_all(pool, spending_cases)
 
     if difficulty in range(1, 11):
-        li = pick(difficulty, pool, solutions)
+        sentences = pick(difficulty, pool, solutions)
     else:
-        li = pick(5, pool, solutions)
+        sentences = pick(5, pool, solutions)
 
     zve = calculate_zve(solutions)
 
-    return {'li': li, 'solution': solutions, 'sum': zve}
+    return {'sentences': sentences, 'solution': solutions, 'sum': zve}
 
 
 if __name__ == '__main__':
