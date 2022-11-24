@@ -17,6 +17,6 @@ def index():
         selected_dif = request.form['difficulty']
 
         all_cases = gen.generate(diff_map[int(selected_dif)])
-        return render_template('index.html', li=all_cases['li'], sol=all_cases['solution'], sum=all_cases['sum'])
+        return render_template('index.html', sentences=all_cases['sentences'], sol=all_cases['solution'], sum=all_cases['sum'])
     else:
         return render_template('index.html')
