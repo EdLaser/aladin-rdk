@@ -44,10 +44,13 @@
             <div class="container">
                 <div class="d-flex flex-row justify-content-center bd-highlight mb-3">
                     <div class="d-flex justify-content-center">
-                        {% if li %}
+                        {% if sentences %}
                         {% include 'task_space.html' %}
                         {% endif %}
                     </div>
+                </div>
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    {% include 'user_solution.html' %}
                 </div>
                 <div class="d-flex flex-row bd-highlight mb-3">
                     <div class="container-fluid">
@@ -58,7 +61,7 @@
                 </div>
                 <div class="d-flex flex-row bd-highlight mb-3">
                     <div class="d-flex justify-content-center">
-                        {% if li %}
+                        {% if sentences %}
                         {% include 'task_debug.html' %}
                         {% endif %}
                     </div>
