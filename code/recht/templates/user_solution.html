@@ -14,7 +14,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Gesetzesgrundlage" v.model="row.name">
+                        <input type="text" class="form-control" placeholder="Gesetzesgrundlage" v.model="row.id">
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" placeholder="Summe" v.model="row.summe">
@@ -27,7 +27,7 @@
         </div>
         <div class="d-flex flex-row m-3">
             <div class="col">
-                <button type="submit" class="btn btn-info">Lösen</button>
+                <button type="submit" class="btn btn-primary">Lösen</button>
             </div>
             <div class="col">
                 <button type="submit" class="btn btn-success" @click="addRow">Reihe hinzufügen</button>
@@ -46,13 +46,13 @@
             return {
                 options: sachverhaltOptions,
                 rows: [
-                    { 'select': 1, 'name': "" }
+                    { 'select': 1, 'id': 1 }
                 ]
             };
         },
         methods: {
             addRow: function () {
-                this.rows.push({ 'select': 1, 'name': "" });
+                this.rows.push({ 'select': 1, 'id': 1 });
             },
             deleteRow: function (row) {
                 const filteredRow = this.rows.filter(element => element !== row);
