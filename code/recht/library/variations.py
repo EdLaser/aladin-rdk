@@ -25,8 +25,6 @@ def multi_mask(text) -> str:
 
     last_hidden_state = output[0].squeeze()
 
-    print ("\n")
-
     list_of_list =[]
 
     for mask_index in masked_pos:
@@ -43,7 +41,6 @@ def multi_mask(text) -> str:
     # list of possible token replicas for each token
     for j in list_of_list:
         text = text.replace("[MASK]", j[0], 1)
-        print(f"ELEM: {j} SENT: {text}")
         best_guess = best_guess+" "+j[0]
 
     return text

@@ -37,10 +37,8 @@ def build_sent(case: Case):
     """
     variation = var.build_variaton(case)
     if variation:
-        print(f"Generated: {variation}")
         return variation
     else:
-        print(f"Generated: {variation}")
         return "Failure in Generation."
 
 
