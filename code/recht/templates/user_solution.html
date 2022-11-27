@@ -55,7 +55,8 @@
                 this.rows.push({ 'select': 1, 'name': "" });
             },
             deleteRow: function (row) {
-                this.rows.$remove(row);
+                const filteredRow = this.rows.filter(element => element !== row);
+                this.rows=filteredRow;
             }
         }
     }).mount('#multiRowForm')
