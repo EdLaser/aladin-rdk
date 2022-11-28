@@ -25,6 +25,11 @@ def create_app(test_config=None):
         pass
 
     import routes
+    from flask import request
+
+    @app.before_request
+    def log_request_info():
+        app.logger.debug('Body: %s', request.get_data())
 
     app.register_blueprint(routes.bp)
 
