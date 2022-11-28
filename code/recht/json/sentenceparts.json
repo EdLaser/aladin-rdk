@@ -1,0 +1,116 @@
+{
+    "NOUNS": [
+        "Er",
+        "Sie"
+    ],
+    "CONJUNCTIONS": {
+        "Gehalt": [
+            "Als"
+        ],
+        "Dividende": "Zusätzlich",
+        "Vermietung": "Nebenbei",
+        "Beteiligung": "Außerdem"
+    },
+    "VERBS": {
+        "Gehalt": [
+            "verdient",
+            "erhält",
+            "bekommt"
+        ],
+        "Beteiligung": [
+            "erhält",
+            "bekommt"
+        ],
+        "Dividende": [
+            "erhält",
+            "bekommt"
+        ],
+        "Vermietung": [
+            "vermietet"
+        ],
+        "Abschreibung": [
+            "setzt"
+        ],
+        "Gehalt-WK": [
+            "kauft",
+            "meldet",
+            "zahlt"
+        ],
+        "Vermietung-WK": [
+            "setzt",
+            "meldet"
+        ]
+    },
+    "EARNINGS": {
+        "Gehalt": {
+            "GEHALT_PROFESSIONS": [
+                {
+                    "Er": "Mitarbeiter",
+                    "Sie": "Mitarbeiterin"
+                },
+                {
+                    "Er": "Geschäftsführer",
+                    "Sie": "Geschäftsführerin"
+                },
+                {
+                    "Er": "Angestellter",
+                    "Sie": "Angestellte"
+                },
+                {
+                    "Er": "Arbeitnehmer",
+                    "Sie": "Arbeitnehmerin"
+                }
+            ]
+        },
+        "Beteiligung": {
+            "BETEILIGUNG_VARIATIONS": [
+                "Beteiligung",
+                "Kapitalbeteiligung",
+                "Unternehmensbeteiligung"
+            ]
+        },
+        "Dividende": {
+            "DIVIDENDE": [
+                "Dividende"
+            ]
+        },
+        "Vermietung": {
+            "VERMIETUNG_OBJECTS": [
+                "Wohnung",
+                "Apartment",
+                "Unterkunft",
+                "Lagerhalle"
+            ]
+        }
+    },
+    "SPENDINGS": {
+        "Gehalt-WK": {
+            "GEHALT_WK": [
+                "Arbeitsmittel",
+                "Reisekosten",
+                "Arbeitszimmer",
+                "Fahrtkosten",
+                "Fachbücher",
+                "Bekleidung",
+                "Notebook",
+                "Telefonkosten",
+                "Smartphone"
+            ]
+        },
+        "Vermietung-WK": {
+            "VERMIETUNG_WK": [
+                "Grundsteuer",
+                "Heizkosten",
+                "Finanzierungskosten",
+                "Kabelanschluss",
+                "Verwaltungskosten",
+                "Kosten für Entwässerung"
+            ]
+        },
+        "Abschreibung": {
+            "ABSCHREIBUNG": [
+                "Abschreibungen"
+            ]
+        }
+    }
+}
