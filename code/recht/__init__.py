@@ -4,6 +4,8 @@ from flask import (Flask, render_template)
 from flask import g
 
 def create_app(test_config=None):
+
+    FILE_FOLDER = './upload'
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
@@ -32,5 +34,7 @@ def create_app(test_config=None):
         app.logger.debug(f'Body: {request.form}')
 
     app.register_blueprint(routes.bp)
+    app.config['UPLOAD_FOLDER'] = FILE_FOLDER
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 
     return app
