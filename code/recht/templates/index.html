@@ -15,7 +15,7 @@
                 </h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     <a class="nav-link fw-bold py-1 px-0 active" href="https://github.com/EdLaser/aladin-rdk">
-                        Aladin - Steuerrecht 
+                        Aladin - Steuerrecht
                     </a>
                 </nav>
             </div>
@@ -36,7 +36,8 @@
                             </select>
                         </div>
                         <div class="col-auto">
-                            <button type="submit" value="generate" class="btn btn-primary float-right">Generieren</button>
+                            <button type="submit" value="generate"
+                                class="btn btn-primary float-right">Generieren</button>
                         </div>
                     </div>
                 </form>
@@ -75,8 +76,18 @@
                 </div>
             </div>
         </main>
-        <footer class="mt-auto text-white-50">
-            Test
+        <footer class="d-flex flex-row my-4 justify-content-center border-top text-white-50">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="row mb-3">
+                    <label for="configFile" class="form-label">Upload Config</label>
+                    <div class="col">
+                        <input class="form-control" type="file" id="configFile" name="file">
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit">Hochladen</button>
+                    </div>
+                </div>
+            </form>
         </footer>
     </div>
 </body>
