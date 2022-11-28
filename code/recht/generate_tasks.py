@@ -1,4 +1,4 @@
-import random
+import json
 from typing import List, Dict
 from library import dependencies as dep
 from library import sentenceparts as sen
@@ -13,6 +13,15 @@ from library.nodepool.case import Case
 # Lets create a node pool with all possible cases
 # According to difficulty we pull a node out of the pool and get the associated case
 # Then we either put it back in the pool or take it out to make more easier tasks
+
+def read_config(file_name: str):
+    with open(file_name) as f:
+        content = f.read()
+    try:
+        config_dict = json.loads(content)
+        return config_dict
+    finally:
+        return "Parsing config failed."
 
 
 def setup_pool(name: str, cases: List[Case]) -> NodePool:
@@ -54,7 +63,7 @@ def calculate_zve(solutions: Dict[str, Solution]) -> int:
     return zve
 
 
-def map_laws(solutions: Dict[str, Solution] ,config: Dict[str, List[str]]):
+def map_laws(solutions: Dict[str, Solution], config: Dict[str, List[str]]):
     for given_law, list_of_dep_cases in config.items():
         for solution_name, sol in solutions.items():
             if solution_name in list_of_dep_cases:
@@ -78,9 +87,11 @@ def pick(difficulty: int, nodepool: NodePool, sol: Dict[str, Solution]) -> List[
         random_case = nodepool.pick_random_node()
         sentences.append(build_sent(random_case))
         if 'WK' in random_case.name or 'Abschreibung' in random_case.name:
-            sol[random_case.name] = Solution(case_name=random_case.name, number=random_case.number, type_of_case='Ausgabe')
+            sol[random_case.name] = Solution(case_name=random_case.name, number=random_case.number,
+                                             type_of_case='Ausgabe')
         else:
-            sol[random_case.name] = Solution(case_name=random_case.name, number=random_case.number, type_of_case='Einnahme')
+            sol[random_case.name] = Solution(case_name=random_case.name, number=random_case.number,
+                                             type_of_case='Einnahme')
         # nodepool.remove_node(random_case)
     return sentences
 
