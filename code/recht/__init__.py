@@ -29,7 +29,7 @@ def create_app(test_config=None):
 
     @app.before_request
     def log_request_info():
-        app.logger.debug('Body: %s', request.get_data())
+        app.logger.debug(f'Body: {request.form}')
 
     app.register_blueprint(routes.bp)
 
