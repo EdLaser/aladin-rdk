@@ -9,16 +9,16 @@
                 <div class="col col-xs-12">
                     <div class="row mb-3">
                         <div class="col">
-                            <select name="" id="" class="form-control" v-model="row.select">
-                                <option :value="opt.value" v-for="opt in options">{% raw %} {{ opt.name }} {% endraw %}
+                            <select :name="row.id + '_case_name'" id="" class="form-control" v-model="row.select">
+                                <option :value="opt.name" v-for="opt in options">{% raw %} {{ opt.name }} {% endraw %}
                                 </option>
                             </select>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Gesetzesgrundlage" v.model="row.id">
+                            <input type="text" class="form-control" placeholder="Gesetzesgrundlage" vmodel="row.id" :name="row.id + '_saw'">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Summe" v.model="row.summe">
+                            <input type="text" class="form-control" placeholder="Summe" v-model="row.summe" :name="row.id + '_sum'">
                         </div>
                         <div class="col">
                             <button class="btn btn-danger" @click="deleteRow(row)">Löschen</button>
@@ -48,13 +48,18 @@
             return {
                 options: sachverhaltOptions,
                 rows: [
-                    { 'select': 1, 'id': 1 }
+                    { 'select': 1, 'id': 0 }
                 ]
             };
         },
         methods: {
             addRow: function () {
-                this.rows.push({ 'select': 1, 'id': 1 });
+                try {
+                    newId = this.rows[this.rows.length -1]["id"] + 1
+                } catch {
+                    newId = 0
+                }
+                this.rows.push({ 'select': 1, 'id': newId});
             },
             deleteRow: function (row) {
                 const filteredRow = this.rows.filter(element => element !== row);
