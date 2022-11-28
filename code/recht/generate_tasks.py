@@ -1,4 +1,3 @@
-import json
 from typing import List, Dict
 from library import dependencies as dep
 from library import sentenceparts as sen
@@ -13,15 +12,6 @@ from library.nodepool.case import Case
 # Lets create a node pool with all possible cases
 # According to difficulty we pull a node out of the pool and get the associated case
 # Then we either put it back in the pool or take it out to make more easier tasks
-
-def read_config(file_name: str):
-    with open(file_name, 'r') as f:
-        content = f.read()
-    try:
-        config_dict = json.loads(content)
-        return config_dict
-    finally:
-        return "Parsing config failed."
 
 
 def setup_pool(name: str, cases: List[Case]) -> NodePool:
