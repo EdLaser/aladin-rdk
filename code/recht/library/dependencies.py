@@ -6,14 +6,14 @@ import json
 import string
 
 
-def read_config(file_name: str):
+def read_config(file_name: str) -> Dict:
     with open(file_name, 'r') as f:
         content = f.read()
     try:
-        config_dict = json.loads(content)
+        config_dict: Dict = json.loads(content)
         return config_dict
     finally:
-        return "Parsing config failed."
+        return {"error": "Parsing config failed."}
 
 
 def determine_subject(case: Case, choice_of_subject: Dict[str, str], object_of_sentence: List[str]) -> bool:
