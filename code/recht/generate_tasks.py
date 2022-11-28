@@ -15,7 +15,7 @@ from library.nodepool.case import Case
 # Then we either put it back in the pool or take it out to make more easier tasks
 
 def read_config(file_name: str):
-    with open(file_name) as f:
+    with open(file_name, 'r') as f:
         content = f.read()
     try:
         config_dict = json.loads(content)
