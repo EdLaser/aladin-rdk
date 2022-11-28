@@ -54,30 +54,16 @@ def calculate_zve(solutions: Dict[str, Solution]) -> int:
     return zve
 
 
-def map_laws(sol: Solution, rand_case: Case) -> Solution:
-    sol.case_name = rand_case.name
-    if 'WK' in sol.case_name or 'Abschreibung' in sol.case_name:
-        sol.type_of_case = 'Ausgabe'
-    else:
-        sol.type_of_case = 'Einnahme'
-
-    for key_nst, val_nst in law.NICHT_SELBSTSTÄNDIG.items():
-        if rand_case.name in val_nst:
-            sol.law = key_nst
-    for key_ver, val_ver in law.VERMIETUNG.items():
-        if rand_case.name in val_ver:
-            sol.law = key_ver
-    for key_ktv, val_ktv in law.KAPITALVERMOEGEN.items():
-        if rand_case.name in val_ktv:
-            sol.law = key_ktv
-    for key_wk, val_wk in law.WERBUNGSKOSTEN.items():
-        if rand_case.name in val_wk:
-            sol.law = key_wk
-    sol.number = rand_case.number
-    return sol
+def map_laws(solutions: Dict[str, Solution] ,config: Dict[str, List[str]]):
+    for law, list_of_dep_cases in config.items():
+        for solution_name, sol in solutions.items():
+            if solution_name in list_of_dep_cases:
+                sol.law = law
+            else:
+                pass
 
 
-def pick(difficulty: int, nodepool: NodePool, sol: Dict) -> List[str]:
+def pick(difficulty: int, nodepool: NodePool, sol: Dict[str, Solution]) -> List[str]:
     """
     Pick a node of the pool the given ammount of times.
 
@@ -89,16 +75,18 @@ def pick(difficulty: int, nodepool: NodePool, sol: Dict) -> List[str]:
     # Traversiere immer wieder mit einer zufälligen Kombination
     sentences = []
     for x in range(difficulty):
-        so = Solution()
         random_case = nodepool.pick_random_node()
         sentences.append(build_sent(random_case))
-        sol[random_case.name] = map_laws(so, random_case)
+        if 'WK' in random_case.name or 'Abschreibung' in random_case.name:
+            sol[random_case.name] = Solution(case_name=random_case.name, number=random_case.number, type_of_case='Ausgabe')
+        else:
+            sol[random_case.name] = Solution(case_name=random_case.name, number=random_case.number, type_of_case='Einnahme')
         # nodepool.remove_node(random_case)
     return sentences
 
 
 def generate(difficulty: int) -> Dict:
-    solutions: dict[str, Solution] = {}
+    solutions: Dict[str, Solution] = {}
     opt_list = {}
 
     earning_cases = dep.generate_all_earning_cases(
@@ -113,6 +101,9 @@ def generate(difficulty: int) -> Dict:
         sentences = pick(difficulty, pool, solutions)
     else:
         sentences = pick(5, pool, solutions)
+
+    for val in law.ALL.values():
+        map_laws(solutions, val)
 
     for x, key in enumerate(solutions):
         opt_list[x] = {'name': key, 'value': solutions[key].number}
