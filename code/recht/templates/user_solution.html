@@ -27,10 +27,10 @@
         </div>
         <div class="d-flex flex-row m-3">
             <div class="col">
-                <button type="submit" class="btn btn-primary">Lösen</button>
+                <button type="submit" name="submitSolution" class="btn btn-primary">Lösen</button>
             </div>
             <div class="col">
-                <button type="submit" class="btn btn-success" @click="addRow">Reihe hinzufügen</button>
+                <button type="button" class="btn btn-success" @click="addRow">Reihe hinzufügen</button>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
             },
             deleteRow: function (row) {
                 const filteredRow = this.rows.filter(element => element !== row);
-                this.rows=filteredRow;
+                this.rows = filteredRow;
             }
         }
     }).mount('#multiRowForm')
