@@ -125,6 +125,4 @@ def generate(difficulty: int) -> Dict:
 
 
 if __name__ == '__main__':
-    # for e in var.test(""):
-    #     print(e)
     generate(5)
