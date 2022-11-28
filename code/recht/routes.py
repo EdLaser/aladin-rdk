@@ -15,10 +15,10 @@ def allowed_file(filename):
 
 def upload_file(req):
     if 'file' not in request.files:
-        pass
+        'No file.'
     uploaded_file = req.files['file']
     if uploaded_file.filename == '':
-        pass
+        "No File name given."
     if uploaded_file and allowed_file(uploaded_file.filename):
         filename = secure_filename(uploaded_file.filename)  # type: ignore
         read_content = uploaded_file.read()
@@ -45,8 +45,8 @@ def index():
         return render_template('index.html')
 
     if request.method == 'POST':
-        if 'file' in request.form:
-            upload_file(request)
+        if 'file' in request.files:
+            return (upload_file(request))
         if 'difficulty' in request.form:
             return generate_task()
         else:

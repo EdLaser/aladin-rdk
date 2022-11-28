@@ -32,9 +32,18 @@ def create_app(test_config=None):
     @app.before_request
     def log_request_info():
         app.logger.debug(f'Body: {request.form}')
+        app.logger.debug(f'Data: {request.get_data()}')
+        app.logger.debug(f'Files: {request.files}')
+
+
 
     app.register_blueprint(routes.bp)
     app.config['UPLOAD_FOLDER'] = FILE_FOLDER
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
+    app.config['DEFAULT_PARSERS'] = [
+    'flask.ext.api.parsers.JSONParser',
+    'flask.ext.api.parsers.URLEncodedParser',
+    'flask.ext.api.parsers.MultiPartParser'
+]
 
     return app
