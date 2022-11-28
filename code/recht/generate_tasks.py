@@ -55,10 +55,10 @@ def calculate_zve(solutions: Dict[str, Solution]) -> int:
 
 
 def map_laws(solutions: Dict[str, Solution] ,config: Dict[str, List[str]]):
-    for law, list_of_dep_cases in config.items():
+    for given_law, list_of_dep_cases in config.items():
         for solution_name, sol in solutions.items():
             if solution_name in list_of_dep_cases:
-                sol.law = law
+                sol.law = given_law
             else:
                 pass
 
@@ -92,7 +92,7 @@ def generate(difficulty: int) -> Dict:
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
     spending_cases = dep.generate_all_spending_cases(
-        formulation_dict=sen.SPENDINGS, verbs=sen.VERBS, numbers=num.ALL, object=earning_cases[0].subject)
+        formulation_dict=sen.SPENDINGS, verbs=sen.VERBS, numbers=num.ALL, object_of_case=earning_cases[0].subject)
 
     pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
