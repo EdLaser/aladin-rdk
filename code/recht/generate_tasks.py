@@ -62,7 +62,17 @@ def map_laws(solutions: Dict[str, Solution], config: Dict[str, List[str]]):
                 pass
 
 
-def pick(difficulty: int, nodepool: NodePool, sol: Dict[str, Solution]) -> List[str]:
+def build_case_and_solution(sentences: list[str], nodepool: NodePool, sol: Dict[str, Solution]):
+    case = nodepool.pick_random_node()
+    sentences.append(build_sent(case))
+    if 'WK' in case.name or 'Abschreibung' in case.name:
+            sol[case.name] = Solution(case_name=case.name, number=case.number,
+                                            type_of_case='Ausgabe')
+    else:
+        sol[case.name] = Solution(case_name=case.name, number=case.number,
+                                        type_of_case='Einnahme')
+
+def pick(difficulty: int, nodepool: NodePool, sol: Dict[str, Solution], needed: str = "") -> List[str]:
     """
     Pick a node of the pool the given ammount of times.
 
@@ -73,20 +83,18 @@ def pick(difficulty: int, nodepool: NodePool, sol: Dict[str, Solution]) -> List[
     """
     # Traversiere immer wieder mit einer zufälligen Kombination
     sentences = []
-    for x in range(difficulty):
-        random_case = nodepool.pick_random_node()
-        sentences.append(build_sent(random_case))
-        if 'WK' in random_case.name or 'Abschreibung' in random_case.name:
-            sol[random_case.name] = Solution(case_name=random_case.name, number=random_case.number,
-                                             type_of_case='Ausgabe')
-        else:
-            sol[random_case.name] = Solution(case_name=random_case.name, number=random_case.number,
-                                             type_of_case='Einnahme')
+    if needed:
+        build_case_and_solution(sentences, nodepool, sol)
+        for x in range(difficulty -1):
+            build_case_and_solution(sentences, nodepool, sol)
+    else:
+        for x in range(difficulty):
+            build_case_and_solution(sentences, nodepool, sol)
         # nodepool.remove_node(random_case)
     return sentences
 
 
-def generate(difficulty: int) -> Dict:
+def generate(difficulty: int, needed: str = "") -> Dict:
     solutions: Dict[str, Solution] = {}
     opt_list = {}
 
@@ -118,4 +126,4 @@ def show_all_cases():
 
 
 if __name__ == '__main__':
-    generate(5)
+    generate(5, "")

@@ -40,10 +40,14 @@ def index():
         if 'difficulty' in request.form:
             # while not 'submitSolution' in request.form
             selected_dif = request.form.get('difficulty')
+            needed = request.form.get('needed')
             if not selected_dif:
                 return render_template('index.html', all_cases_to_choose= all_cases_to_choose)
             else:
-                generated_values = gen.generate(DIFF_MAP[int(selected_dif)])
+                if needed:
+                    generated_values = gen.generate(DIFF_MAP[int(selected_dif)], needed)
+                else:
+                    generated_values = gen.generate(DIFF_MAP[int(selected_dif)])
                 sentences = generated_values['sentences']
                 sol = generated_values['solution']
                 sum = generated_values['sum']
