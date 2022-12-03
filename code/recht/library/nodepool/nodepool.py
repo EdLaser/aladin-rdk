@@ -5,7 +5,7 @@ from library.nodepool.case import Case
 class NodePool:
     def __init__(self, name: str) -> None:
         self.name = name
-        self.nodes = []
+        self.nodes: List[Case] = []
 
     def __iter__(self):
         return iter(self.nodes)
@@ -17,6 +17,12 @@ class NodePool:
             nodes_as_string.append(str(c))
         return nodes_as_string
         
+    def pick_node(self, wanted_case: str):
+        for case in self.nodes:
+            if case.name is wanted_case:
+                return case
+            else:
+                pass
 
     def add_node(self, node: Case) -> List[str]:
         '''Add a node to the pool.'''

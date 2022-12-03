@@ -40,7 +40,7 @@ def index():
         if 'difficulty' in request.form:
             # while not 'submitSolution' in request.form
             selected_dif = request.form.get('difficulty')
-            needed = request.form.get('needed')
+            needed = request.form.getlist('needed')
             if not selected_dif:
                 return render_template('index.html', all_cases_to_choose= all_cases_to_choose)
             else:
