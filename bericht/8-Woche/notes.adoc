@@ -1,4 +1,4 @@
-= Aladin 7 Woche
+= Aladin 8 Woche
 
 Aufbauen eines Variablen Multi Form, welches Felder hinzufügen und entfernen kann. Hier wird vuejs benutzt, ein JSON wird an vue übergeben welches in eine Form Row umgewandelt wird. Dabei werden alle generierten Fälle als Select Optionen für den Sachverhalt verwendet. Reihen können beliebig hinzugefügt und gelöscht werden. Leider können die Felder im Moment noch nicht ausgewertet werden. Die Daten aus dem Form können aktuell nicht ausgelesen werden.
 Multi Form identifiziert value namen mit einer vorangehenden id.

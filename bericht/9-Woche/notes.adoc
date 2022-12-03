@@ -1,0 +1,10 @@
+= Aladin 9 Woche
+
+Gewünschter Sachverhalt lässt sich einzeln herausfiltern und wird dann gewünscht generiert. Es gibt aber NUR EINEN Sachverhalt der dann generiert wird, nicht mehrere.  
+
+== Weitere Ideen
+* Hints mit teilweisem Preisgeben von Paragraphen
+* Highlight der Hinweise in den Text
+* Repräsentation für MultiRowForm in Flask und dann Transformation
+* Größere Liste mit Vorauswahl mit "falschen" Werten als Köder
+* Aufgabengenerierung und Lösung der Aufgabe als Pseudo Code aufschreiben (am besten eine Seite)
