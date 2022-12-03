@@ -74,7 +74,6 @@ def build_case_and_solution(sentences: list[str], nodepool: NodePool, sol: Dict[
         case = nodepool.pick_random_node()
         sentences.append(build_sent(case))
 
-    
     if 'WK' in case.name or 'Abschreibung' in case.name:
             sol[case.name] = Solution(case_name=case.name, number=case.number,
                                             type_of_case='Ausgabe')
