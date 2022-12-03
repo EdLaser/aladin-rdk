@@ -37,16 +37,30 @@
                             </select>
                         </div>
                         <div class="col-auto">
-                            <select class="form-select" aria-label="Aufgabe die enthalten sein soll" name="needed">
-                                <option selected disabled>Muss enthalten sein</option>
-                                {% for key in all_cases_to_choose.keys() %}
-                                <option value={{ key }}>{{ key }}</option>
-                                {% endfor %}
-                            </select>
+                            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#neededSelect" aria-expanded="false" aria-controls="neededSelect">
+                                Muss enthalten sein
+                            </button>
                         </div>
                         <div class="col-auto">
                             <button type="submit" value="generate"
                                 class="btn btn-primary float-right">Generieren</button>
+                        </div>
+                        <div class="collapse" id="neededSelect">
+                            <div class="container">
+                                <div class="row">
+                                    {% for key in all_cases_to_choose.keys() %}
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value={{ key }} id={{ key }}>
+                                            <label class="form-check-label" for={{ key }}>
+                                                {{ key }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
