@@ -25,19 +25,7 @@ def upload_file(req):
     else:
         return "Uploaded file not supported."
     return read_content
-
-
-def generate_task() -> str:
-    selected_dif = request.form.get('difficulty')
-    if not selected_dif:
-        return render_template('index.html')
-    else:
-        all_cases = gen.generate(DIFF_MAP[int(selected_dif)])
-        sentences = all_cases['sentences']
-        sol = all_cases['solution']
-        sum = all_cases['sum']
-        cases_and_sums = all_cases['cases_and_sums']
-        return render_template('index.html', sentences=sentences, sol=sol, sum=sum, cases_and_sums=cases_and_sums)
+    
 
 @bp.route("/", methods=['GET', 'POST'])
 def index():
@@ -48,7 +36,17 @@ def index():
         if 'file' in request.files:
             return (upload_file(request))
         if 'difficulty' in request.form:
-            return generate_task()
+            # while not 'submitSolution' in request.form
+            selected_dif = request.form.get('difficulty')
+            if not selected_dif:
+                return render_template('index.html')
+            else:
+                all_cases = gen.generate(DIFF_MAP[int(selected_dif)])
+                sentences = all_cases['sentences']
+                sol = all_cases['solution']
+                sum = all_cases['sum']
+                cases_and_sums = all_cases['cases_and_sums']
+                return render_template('index.html', sentences=sentences, sol=sol, sum=sum, cases_and_sums=cases_and_sums)
         else:
             return render_template('index.html')
     else:
