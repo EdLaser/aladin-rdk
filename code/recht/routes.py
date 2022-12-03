@@ -29,8 +29,10 @@ def upload_file(req):
 
 @bp.route("/", methods=['GET', 'POST'])
 def index():
+    all_cases_to_choose = gen.show_all_cases()
+    
     if request.method == 'GET':
-        return render_template('index.html')
+        return render_template('index.html', all_cases_to_choose= all_cases_to_choose)
 
     if request.method == 'POST':
         if 'file' in request.files:
@@ -39,15 +41,15 @@ def index():
             # while not 'submitSolution' in request.form
             selected_dif = request.form.get('difficulty')
             if not selected_dif:
-                return render_template('index.html')
+                return render_template('index.html', all_cases_to_choose= all_cases_to_choose)
             else:
-                all_cases = gen.generate(DIFF_MAP[int(selected_dif)])
-                sentences = all_cases['sentences']
-                sol = all_cases['solution']
-                sum = all_cases['sum']
-                cases_and_sums = all_cases['cases_and_sums']
-                return render_template('index.html', sentences=sentences, sol=sol, sum=sum, cases_and_sums=cases_and_sums)
+                generated_values = gen.generate(DIFF_MAP[int(selected_dif)])
+                sentences = generated_values['sentences']
+                sol = generated_values['solution']
+                sum = generated_values['sum']
+                cases_and_sums = generated_values['cases_and_sums']
+                return render_template('index.html', sentences=sentences, sol=sol, sum=sum, cases_and_sums=cases_and_sums, all_cases_to_choose= all_cases_to_choose)
         else:
-            return render_template('index.html')
+            return render_template('index.html' ,all_cases_to_choose= all_cases_to_choose)
     else:
-        return render_template('index.html')
+        return render_template('index.html', all_cases_to_choose= all_cases_to_choose)

@@ -30,9 +30,18 @@
                     <div class="row mb-3 justify-content-center">
                         <div class="col-auto">
                             <select class="form-select" aria-label="Schwierigkeit auswählen" name="difficulty">
+                                <option selected disabled>Schwierigkeitsstufe</option>
                                 <option value="1">Leicht</option>
                                 <option value="2">Mittel</option>
                                 <option value="3">Schwer</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <select class="form-select" aria-label="Aufgabe die enthalten sein soll" name="needed">
+                                <option selected disabled>Muss enthalten sein</option>
+                                {% for key in all_cases_to_choose.keys() %}
+                                <option value={{ key }}>{{ key }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-auto">

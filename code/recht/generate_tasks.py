@@ -113,6 +113,9 @@ def generate(difficulty: int) -> Dict:
 
     return {'sentences': sentences, 'solution': solutions, 'sum': zve, 'cases_and_sums': opt_list}
 
+def show_all_cases():
+    return { **sen.SPENDINGS, **sen.EARNINGS}
+
 
 if __name__ == '__main__':
     generate(5)
