@@ -1,0 +1,13 @@
+= Aladin 7 Woche
+
+Aufbauen eines Variablen Multi Form, welches Felder hinzufügen und entfernen kann. Hier wird vuejs benutzt, ein JSON wird an vue übergeben welches in eine Form Row umgewandelt wird. Dabei werden alle generierten Fälle als Select Optionen für den Sachverhalt verwendet. Reihen können beliebig hinzugefügt und gelöscht werden. Leider können die Felder im Moment noch nicht ausgewertet werden. Die Daten aus dem Form können aktuell nicht ausgelesen werden.
+Multi Form identifiziert value namen mit einer vorangehenden id.
+Theorethisch können JSONs eingelesen werden.
+Abhängigkeiten sind indirekt über Benennungen realisiert. Gesetze werden auf die Fälle, anhand einer Liste in den Gesetzen gemapt. 
+
+== Weitere Ideen
+* Hints mit teilweisem Preisgeben von Paragraphen
+* Highlight der Hinweise in den Text
+* Repräsentation für MultiRowForm in Flask und dann Transformation
+* Größere Liste mit Vorauswahl mit "falschen" Werten als Köder
+* Aufgabengenerierung und Lösung der Aufgabe als Pseudo Code aufschreiben (am besten eine Seite)
