@@ -1,5 +1,6 @@
 import random
 import logging as log
+from typing import List, Dict
 
 from flask import render_template, request, Blueprint
 from werkzeug.utils import secure_filename
@@ -25,7 +26,14 @@ def upload_file(req):
     else:
         return "Uploaded file not supported."
     return read_content
-    
+
+
+def return_template_with_values(generated_values, all_cases_to_choose):
+    sentences = generated_values['sentences']
+    sol = generated_values['solution']
+    sum = generated_values['sum']
+    cases_and_sums = generated_values['cases_and_sums']
+    return render_template('index.html', sentences=sentences, sol=sol, sum=sum, cases_and_sums=cases_and_sums, all_cases_to_choose= all_cases_to_choose)
 
 @bp.route("/", methods=['GET', 'POST'])
 def index():
@@ -37,23 +45,30 @@ def index():
     if request.method == 'POST':
         if 'file' in request.files:
             return (upload_file(request))
-        if 'difficulty' in request.form:
+        else:
             # while not 'submitSolution' in request.form
             selected_dif = request.form.get('difficulty')
             needed = request.form.getlist('needed')
+            
+            # difficulty is not set, pick a random one
             if not selected_dif:
-                return render_template('index.html', all_cases_to_choose= all_cases_to_choose)
+                # needed cases are set use them
+                if needed:
+                    generated_values = gen.generate(DIFF_MAP[random.randrange(1, 3)], needed)
+                    return return_template_with_values(generated_values, all_cases_to_choose)
+                # no needed cases ? random diff !
+                else:
+                    generated_values = gen.generate(DIFF_MAP[random.randrange(1, 3)])
+                    return return_template_with_values(generated_values, all_cases_to_choose)
+            # difficulty is set 
             else:
+                # ah certain cases are needed
                 if needed:
                     generated_values = gen.generate(DIFF_MAP[int(selected_dif)], needed)
+                    return return_template_with_values(generated_values, all_cases_to_choose)
+                # no needed cases ? Go for the set difficulty
                 else:
                     generated_values = gen.generate(DIFF_MAP[int(selected_dif)])
-                sentences = generated_values['sentences']
-                sol = generated_values['solution']
-                sum = generated_values['sum']
-                cases_and_sums = generated_values['cases_and_sums']
-                return render_template('index.html', sentences=sentences, sol=sol, sum=sum, cases_and_sums=cases_and_sums, all_cases_to_choose= all_cases_to_choose)
-        else:
-            return render_template('index.html' ,all_cases_to_choose= all_cases_to_choose)
+                    return return_template_with_values(generated_values, all_cases_to_choose)
     else:
         return render_template('index.html', all_cases_to_choose= all_cases_to_choose)

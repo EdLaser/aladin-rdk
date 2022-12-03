@@ -97,7 +97,7 @@ def pick(difficulty: int, nodepool: NodePool, sol: Dict[str, Solution], needed_c
         for needed_case in needed_cases:
             build_case_and_solution(sentences, nodepool, sol, needed_case)
         if len(needed_cases) > difficulty:
-            pass
+            return sentences
         else:
             for x in range(difficulty - len(needed_cases)):
                 build_case_and_solution(sentences, nodepool, sol)
@@ -121,7 +121,7 @@ def generate(difficulty: int, needed: List[str] = []) -> Dict:
     add_all(pool, spending_cases)
 
     if difficulty in range(1, 11):
-        sentences = pick(difficulty, pool, solutions)
+        sentences = pick(difficulty, pool, solutions, needed)
     else:
         sentences = pick(5, pool, solutions)
 
