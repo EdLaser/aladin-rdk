@@ -29,7 +29,7 @@
                 <form action="" method="post">
                     <div class="row mb-3 justify-content-center">
                         <div class="col-auto">
-                            <select class="form-select" aria-label="Schwierigkeit auswählen" name="difficulty">
+                            <select class="form-select" aria-label="Schwierigkeit auswählen" name="difficulty" id="selectDif">
                                 <option selected disabled>Schwierigkeitsstufe</option>
                                 <option value="1">Leicht</option>
                                 <option value="2">Mittel</option>
@@ -43,8 +43,8 @@
                             </button>
                         </div>
                         <div class="col-auto">
-                            <button type="submit" value="generate"
-                                class="btn btn-primary float-right">Generieren</button>
+                            <button type="submit" value="generate" id="generateBtn"
+                                class="btn btn-primary float-right">Zufällige Schwierigkeit</button>
                         </div>
                         <div class="col-auto">
                             <div class="collapse" id="neededSelect">
@@ -103,5 +103,17 @@
         {% include 'file_upload_footer.html' %}
     </div>
 </body>
+<script>
+    function setGenerateButtonText(btnText) {
+        const generateBtn = document.getElementById('generateBtn');
+        generateBtn.innerHTML = btnText;
+    }
 
+    const selectField = document.getElementById('selectDif');
+    selectField.addEventListener('change', function() {
+        const selectedValue = selectField.options[selectField.selectedIndex].text
+        console.log(selectedValue);
+        setGenerateButtonText("Zufällige Aufgaben mit Grad " + selectedValue);
+    });
+</script>
 </html>
