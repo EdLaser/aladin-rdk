@@ -20,7 +20,7 @@
                         </div>
                         <div class="col">
                             <input @onchange="log()" type="text" class="form-control" placeholder="Summe"
-                                v-model="row.summe" :name="row.id + '_sum'">
+                                v-model="row.num" :name="row.id + '_sum'">
                         </div>
                         <div class="col">
                             <button class="btn btn-danger" @click="deleteRow(row)">Löschen</button>
@@ -52,7 +52,7 @@
             return {
                 options: sachverhaltOptions,
                 rows: [
-                    { 'id': 0, 'select': 1, "law": "", "sum": 0 }
+                    { 'id': 0, 'select': "Sachverhalt auswählen", "law": "", "num": 0 }
                 ]
             };
         },
@@ -66,7 +66,7 @@
                 } catch {
                     newId = 0
                 }
-                this.rows.push({ 'id': newId, 'select': 1, "law": '', "sum": 0 });
+                this.rows.push({ 'id': newId, 'select': "Sachverhalt auswählen", "law": '', "num": 0, "isCorrect": { "case_name": false, "law": false, "num": false } });
             },
             deleteRow: function (row) {
                 const filteredRow = this.rows.filter(element => element !== row);
@@ -74,7 +74,15 @@
             },
             solve: function () {
                 for (const row of this.rows) {
-
+                    checkCorrectInputs(row)
+                }
+            },
+            checkCorrectInputs: function (row) {
+                if (row.select in allSolutions) {
+                    row.isCorrect.case_name = true;
+                    const correctSolution = allSolutions[row.select];
+                    row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
+                    row.sum === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
                 }
             }
         }
