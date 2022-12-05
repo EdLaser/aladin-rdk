@@ -17,7 +17,7 @@
                         </div>
                         <div class="col">
                             <input type="text" class="form-control" placeholder="Gesetzesgrundlage"
-                                vmodel="row.law" :name="row.id + '_law'">
+                                v-model="row.law" :name="row.id + '_law'">
                         </div>
                         <div class="col">
                             <input type="number" class="form-control" placeholder="Summe"
@@ -84,14 +84,8 @@
                 if (row.select in allSolutions) {
                     row.isCorrect.case_name = true;
                     const correctSolution = allSolutions[row.select];
-                    console.log("correct: " + correctSolution.law);
-                    console.log("correct: " + correctSolution.number);
-
                     row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
                     row.num === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
-                    console.log(row.isCorrect);
-                    console.log(row)
-
                 }
             },
             solve: function () {
