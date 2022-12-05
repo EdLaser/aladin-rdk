@@ -1,4 +1,4 @@
-NICHT_SELBSTSTÄNDIG = {'§19 Abs. 1 Nr.1': ['Gehalt']}
+NICHT_SELBSTSTÄNDIG = {'§19 Abs. 1 Nr. 1': ['Gehalt']}
 
 VERMIETUNG = {'§21 Abs.1 Nr. 1': ['Vermietung']}
 
