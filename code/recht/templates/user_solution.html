@@ -9,8 +9,7 @@
                 <div class="col col-xs-12">
                     <div class="row mb-3">
                         <div class="col">
-                            <select :name="row.id + '_case_name'" id="" class="form-control"
-                                v-model="row.select">
+                            <select :name="row.id + '_case_name'" id="" class="form-control" v-model="row.select">
                                 <option selected disabled>Sachverhalt auswählen</option>
                                 <option :value="opt.name" v-for="opt in options">{% raw %} {{ opt.name }} {% endraw %}
                                 </option>
@@ -21,7 +20,7 @@
                                 vmodel="row.law" :name="row.id + '_law'">
                         </div>
                         <div class="col">
-                            <input @onchange="log()" type="text" class="form-control" placeholder="Summe"
+                            <input @onchange="log()" type="number" class="form-control" placeholder="Summe"
                                 v-model="row.num" :name="row.id + '_sum'">
                         </div>
                         <div class="col">
@@ -55,7 +54,10 @@
             return {
                 options: sachverhaltOptions,
                 rows: [
-                    { 'id': 0, 'select': "Sachverhalt auswählen", "law": "", "num": 0, "isCorrect": { "case_name": false, "law": false, "num": false } }
+                    {
+                        'id': 0, 'select': "Sachverhalt auswählen", "law": '',
+                        "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
+                    }
                 ]
             };
         },
@@ -69,7 +71,10 @@
                 } catch {
                     newId = 0
                 }
-                this.rows.push({ 'id': newId, 'select': "Sachverhalt auswählen", "law": '', "num": 0, "isCorrect": { "case_name": false, "law": false, "num": false } });
+                this.rows.push({
+                    'id': newId, 'select': "Sachverhalt auswählen", "law": '',
+                    "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
+                });
             },
             deleteRow: function (row) {
                 const filteredRow = this.rows.filter(element => element !== row);
@@ -79,9 +84,14 @@
                 if (row.select in allSolutions) {
                     row.isCorrect.case_name = true;
                     const correctSolution = allSolutions[row.select];
+                    console.log("correct: " + correctSolution.law);
+                    console.log("correct: " + correctSolution.number);
+
                     row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
-                    row.sum === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
+                    row.num === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
                     console.log(row.isCorrect);
+                    console.log(row)
+
                 }
             },
             solve: function () {
