@@ -10,6 +10,7 @@
                     <div class="row mb-3">
                         <div class="col">
                             <select :name="row.id + '_case_name'" id="" class="form-control" v-model="row.select">
+                                <option selected disabled>Sachverhalt auswählen</option>
                                 <option :value="opt.name" v-for="opt in options">{% raw %} {{ opt.name }} {% endraw %}
                                 </option>
                             </select>
@@ -30,7 +31,7 @@
             </div>
             <div class="d-flex flex-row m-3">
                 <div class="col">
-                    <button type="submit" name="submitSolution" class="btn btn-primary">Aufgabe lösen</button>
+                    <button type="button" name="submitSolution" class="btn btn-primary" @click="solve">Aufgabe lösen</button>
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-success" @click="addRow">Reihe hinzufügen</button>
@@ -52,7 +53,7 @@
             return {
                 options: sachverhaltOptions,
                 rows: [
-                    { 'id': 0, 'select': "Sachverhalt auswählen", "law": "", "num": 0 }
+                    { 'id': 0, 'select': "Sachverhalt auswählen", "law": "", "num": 0, "isCorrect": { "case_name": false, "law": false, "num": false } }
                 ]
             };
         },
@@ -72,17 +73,18 @@
                 const filteredRow = this.rows.filter(element => element !== row);
                 this.rows = filteredRow;
             },
-            solve: function () {
-                for (const row of this.rows) {
-                    checkCorrectInputs(row)
-                }
-            },
             checkCorrectInputs: function (row) {
                 if (row.select in allSolutions) {
                     row.isCorrect.case_name = true;
                     const correctSolution = allSolutions[row.select];
                     row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
                     row.sum === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
+                    console.log(row.isCorrect);
+                }
+            },
+            solve: function () {
+                for (const row of this.rows) {
+                    this.checkCorrectInputs(row)
                 }
             }
         }
