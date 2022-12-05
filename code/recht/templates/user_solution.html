@@ -45,7 +45,7 @@
 <script>
     const sachverhaltOptions = JSON.parse('{{cases_and_sums | tojson}}');
     const allSolutions = JSON.parse('{{solutions | tojson}}');
-    console.log(allSolutions);
+    console.log("All Solutions: " + allSolutions);
 
     const { createApp } = Vue
     createApp({
@@ -58,7 +58,8 @@
                         'id': 0, 'select': "Sachverhalt auswählen", "law": '',
                         "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
                     }
-                ]
+                ],
+                maxRows: 0
             };
         },
         methods: {
