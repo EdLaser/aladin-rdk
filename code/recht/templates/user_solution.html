@@ -50,7 +50,10 @@
     const sachverhaltOptions = JSON.parse('{{cases_and_sums | tojson}}');
     const allSolutions = JSON.parse('{{solutions | tojson}}');
     console.log(allSolutions);
-
+    let correctSolutions = [];
+    for (const solution in allSolutions) {
+        correctSolutions.push= {'task':solution, 'solved_by': '', 'solved': false };
+    }
     const { createApp } = Vue
     createApp({
         el: '#multiRowForm',
@@ -107,7 +110,7 @@
             },
             checkCorrectInputs: function (row) {
                 if (row.select in allSolutions) {
-
+                    // check if the Inputs match the correct solution inputs, set the elem of the row accordingly
                     row.isCorrect.case_name = true;
                     const correctSolution = allSolutions[row.select];
 
@@ -116,15 +119,29 @@
 
                     console.log(row)
 
-                    this.evaluateCorrectness(row.isCorrect, row);
+                    this.evaluateCorrectnessOfRow(row.isCorrect, row);
+                }
+            },
+            setCorrespondingRows: function (row) {
+                for (sol in correctSolutions) {
+                    row.select === sol.task ? sol.solved_by = sol.solved_by : '';
                 }
             },
             solve: function () {
+                console.log(allSolutions)
+                console.log(correctSolutions);
+                // initialize dict to check if all tasks are correct
                 for (const row of this.rows) {
-                    this.checkCorrectInputs(row)
+                    this.checkCorrectInputs(row);
+                    for (let sol in correctSolutions) {
+                        if (row.id === sol.solved_by) {
+                            row.isCorrect.case_name && row.isCorrect.law && row.isCorrect.num ? sol.solved = true : sol.solved = false;
+                        } 
+                    }
+                    
                 }
             },
-            evaluateCorrectness: function (isCorrect, row) {
+            evaluateCorrectnessOfRow: function (isCorrect, row) {
                 const caseInput = document.getElementById(row.id + "_case_name");
                 const lawInput = document.getElementById(row.id + "_law");
                 const sumInput = document.getElementById(row.id + "_num");
@@ -152,7 +169,7 @@
 
                 const delBtn = document.getElementById(row.id + '_del');
                 isCorrect.case_name && isCorrect.law && isCorrect.num ? delBtn.disabled = true : delBtn.disabled = false;
-            }
+            },
         }
     }).mount('#multiRowForm')
 </script>
