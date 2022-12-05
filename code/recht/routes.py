@@ -29,11 +29,16 @@ def upload_file(req):
 
 
 def return_template_with_values(generated_values, all_cases_to_choose):
+    solutions = {}
     sentences = generated_values['sentences']
+    # Dict[str, Solution]
     sol = generated_values['solution']
     sum = generated_values['sum']
     cases_and_sums = generated_values['cases_and_sums']
-    return render_template('index.html', sentences=sentences, sol=sol, sum=sum, cases_and_sums=cases_and_sums, all_cases_to_choose= all_cases_to_choose)
+
+    for key, value in sol.items():
+        solutions[key] = value.to_dict()
+    return render_template('index.html', sentences=sentences, sol=sol, solutions=solutions,  sum=sum, cases_and_sums=cases_and_sums, all_cases_to_choose= all_cases_to_choose)
 
 @bp.route("/", methods=['GET', 'POST'])
 def index():
