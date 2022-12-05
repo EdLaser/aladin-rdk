@@ -32,6 +32,7 @@ def return_template_with_values(generated_values, all_cases_to_choose):
     solutions = {}
     sentences = generated_values['sentences']
     # Dict[str, Solution]
+    # TODO Remove
     sol = generated_values['solution']
     sum = generated_values['sum']
     cases_and_sums = generated_values['cases_and_sums']
