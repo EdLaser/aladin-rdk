@@ -25,7 +25,8 @@
                                 v-model="row.num" :name="row.id + '_num'">
                         </div>
                         <div class="col">
-                            <button class="btn btn-danger" :id="row.id + '_del'" @click="deleteRow(row)">Löschen</button>
+                            <button class="btn btn-danger" :id="row.id + '_del'"
+                                @click="deleteRow(row)">Löschen</button>
                         </div>
                     </div>
                 </div>
@@ -35,8 +36,11 @@
                     <button type="button" name="submitSolution" class="btn btn-primary" @click="solve">Aufgabe
                         lösen</button>
                 </div>
+                <div class="col" id="warningOrSuccess">
+
+                </div>
                 <div class="col">
-                    <button type="button" class="btn btn-success" @click="addRow">Reihe hinzufügen</button>
+                    <button id="addRow" type="button" class="btn btn-success" @click="addRow">Reihe hinzufügen</button>
                 </div>
             </div>
         </form>
@@ -45,7 +49,7 @@
 <script>
     const sachverhaltOptions = JSON.parse('{{cases_and_sums | tojson}}');
     const allSolutions = JSON.parse('{{solutions | tojson}}');
-    console.log("All Solutions: " + allSolutions);
+    console.log(allSolutions);
 
     const { createApp } = Vue
     createApp({
@@ -59,36 +63,59 @@
                         "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
                     }
                 ],
-                maxRows: 0
             };
         },
+        computed: {
+            showMaxRows() {
+                return Object.keys(this.options).length
+            }
+        },
         methods: {
+            checkIfRowNecessary: function () {
+                let maxRows = this.showMaxRows > 0 ? this.showMaxRows : null;
+                return maxRows > this.rows.length ? true : false;
+            },
             addRow: function () {
+                const warningOrSuccessDiv = document.getElementById('warningOrSuccess');
                 try {
                     newId = this.rows[this.rows.length - 1]["id"] + 1
                 } catch {
                     newId = 0
                 }
-                this.rows.push({
-                    'id': newId, 'select': "Sachverhalt auswählen", "law": '',
-                    "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
-                });
+                if (this.checkIfRowNecessary()) {
+                    this.rows.push({
+                        'id': newId, 'select': "Sachverhalt auswählen", "law": '',
+                        "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
+                    });
+                } else {
+                    warningOrSuccessDiv.className = "alert alert-danger";
+                    warningOrSuccessDiv.innerHTML = "Mehr Reihen brauchst du nicht."
+                    document.getElementById('addRow').disabled = true
+
+                }
             },
             deleteRow: function (row) {
                 const filteredRow = this.rows.filter(element => element !== row);
                 this.rows = filteredRow;
+                if (this.checkIfRowNecessary()) {
+                    document.getElementById('addRow').disabled = false
+                    document.getElementById('warningOrSuccess').innerHTML = ""
+                    document.getElementById('warningOrSuccess').className = ""
+                } else {
+                    document.getElementById('addRow').disabled = true
+                }
             },
             checkCorrectInputs: function (row) {
                 if (row.select in allSolutions) {
-                    
+
                     row.isCorrect.case_name = true;
                     const correctSolution = allSolutions[row.select];
-                    
+
                     row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
                     row.num === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
-                    
+
                     console.log(row)
-                    
+
                     this.evaluateCorrectness(row.isCorrect, row);
                 }
             },
