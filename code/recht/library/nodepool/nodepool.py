@@ -19,7 +19,7 @@ class NodePool:
         
     def pick_node(self, wanted_case: str):
         for case in self.nodes:
-            if case.name is wanted_case:
+            if case.name == wanted_case:
                 return case
             else:
                 pass

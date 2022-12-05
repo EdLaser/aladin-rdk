@@ -69,7 +69,7 @@ def build_case_and_solution(sentences: list[str], nodepool: NodePool, sol: Dict[
         if case:
             sentences.append(build_sent(case))
         else:
-            case = nodepool.pick_random_node()
+            case = Case("something went wrong", "failure", "fail", "me", 0)
     else:
         case = nodepool.pick_random_node()
         sentences.append(build_sent(case))
