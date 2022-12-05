@@ -15,12 +15,12 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Gesetzesgrundlage" vmodel="row.id"
-                                :name="row.id + '_law'">
+                            <input @onchange="log()" type="text" class="form-control" placeholder="Gesetzesgrundlage"
+                                vmodel="row.law" :name="row.id + '_law'">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Summe" v-model="row.summe"
-                                :name="row.id + '_sum'">
+                            <input @onchange="log()" type="text" class="form-control" placeholder="Summe"
+                                v-model="row.summe" :name="row.id + '_sum'">
                         </div>
                         <div class="col">
                             <button class="btn btn-danger" @click="deleteRow(row)">Löschen</button>
@@ -39,5 +39,44 @@
         </form>
     </div>
 </div>
-<script src="./solve_task.js">
+<script>
+    const sachverhaltOptions = JSON.parse('{{cases_and_sums | tojson}}');
+    const allSolutions = JSON.parse('{{solutions | tojson}}');
+    console.log(sachverhaltOptions);
+    console.log(allSolutions);
+
+    const { createApp } = Vue
+    createApp({
+        el: '#multiRowForm',
+        data() {
+            return {
+                options: sachverhaltOptions,
+                rows: [
+                    { 'id': 0, 'select': 1 }
+                ]
+            };
+        },
+        methods: {
+            log() {
+                console.log(this.rows)
+            },
+            addRow: function () {
+                try {
+                    newId = this.rows[this.rows.length - 1]["id"] + 1
+                } catch {
+                    newId = 0
+                }
+                this.rows.push({ 'id': newId, 'select': 1, "law": '', "sum": 0 });
+            },
+            deleteRow: function (row) {
+                const filteredRow = this.rows.filter(element => element !== row);
+                this.rows = filteredRow;
+            },
+            solve: function () {
+                for (const row of this.rows) {
+
+                }
+            }
+        }
+    }).mount('#multiRowForm')
 </script>
