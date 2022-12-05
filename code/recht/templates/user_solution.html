@@ -15,10 +15,12 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Gesetzesgrundlage" vmodel="row.id" :name="row.id + '_saw'">
+                            <input type="text" class="form-control" placeholder="Gesetzesgrundlage" vmodel="row.id"
+                                :name="row.id + '_law'">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Summe" v-model="row.summe" :name="row.id + '_sum'">
+                            <input type="text" class="form-control" placeholder="Summe" v-model="row.summe"
+                                :name="row.id + '_sum'">
                         </div>
                         <div class="col">
                             <button class="btn btn-danger" @click="deleteRow(row)">Löschen</button>
@@ -37,34 +39,5 @@
         </form>
     </div>
 </div>
-<script>
-    const sachverhaltOptions = JSON.parse('{{cases_and_sums | tojson}}');
-    console.log(sachverhaltOptions);
-
-    const { createApp } = Vue
-    createApp({
-        el: '#multiRowForm',
-        data() {
-            return {
-                options: sachverhaltOptions,
-                rows: [
-                    { 'select': 1, 'id': 0 }
-                ]
-            };
-        },
-        methods: {
-            addRow: function () {
-                try {
-                    newId = this.rows[this.rows.length -1]["id"] + 1
-                } catch {
-                    newId = 0
-                }
-                this.rows.push({ 'select': 1, 'id': newId});
-            },
-            deleteRow: function (row) {
-                const filteredRow = this.rows.filter(element => element !== row);
-                this.rows = filteredRow;
-            }
-        }
-    }).mount('#multiRowForm')
+<script src="./solve_task.js">
 </script>
