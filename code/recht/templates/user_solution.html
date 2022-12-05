@@ -52,7 +52,7 @@
     console.log(allSolutions);
     let correctSolutions = [];
     for (const solution in allSolutions) {
-        correctSolutions.push= {'task':solution, 'solved_by': '', 'solved': false };
+        correctSolutions.push({'task':solution, 'solved_by': '', 'solved': false });
     }
     const { createApp } = Vue
     createApp({
@@ -118,28 +118,27 @@
                     row.num === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
 
                     console.log(row)
-
                     this.evaluateCorrectnessOfRow(row.isCorrect, row);
                 }
             },
             setCorrespondingRows: function (row) {
-                for (sol in correctSolutions) {
-                    row.select === sol.task ? sol.solved_by = sol.solved_by : '';
+                for (let sol of correctSolutions) {
+                    row.select === sol.task ? sol.solved_by = row.id : null;
                 }
             },
             solve: function () {
                 console.log(allSolutions)
-                console.log(correctSolutions);
                 // initialize dict to check if all tasks are correct
                 for (const row of this.rows) {
                     this.checkCorrectInputs(row);
-                    for (let sol in correctSolutions) {
+                    this.setCorrespondingRows(row)
+                    for (let sol of correctSolutions) {
                         if (row.id === sol.solved_by) {
                             row.isCorrect.case_name && row.isCorrect.law && row.isCorrect.num ? sol.solved = true : sol.solved = false;
                         } 
                     }
-                    
                 }
+                console.log(correctSolutions);
             },
             evaluateCorrectnessOfRow: function (isCorrect, row) {
                 const caseInput = document.getElementById(row.id + "_case_name");
