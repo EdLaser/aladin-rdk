@@ -9,19 +9,20 @@
                 <div class="col col-xs-12">
                     <div class="row mb-3">
                         <div class="col">
-                            <select :name="row.id + '_case_name'" id="" class="form-control" v-model="row.select">
+                            <select :name="row.id + '_case_name'" :id="row.id + '_case_name'" class="form-control"
+                                v-model="row.select">
                                 <option selected disabled>Sachverhalt auswählen</option>
                                 <option :value="opt.name" v-for="opt in options">{% raw %} {{ opt.name }} {% endraw %}
                                 </option>
                             </select>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Gesetzesgrundlage"
-                                v-model="row.law" :name="row.id + '_law'">
+                            <input type="text" class="form-control" :id="row.id + '_law'"
+                                placeholder="Gesetzesgrundlage" v-model="row.law" :name="row.id + '_law'">
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" placeholder="Summe"
-                                v-model="row.num" :name="row.id + '_sum'">
+                            <input type="number" class="form-control" :id="row.id + '_num'" placeholder="Summe"
+                                v-model="row.num" :name="row.id + '_num'">
                         </div>
                         <div class="col">
                             <button class="btn btn-danger" @click="deleteRow(row)">Löschen</button>
@@ -86,11 +87,39 @@
                     const correctSolution = allSolutions[row.select];
                     row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
                     row.num === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
+                    console.log(row)
+                    this.evaluateCorrectness(row.isCorrect, row);
                 }
             },
             solve: function () {
                 for (const row of this.rows) {
                     this.checkCorrectInputs(row)
+                }
+            },
+            evaluateCorrectness: function (isCorrect, row) {
+                const caseInput = document.getElementById(row.id + "_case_name");
+                const lawInput = document.getElementById(row.id + "_law");
+                const sumInput = document.getElementById(row.id + "_num");
+
+                if (isCorrect.case_name) {
+                    caseInput.className = "form-control border-success border border-5";
+                    caseInput.disabled = true;
+                } else {
+                    caseInput.className = "form-control border-danger border border-5";
+                }
+
+                if (isCorrect.law) {
+                    lawInput.className = "form-control border-success border border-5";
+                    lawInput.disabled = true;
+                } else {
+                    lawInput.className = "form-control border-danger border border-5";
+                }
+
+                if (isCorrect.num) {
+                    sumInput.className = "form-control border-success border border-5";
+                    sumInput.disabled = true;
+                } else {
+                    caseInput.className = "form-control border-danger border border-5";
                 }
             }
         }
