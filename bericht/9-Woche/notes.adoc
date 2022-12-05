@@ -1,6 +1,16 @@
 = Aladin 9 Woche
 
-Gewünschter Sachverhalt lässt sich einzeln herausfiltern und wird dann gewünscht generiert. Es gibt aber NUR EINEN Sachverhalt der dann generiert wird, nicht mehrere.  
+Gewünschter Sachverhalt lässt sich einzeln herausfiltern und wird dann gewünscht generiert. Der Algorithmus sucht nach den gewünschten Cases und generiert diese. werdne sie nicht gefunden verwendet er einen zufälligen Case aus dem Pool. Gefühlt funktioniert es nicht so ganz.
+Aufgaben können gelöst werden, ist eine Reihe korrekt wird sie komplett gelockt.
+
+Umfang und Schwierigkeit als Parameter (jetzige Schwierigkeit auftrennen) -> Schwierigkeit sagt dann aus, wie viel unterschiedliche Sachverhalte enthalten sind. 
+Umfang sagt wie viele Inhalte insgesamt. 
+LAbel über Schwierigkeit bzw Umfang und Zufällig als selected option beim Start. 
+Checken was passiert bei niedrigem Umfang und hoher Schwierigkeit
+Expertenoption um alle Parameter offenzulegen
+
+Dropdown Box für Paragraphen oder Levenstein Distanz
+
 
 == Weitere Ideen
 * Hints mit teilweisem Preisgeben von Paragraphen
