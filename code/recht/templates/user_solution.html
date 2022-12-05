@@ -16,11 +16,11 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input @onchange="log()" type="text" class="form-control" placeholder="Gesetzesgrundlage"
+                            <input type="text" class="form-control" placeholder="Gesetzesgrundlage"
                                 vmodel="row.law" :name="row.id + '_law'">
                         </div>
                         <div class="col">
-                            <input @onchange="log()" type="number" class="form-control" placeholder="Summe"
+                            <input type="number" class="form-control" placeholder="Summe"
                                 v-model="row.num" :name="row.id + '_sum'">
                         </div>
                         <div class="col">
