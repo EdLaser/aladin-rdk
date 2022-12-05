@@ -1,5 +1,7 @@
 const sachverhaltOptions = JSON.parse('{{cases_and_sums | tojson}}');
+const allSolutions = JSON.parse('{{solutions | tojson}}');
 console.log(sachverhaltOptions);
+console.log(allSolutions);
 
 const { createApp } = Vue
 createApp({
