@@ -25,7 +25,7 @@
                                 v-model="row.num" :name="row.id + '_num'">
                         </div>
                         <div class="col">
-                            <button class="btn btn-danger" @click="deleteRow(row)">Löschen</button>
+                            <button class="btn btn-danger" :id="row.id + '_del'" @click="deleteRow(row)">Löschen</button>
                         </div>
                     </div>
                 </div>
@@ -83,11 +83,15 @@
             },
             checkCorrectInputs: function (row) {
                 if (row.select in allSolutions) {
+                    
                     row.isCorrect.case_name = true;
                     const correctSolution = allSolutions[row.select];
+                    
                     row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
                     row.num === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
+                    
                     console.log(row)
+                    
                     this.evaluateCorrectness(row.isCorrect, row);
                 }
             },
@@ -119,8 +123,11 @@
                     sumInput.className = "form-control border-success border border-5";
                     sumInput.disabled = true;
                 } else {
-                    caseInput.className = "form-control border-danger border border-5";
+                    sumInput.className = "form-control border-danger border border-5";
                 }
+
+                const delBtn = document.getElementById(row.id + '_del');
+                isCorrect.case_name && isCorrect.law && isCorrect.num ? delBtn.disabled = true : delBtn.disabled = false;
             }
         }
     }).mount('#multiRowForm')
