@@ -3,6 +3,9 @@
 Gewünschter Sachverhalt lässt sich einzeln herausfiltern und wird dann gewünscht generiert. Der Algorithmus sucht nach den gewünschten Cases und generiert diese. werdne sie nicht gefunden verwendet er einen zufälligen Case aus dem Pool. Gefühlt funktioniert es nicht so ganz.
 Aufgaben können gelöst werden, ist eine Reihe korrekt wird sie komplett gelockt.
 Die Anzahl der Reihen zum lösen ist an die Anzahl der Aufgaben geknüpft und darf diese nicht überschreiten. Wird sie überschritten kann keine Reihe hinzugefügt werden. Wird eine Reihe gelöscht wird das Hinzufügen wieder freigeschalten.
+Es wird überprüft ob alle Reihen gelöst wurden, wenn ja ist die Aufgabe gelöst.
+
+Ich muss mir den Algorithmus zur Generierungn nochmal anschauen
 
 Input:
 Umfang und Schwierigkeit als Parameter (jetzige Schwierigkeit auftrennen) -> Schwierigkeit sagt dann aus, wie viel unterschiedliche Sachverhalte enthalten sind. 
