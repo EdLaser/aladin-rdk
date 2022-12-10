@@ -52,7 +52,7 @@
     console.log(allSolutions);
     let correctSolutions = [];
     for (const solution in allSolutions) {
-        correctSolutions.push({'task':solution, 'solved_by': '', 'solved': false });
+        correctSolutions.push({ 'task': solution, 'solved_by': '', 'solved': false });
     }
     const { createApp } = Vue
     createApp({
@@ -137,7 +137,7 @@
                         // check if all rows are solved
                         if (row.id === sol.solved_by) {
                             row.isCorrect.case_name && row.isCorrect.law && row.isCorrect.num ? sol.solved = true : sol.solved = false;
-                        } 
+                        }
                     }
                 }
                 console.log(correctSolutions);
