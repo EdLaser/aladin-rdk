@@ -93,12 +93,12 @@
                 } else {
                     warningOrSuccessDiv.className = "alert alert-danger";
                     warningOrSuccessDiv.innerHTML = "Mehr Reihen brauchst du nicht."
+                    
                     setTimeout(function () {
                         warningOrSuccessDiv.innerHTML = '';
                         warningOrSuccessDiv.className = '';
                     }, 4000);
                     document.getElementById('addRow').disabled = true
-
                 }
             },
             deleteRow: function (row) {
