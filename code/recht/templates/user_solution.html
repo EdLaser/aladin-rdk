@@ -121,6 +121,7 @@
                     this.evaluateCorrectnessOfRow(row.isCorrect, row);
                 }
             },
+            // set which task is solved by which row
             setCorrespondingRows: function (row) {
                 for (let sol of correctSolutions) {
                     row.select === sol.task ? sol.solved_by = row.id : null;
@@ -133,6 +134,7 @@
                     this.checkCorrectInputs(row);
                     this.setCorrespondingRows(row)
                     for (let sol of correctSolutions) {
+                        // check if all rows are solved
                         if (row.id === sol.solved_by) {
                             row.isCorrect.case_name && row.isCorrect.law && row.isCorrect.num ? sol.solved = true : sol.solved = false;
                         } 
