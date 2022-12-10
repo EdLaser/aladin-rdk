@@ -46,11 +46,6 @@
         </form>
     </div>
 </div>
-<div class="d-flex flex-row bd-highlight mb-3">
-    <div class="container" id="successMessage">
-
-    </div>
-</div>
 <script>
     const sachverhaltOptions = JSON.parse('{{cases_and_sums | tojson}}');
     const allSolutions = JSON.parse('{{solutions | tojson}}');
@@ -155,9 +150,12 @@
                             areSolved += 1;
                         }
                 }
-                const successMsg = document.getElementById('successMessage');
+                const successMsg = document.getElementById('warningOrSuccess');
                 console.log(areSolved);
-                areSolved === correctSolutions.length ?  successMsg.innerHTML = "Alles gelöst" : "";
+                if (areSolved === correctSolutions.length) {
+                    successMsg.innerHTML = "Alles gelöst";
+                    successMsg.className = "alert alert-success"
+                }
                 console.log(correctSolutions);
             },
             evaluateCorrectnessOfRow: function (isCorrect, row) {
