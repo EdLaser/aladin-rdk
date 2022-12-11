@@ -29,12 +29,14 @@
                 <form action="" method="post">
                     <div class="row mb-3 justify-content-center">
                         <div class="col-auto">
-                            <label for="amountTasks" class="form-label">Umfang der Aufgabe</label>
-                            <input type="range" min="1" max={{ all_cases_to_choose| length }} step="1" name="amount" id="amountTasks" class="form-range">
+                            <label for="amountTasks" class="form-label" id="labelForSlider">Umfang der Aufgabe</label>
+                            <input type="range" min="1" max={{ all_cases_to_choose| length }} step="1" name="amount"
+                                id="amountTasks" class="form-range" oninput="showValueOfSlider(this.value)">
                         </div>
                         <div class="col-auto">
                             <label for="selectDif" class="form-label">Schwierigkeit</label>
-                            <select class="form-select" aria-label="Schwierigkeit auswählen" name="difficulty" id="selectDif">
+                            <select class="form-select" aria-label="Schwierigkeit auswählen" name="difficulty"
+                                id="selectDif">
                                 <option selected value="0">Zufällig</option>
                                 <option value="1">Leicht</option>
                                 <option value="2">Mittel</option>
@@ -57,8 +59,8 @@
                                     {% for key in all_cases_to_choose.keys() %}
                                     <div class="col">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" name="needed" type="checkbox" value={{ key }} id={{ key
-                                                }}>
+                                            <input class="form-check-input" name="needed" type="checkbox" value={{ key
+                                                }} id={{ key }}>
                                             <label class="form-check-label" for={{ key }}>
                                                 {{ key }}
                                             </label>
@@ -115,10 +117,18 @@
     }
 
     const selectField = document.getElementById('selectDif');
-    selectField.addEventListener('change', function() {
+    selectField.addEventListener('change', function () {
         const selectedValue = selectField.options[selectField.selectedIndex].text
         console.log(selectedValue);
         setGenerateButtonText("Zufällige Aufgaben mit Grad " + selectedValue);
     });
+
+    function showValueOfSlider(value) {
+        const slider = document.getElementById('amountTasks');
+        const labelForSlider = document.getElementById('labelForSlider');
+
+        labelForSlider.innerHTML = `${value} Aufgaben`;
+    }
 </script>
+
 </html>
