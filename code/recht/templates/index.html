@@ -26,52 +26,7 @@
                 Hier werden Aufgaben zum Steuerrecht generiert!
             </p>
             <div class="row justify-content-center">
-                <form action="" method="post">
-                    <div class="row mb-3 justify-content-center">
-                        <div class="col-auto">
-                            <label for="amountTasks" class="form-label" id="labelForSlider">Umfang der Aufgabe</label>
-                            <input type="range" min="1" max={{ all_cases_to_choose| length }} step="1" name="amount"
-                                id="amountTasks" class="form-range" oninput="showValueOfSlider(this.value)">
-                        </div>
-                        <div class="col-auto">
-                            <label for="selectDif" class="form-label">Schwierigkeit</label>
-                            <select class="form-select" aria-label="Schwierigkeit auswählen" name="difficulty"
-                                id="selectDif">
-                                <option selected value="0">Zufällig</option>
-                                <option value="1">Leicht</option>
-                                <option value="2">Mittel</option>
-                                <option value="3">Schwer</option>
-                            </select>
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#neededSelect" aria-expanded="false" aria-controls="neededSelect">
-                                Muss enthalten sein
-                            </button>
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" value="generate" id="generateBtn"
-                                class="btn btn-primary float-right">Zufällige Schwierigkeit</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="collapse" id="neededSelect">
-                                <div class="row">
-                                    {% for key in all_cases_to_choose.keys() %}
-                                    <div class="col">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" name="needed" type="checkbox" value={{ key
-                                                }} id={{ key }}>
-                                            <label class="form-check-label" for={{ key }}>
-                                                {{ key }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                {% include 'costumize_task.html' %}
             </div>
             <div class="container">
                 <div class="d-flex flex-row justify-content-center bd-highlight mb-3">
