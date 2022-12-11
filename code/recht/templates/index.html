@@ -30,7 +30,7 @@
                     <div class="row mb-3 justify-content-center">
                         <div class="col-auto">
                             <label for="amountTasks" class="form-label">Umfang der Aufgabe</label>
-                            <input type="number" name="amount" id="amountTasks" class="form-control">
+                            <input type="range" min="1" max={{ all_cases_to_choose| length }} step="1" name="amount" id="amountTasks" class="form-range">
                         </div>
                         <div class="col-auto">
                             <label for="selectDif" class="form-label">Schwierigkeit</label>
