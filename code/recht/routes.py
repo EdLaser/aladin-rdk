@@ -53,28 +53,42 @@ def index():
             return (upload_file(request))
         else:
             # while not 'submitSolution' in request.form
-            selected_dif = request.form.get('difficulty')
+            selected_dif = int(request.form.get('difficulty'))
             needed = request.form.getlist('needed')
+            amount = int(request.form.get('amount'))
             
-            # difficulty is not set, pick a random one
-            if not selected_dif:
+            # BLOCK START
+            if selected_dif == 0 and needed and amount:
                 # needed cases are set use them
-                if needed:
-                    generated_values = gen.generate(DIFF_MAP[random.randrange(1, 3)], needed)
-                    return return_template_with_values(generated_values, all_cases_to_choose)
-                # no needed cases ? random diff !
-                else:
-                    generated_values = gen.generate(DIFF_MAP[random.randrange(1, 3)])
-                    return return_template_with_values(generated_values, all_cases_to_choose)
-            # difficulty is set 
-            else:
+                generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount, needed=needed)
+                return return_template_with_values(generated_values, all_cases_to_choose)
+            
+            if selected_dif == 0 and not needed and amount:
+                generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount,)
+                return return_template_with_values(generated_values, all_cases_to_choose)
+            
+            if selected_dif == 0 and needed and not amount:
+                pass
+
+            if selected_dif == 0 and not needed and not amount:
+                pass
+            #BLOCK END
+
+            #BLOCK START
+            if selected_dif > 0 and needed and amount:
                 # ah certain cases are needed
-                if needed:
-                    generated_values = gen.generate(DIFF_MAP[int(selected_dif)], needed)
-                    return return_template_with_values(generated_values, all_cases_to_choose)
-                # no needed cases ? Go for the set difficulty
-                else:
-                    generated_values = gen.generate(DIFF_MAP[int(selected_dif)])
-                    return return_template_with_values(generated_values, all_cases_to_choose)
+                generated_values = gen.generate(difficulty=DIFF_MAP[selected_dif], amount=amount, needed=needed)
+                return return_template_with_values(generated_values, all_cases_to_choose)
+
+            if selected_dif > 0 and not needed and amount:
+                generated_values = gen.generate(DIFF_MAP[selected_dif], amount=amount,)
+                return return_template_with_values(generated_values, all_cases_to_choose)
+
+            if selected_dif > 0 and needed and not amount:
+                pass
+
+            if selected_dif > 0 and not needed and not amount:
+                pass
+            #BLOCK END
     else:
         return render_template('index.html', all_cases_to_choose= all_cases_to_choose)
