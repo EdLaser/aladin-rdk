@@ -68,18 +68,6 @@
     </div>
 </body>
 <script>
-    function setGenerateButtonText(btnText) {
-        const generateBtn = document.getElementById('generateBtn');
-        generateBtn.innerHTML = btnText;
-    }
-
-    const selectField = document.getElementById('selectDif');
-    selectField.addEventListener('change', function () {
-        const selectedValue = selectField.options[selectField.selectedIndex].text
-        console.log(selectedValue);
-        setGenerateButtonText("Zufällige Aufgaben mit Grad " + selectedValue);
-    });
-
     function showValueOfSlider(value) {
         const slider = document.getElementById('amountTasks');
         const labelForSlider = document.getElementById('labelForSlider');
