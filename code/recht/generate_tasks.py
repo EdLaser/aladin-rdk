@@ -109,9 +109,8 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
             x = 0
             while x < amount - len(needed_cases):
                 new_case = build_case(nodepool)
-                if new_case.name in already_generated and len(already_generated) < difficulty:
-                    continue
-                else:
+                # not casename not already generated
+                if new_case.name not in already_generated and len(already_generated) < difficulty:
                     sentences.append(build_sent(new_case))
                     already_generated.append(new_case.name)
                     build_solution(new_case, sol)
@@ -120,9 +119,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
         x = 0
         while x < amount:
             new_case = build_case(nodepool)
-            if new_case.name in already_generated and len(already_generated) < difficulty:
-                continue
-            else:
+            if new_case.name not in already_generated and len(already_generated) < difficulty:
                 sentences.append(build_sent(new_case))
                 already_generated.append(new_case.name)
                 build_solution(new_case, sol)
