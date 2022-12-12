@@ -9,6 +9,9 @@ class Case:
     def __str__(self) -> str:
         return f"Name of case: {self.name} Subject: {self.subject} Verb: {self.verb} Object: {self.object} Number: {self.number}"
 
+    def __repr__(self) -> str:
+        return f"Name of case: {self.name} Subject: {self.subject} Verb: {self.verb} Object: {self.object} Number: {self.number}"
+
     def set_name(self, name: str) -> str:
         '''
         Set name of the case.
