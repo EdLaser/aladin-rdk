@@ -25,55 +25,19 @@
             <p class="lead">
                 Hier werden Aufgaben zum Steuerrecht generiert!
             </p>
-            <div class="row justify-content-center">
-                <form action="" method="post">
-                    <div class="row mb-3 justify-content-center">
-                        <div class="col-auto">
-                            <select class="form-select" aria-label="Schwierigkeit auswählen" name="difficulty" id="selectDif">
-                                <option selected disabled>Schwierigkeitsstufe</option>
-                                <option value="1">Leicht</option>
-                                <option value="2">Mittel</option>
-                                <option value="3">Schwer</option>
-                            </select>
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#neededSelect" aria-expanded="false" aria-controls="neededSelect">
-                                Muss enthalten sein
-                            </button>
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" value="generate" id="generateBtn"
-                                class="btn btn-primary float-right">Zufällige Schwierigkeit</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="collapse" id="neededSelect">
-                                <div class="row">
-                                    {% for key in all_cases_to_choose.keys() %}
-                                    <div class="col">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" name="needed" type="checkbox" value={{ key }} id={{ key
-                                                }}>
-                                            <label class="form-check-label" for={{ key }}>
-                                                {{ key }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="container">
-                <div class="d-flex flex-row justify-content-center bd-highlight mb-3">
-                    <div class="d-flex justify-content-center">
+            <div class="container w-100 mb-5">
+                <div class="row justify-content-center">
+                    <div class="col">
                         {% if sentences %}
                         {% include 'task_space.html' %}
                         {% endif %}
                     </div>
+                    <div class="col">
+                        {% include 'costumize_task.html' %}
+                    </div>
                 </div>
+            </div>
+            <div class="container">
                 <div class="d-flex flex-row bd-highlight mb-3">
                     {% if cases_and_sums %}
                     {% include 'user_solution.html' %}
@@ -104,16 +68,12 @@
     </div>
 </body>
 <script>
-    function setGenerateButtonText(btnText) {
-        const generateBtn = document.getElementById('generateBtn');
-        generateBtn.innerHTML = btnText;
-    }
+    function showValueOfSlider(value) {
+        const slider = document.getElementById('amountTasks');
+        const labelForSlider = document.getElementById('labelForSlider');
 
-    const selectField = document.getElementById('selectDif');
-    selectField.addEventListener('change', function() {
-        const selectedValue = selectField.options[selectField.selectedIndex].text
-        console.log(selectedValue);
-        setGenerateButtonText("Zufällige Aufgaben mit Grad " + selectedValue);
-    });
+        labelForSlider.innerHTML = `${value} Aufgaben`;
+    }
 </script>
+
 </html>

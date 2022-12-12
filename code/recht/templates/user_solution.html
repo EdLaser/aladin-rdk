@@ -52,7 +52,7 @@
     console.log(allSolutions);
     let correctSolutions = [];
     for (const solution in allSolutions) {
-        correctSolutions.push({'task':solution, 'solved_by': '', 'solved': false });
+        correctSolutions.push({ 'task': solution, 'solved_by': '', 'solved': false });
     }
     const { createApp } = Vue
     createApp({
@@ -93,8 +93,12 @@
                 } else {
                     warningOrSuccessDiv.className = "alert alert-danger";
                     warningOrSuccessDiv.innerHTML = "Mehr Reihen brauchst du nicht."
+                    
+                    setTimeout(function () {
+                        warningOrSuccessDiv.innerHTML = '';
+                        warningOrSuccessDiv.className = '';
+                    }, 4000);
                     document.getElementById('addRow').disabled = true
-
                 }
             },
             deleteRow: function (row) {
@@ -121,6 +125,7 @@
                     this.evaluateCorrectnessOfRow(row.isCorrect, row);
                 }
             },
+            // set which task is solved by which row
             setCorrespondingRows: function (row) {
                 for (let sol of correctSolutions) {
                     row.select === sol.task ? sol.solved_by = row.id : null;
@@ -128,15 +133,28 @@
             },
             solve: function () {
                 console.log(allSolutions)
+                let areSolved = 0; 
                 // initialize dict to check if all tasks are correct
                 for (const row of this.rows) {
                     this.checkCorrectInputs(row);
                     this.setCorrespondingRows(row)
                     for (let sol of correctSolutions) {
+                        // check if all rows are solved
                         if (row.id === sol.solved_by) {
                             row.isCorrect.case_name && row.isCorrect.law && row.isCorrect.num ? sol.solved = true : sol.solved = false;
-                        } 
+                        }
                     }
+                }
+                for (let solution of correctSolutions) {
+                    if (solution.solved) {
+                            areSolved += 1;
+                        }
+                }
+                const successMsg = document.getElementById('warningOrSuccess');
+                console.log(areSolved);
+                if (areSolved === correctSolutions.length) {
+                    successMsg.innerHTML = "Alles gelöst";
+                    successMsg.className = "alert alert-success"
                 }
                 console.log(correctSolutions);
             },

@@ -81,7 +81,7 @@ def build_case_and_solution(sentences: list[str], nodepool: NodePool, sol: Dict[
         sol[case.name] = Solution(case_name=case.name, number=case.number,
                                         type_of_case='Einnahme')
 
-def pick(difficulty: int, nodepool: NodePool, sol: Dict[str, Solution], needed_cases: List[str] = []) -> List[str]:
+def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Solution], needed_cases: List[str] = []) -> List[str]:
     """
     Pick a node of the pool the given ammount of times.
 
@@ -90,24 +90,23 @@ def pick(difficulty: int, nodepool: NodePool, sol: Dict[str, Solution], needed_c
         nodepool(NodePool): The nodepool to pick the nodes from.
         sol(dict): Dictionary of the Solutions
     """
-    # Traversiere immer wieder mit einer zufälligen Kombination
     sentences = []
     if needed_cases:
         for needed_case in needed_cases:
             build_case_and_solution(sentences, nodepool, sol, needed_case)
-        if len(needed_cases) > difficulty:
+        if len(needed_cases) > amount:
             return sentences
         else:
-            for x in range(difficulty - len(needed_cases)):
+            for x in range(amount - len(needed_cases)):
                 build_case_and_solution(sentences, nodepool, sol)
     else:
-        for x in range(difficulty):
+        for x in range(amount):
             build_case_and_solution(sentences, nodepool, sol)
         # nodepool.remove_node(random_case)
     return sentences
 
 
-def generate(difficulty: int, needed: List[str] = []) -> Dict:
+def generate(difficulty: int, amount: int, needed: List[str] = []) -> Dict:
     solutions: Dict[str, Solution] = {}
     opt_list = {}
 
@@ -120,9 +119,9 @@ def generate(difficulty: int, needed: List[str] = []) -> Dict:
     add_all(pool, spending_cases)
 
     if difficulty in range(1, 11):
-        sentences = pick(difficulty, pool, solutions, needed)
+        sentences = pick(difficulty=difficulty, amount=amount, nodepool=pool, sol=solutions, needed_cases=needed)
     else:
-        sentences = pick(5, pool, solutions)
+        sentences = pick(difficulty=5, amount=amount, nodepool=pool, sol=solutions)
 
     for val in law.ALL.values():
         map_laws(solutions, val)
