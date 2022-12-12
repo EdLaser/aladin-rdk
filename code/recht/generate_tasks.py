@@ -138,4 +138,4 @@ def show_all_cases():
 
 
 if __name__ == '__main__':
-    generate(5)
+    generate(difficulty=5, amount=5)
