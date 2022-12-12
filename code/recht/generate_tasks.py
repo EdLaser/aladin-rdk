@@ -71,7 +71,7 @@ def build_solution(case: Case, solutions: Dict[str, Solution]):
                                         type_of_case='Einnahme')
 
 
-def build_case(nodepool: NodePool, already_generated: List[str], needed: str=""):
+def build_case(nodepool: NodePool, needed: str=""):
     if needed:
         # if needed is given and case found, then append it, if not append random case
         case = nodepool.pick_node(needed)
@@ -100,14 +100,14 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
 
     if needed_cases:
         for needed_case in needed_cases:
-            new_case = build_case(nodepool, already_generated=already_generated, needed=needed_case)
+            new_case = build_case(nodepool, needed=needed_case)
             sentences.append(build_sent(new_case))
         if len(needed_cases) > amount:
             return sentences
         else:
             x = 0
             while x < amount - len(needed_cases):
-                new_case = build_case(nodepool, already_generated=already_generated)
+                new_case = build_case(nodepool)
                 if new_case in already_generated:
                     continue
                 else:
@@ -117,7 +117,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
     else:
         x = 0
         while x < amount:
-            new_case = build_case(nodepool, already_generated=already_generated)
+            new_case = build_case(nodepool)
             if new_case in already_generated:
                 continue
             else:
