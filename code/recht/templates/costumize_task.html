@@ -1,6 +1,6 @@
 <form action="" method="post">
     <div class="row mb-3 justify-content-center">
-        <div class="col-auto">
+        <div class="col-6">
             <label for="amountTasks" class="form-label" id="labelForSlider"> Aufgaben</label>
             <input type="range" min="1" max="15" step="1" name="amount" id="amountTasks"
                 class="form-range" oninput="showValueOfSlider(this.value)">
@@ -23,10 +23,10 @@
             </button>
         </div>
     </div>
-    <div class="row mb-3 justify-content-start">
+    <div class="row mb-3">
         <div class="collapse" id="neededSelect">
-            <div class="col-auto">
-                <div class="row row-cols-auto">
+            <div class="row">
+                <div class="row row-cols-3">
                     {% for key in all_cases_to_choose.keys() %}
                     <div class="col">
                         <div class="form-check form-check-inline">
