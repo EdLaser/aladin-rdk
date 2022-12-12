@@ -107,6 +107,14 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
 
 
 def generate(difficulty: int, amount: int, needed: List[str] = []) -> Dict:
+    """
+    Generate all the tasks with the given Parameters.
+    
+    Parameters:
+        difficulty(int): Number of different task types in the Task.
+        amount(int): The amount of tasks generated.
+        needed(List[str]): Task that the client definitely wants to be generated.
+    """
     solutions: Dict[str, Solution] = {}
     opt_list = {}
 
