@@ -96,18 +96,34 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
     """
     sentences = []
     already_generated: List[str] = []
+    
 
     if needed_cases:
         for needed_case in needed_cases:
-            sentences.append(build_sent(build_case(nodepool, already_generated=already_generated, needed=needed_case)))
+            new_case = build_case(nodepool, already_generated=already_generated, needed=needed_case)
+            sentences.append(build_sent(new_case))
         if len(needed_cases) > amount:
             return sentences
         else:
-            for x in range(amount - len(needed_cases)):
-                sentences.append(build_sent(build_case(nodepool, already_generated=already_generated)))
+            x = 0
+            while x < amount - len(needed_cases):
+                new_case = build_case(nodepool, already_generated=already_generated)
+                if new_case in already_generated:
+                    continue
+                else:
+                    sentences.append(build_sent(new_case))
+                    already_generated.append(new_case.name)
+                    x += 1
     else:
-        for x in range(amount):
-            sentences.append(build_sent(build_case(nodepool, already_generated=already_generated)))
+        x = 0
+        while x < amount:
+            new_case = build_case(nodepool, already_generated=already_generated)
+            if new_case in already_generated:
+                continue
+            else:
+                sentences.append(build_sent(new_case))
+                already_generated.append(new_case.name)
+                x += 1
         # nodepool.remove_node(random_case)
     return sentences
 
