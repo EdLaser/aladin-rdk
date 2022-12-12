@@ -1,0 +1,11 @@
+= Aladin 10 Woche
+
+Es wird angezeigt, wenn alle Aufgaben korrekt gelöst wurden. DIe UI habe ich umgestellt, sodass die Aufgaben nun neben den Interatktionen zur Generierung liegen. Außerdem sind nun Umfang und Schwierigkeit getrennt.
+
+
+== Weitere Ideen
+* Hints mit teilweisem Preisgeben von Paragraphen
+* Highlight der Hinweise in den Text
+* Repräsentation für MultiRowForm in Flask und dann Transformation
+* Größere Liste mit Vorauswahl mit "falschen" Werten als Köder
+* Aufgabengenerierung und Lösung der Aufgabe als Pseudo Code aufschreiben (am besten eine Seite)
