@@ -62,24 +62,28 @@ def map_laws(solutions: Dict[str, Solution], config: Dict[str, List[str]]):
                 pass
 
 
-def build_case_and_solution(sentences: list[str], nodepool: NodePool, sol: Dict[str, Solution], needed: str=""):
+def build_solution(case: Case, solutions: Dict[str, Solution]):
+    if 'WK' in case.name or 'Abschreibung' in case.name:
+            solutions[case.name] = Solution(case_name=case.name, number=case.number,
+                                            type_of_case='Ausgabe')
+    else:
+        solutions[case.name] = Solution(case_name=case.name, number=case.number,
+                                        type_of_case='Einnahme')
+
+
+def build_case(nodepool: NodePool, needed: str=""):
     if needed:
         # if needed is given and case found, then append it, if not append random case
         case = nodepool.pick_node(needed)
         if case:
-            sentences.append(build_sent(case))
+            return case
         else:
-            case = Case("something went wrong", "failure", "fail", "me", 0)
+            return Case("something went wrong", "failure", "fail", "me", 0)
     else:
         case = nodepool.pick_random_node()
-        sentences.append(build_sent(case))
+        return case
 
-    if 'WK' in case.name or 'Abschreibung' in case.name:
-            sol[case.name] = Solution(case_name=case.name, number=case.number,
-                                            type_of_case='Ausgabe')
-    else:
-        sol[case.name] = Solution(case_name=case.name, number=case.number,
-                                        type_of_case='Einnahme')
+
 
 def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Solution], needed_cases: List[str] = []) -> List[str]:
     """
@@ -91,25 +95,51 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
         sol(dict): Dictionary of the Solutions
     """
     sentences = []
+    # generated cases, len should ultimately equal the difficulty
+    already_generated: List[str] = []
+    
     if needed_cases:
         for needed_case in needed_cases:
-            build_case_and_solution(sentences, nodepool, sol, needed_case)
+            new_case = build_case(nodepool, needed=needed_case)
+            build_solution(new_case, sol)
+            sentences.append(build_sent(new_case))
         if len(needed_cases) > amount:
             return sentences
         else:
-            for x in range(amount - len(needed_cases)):
-                build_case_and_solution(sentences, nodepool, sol)
+            x = 0
+            while x < amount - len(needed_cases):
+                new_case = build_case(nodepool)
+                # not casename not already generated
+                if new_case.name not in already_generated and len(already_generated) < difficulty:
+                    sentences.append(build_sent(new_case))
+                    already_generated.append(new_case.name)
+                    build_solution(new_case, sol)
+                    x += 1
     else:
-        for x in range(amount):
-            build_case_and_solution(sentences, nodepool, sol)
+        x = 0
+        while x < amount:
+            new_case = build_case(nodepool)
+            if new_case.name not in already_generated and len(already_generated) < difficulty:
+                sentences.append(build_sent(new_case))
+                already_generated.append(new_case.name)
+                build_solution(new_case, sol)
+                x += 1
         # nodepool.remove_node(random_case)
     return sentences
 
 
 def generate(difficulty: int, amount: int, needed: List[str] = []) -> Dict:
+    """
+    Generate all the tasks with the given Parameters.
+    
+    Parameters:
+        difficulty(int): Number of different task types in the Task.
+        amount(int): The amount of tasks generated.
+        needed(List[str]): Task that the client definitely wants to be generated.
+    """
     solutions: Dict[str, Solution] = {}
     opt_list = {}
-
+    amount_different_task_types = len(sen.EARNINGS) + len(sen.SPENDINGS)
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
     spending_cases = dep.generate_all_spending_cases(
@@ -118,7 +148,7 @@ def generate(difficulty: int, amount: int, needed: List[str] = []) -> Dict:
     pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
 
-    if difficulty in range(1, 11):
+    if difficulty in range(1, amount_different_task_types):
         sentences = pick(difficulty=difficulty, amount=amount, nodepool=pool, sol=solutions, needed_cases=needed)
     else:
         sentences = pick(difficulty=5, amount=amount, nodepool=pool, sol=solutions)
@@ -138,4 +168,4 @@ def show_all_cases():
 
 
 if __name__ == '__main__':
-    generate(5)
+    generate(difficulty=5, amount=5)
