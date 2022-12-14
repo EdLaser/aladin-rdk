@@ -10,10 +10,11 @@ Ich muss mir den Algorithmus zur Generierungn nochmal anschauen
 Input:
 Umfang und Schwierigkeit als Parameter (jetzige Schwierigkeit auftrennen) -> Schwierigkeit sagt dann aus, wie viel unterschiedliche Sachverhalte enthalten sind. 
 Umfang sagt wie viele Inhalte insgesamt. 
-LAbel über Schwierigkeit bzw Umfang und Zufällig als selected option beim Start. 
+Label über Schwierigkeit bzw Umfang und Zufällig als selected option beim Start. Also BEschriftungen und dann Optionen nicht Beschriftung als Option
 Checken was passiert bei niedrigem Umfang und hoher Schwierigkeit
 Expertenoption um alle Parameter offenzulegen
-
+AUfgabenstellung größer machen
+Größere Lücken zwischen Buttons, Aufgabe und Lösung
 Dropdown Box für Paragraphen oder Levenstein Distanz
 
 
