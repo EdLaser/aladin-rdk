@@ -1,3 +1,4 @@
+import random
 from typing import List, Dict
 from library import dependencies as dep
 from library import sentenceparts as sen
@@ -128,7 +129,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
     return sentences
 
 
-def generate(difficulty: int, amount: int, needed: List[str] = []) -> Dict:
+def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.SPENDINGS)), amount: int = 5, needed: List[str] = []) -> Dict:
     """
     Generate all the tasks with the given Parameters.
     
@@ -147,11 +148,9 @@ def generate(difficulty: int, amount: int, needed: List[str] = []) -> Dict:
 
     pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
-
-    if difficulty in range(1, amount_different_task_types):
-        sentences = pick(difficulty=difficulty, amount=amount, nodepool=pool, sol=solutions, needed_cases=needed)
-    else:
-        sentences = pick(difficulty=5, amount=amount, nodepool=pool, sol=solutions)
+    
+    # difficulty ist here bisschen komisch
+    sentences = pick(difficulty=difficulty, amount=amount, nodepool=pool, sol=solutions, needed_cases=needed)
 
     for val in law.ALL.values():
         map_laws(solutions, val)
