@@ -140,7 +140,7 @@ def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.S
     """
     solutions: Dict[str, Solution] = {}
     opt_list = {}
-    amount_different_task_types = len(sen.EARNINGS) + len(sen.SPENDINGS)
+
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
     spending_cases = dep.generate_all_spending_cases(
