@@ -1,10 +1,11 @@
 import random
-import logging as log
+import json
 from typing import List, Dict
 
 from flask import render_template, request, Blueprint
 from werkzeug.utils import secure_filename
 import generate_tasks as gen
+from generator_strategie import Context, WithDifficultyAndAmount, WithDifficultyAndNeededAndAmount, Default
 
 bp = Blueprint('routes', __name__)
 ALLOWED_EXTENSIONS = {'json'}
@@ -41,6 +42,20 @@ def return_template_with_values(generated_values, all_cases_to_choose):
         solutions[key] = value.to_dict()
     return render_template('index.html', sentences=sentences, sol=sol, solutions=solutions,  sum=sum, cases_and_sums=cases_and_sums, all_cases_to_choose= all_cases_to_choose)
 
+
+def determine_strategie(parameters, context: Context):
+    if parameters.get('difficulty') and parameters.get('amount'):
+        context.set_strategy(WithDifficultyAndNeededAndAmount()) if parameters.get('needed') else context.set_strategy(WithDifficultyAndAmount())
+
+
+@bp.route("/get-task", methods=['GET'])
+def get_tasks():
+    args = request.args
+    context: Context = Context(Default())
+    determine_strategie(args, context)
+    return json.dumps(context.generate_tasks())
+
+
 @bp.route("/", methods=['GET', 'POST'])
 def index():
     all_cases_to_choose = gen.show_all_cases()
@@ -49,9 +64,6 @@ def index():
         return render_template('index.html', all_cases_to_choose= all_cases_to_choose)
 
     if request.method == 'POST':
-        if 'file' in request.files:
-            return (upload_file(request))
-        else:
             # while not 'submitSolution' in request.form
             selected_dif = int(request.form.get('difficulty'))
             needed = request.form.getlist('needed')
@@ -64,7 +76,7 @@ def index():
                 return return_template_with_values(generated_values, all_cases_to_choose)
             
             if selected_dif == 0 and not needed and amount:
-                generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount,)
+                generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount)
                 return return_template_with_values(generated_values, all_cases_to_choose)
             
             if selected_dif == 0 and needed and not amount:
