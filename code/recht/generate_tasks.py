@@ -110,7 +110,9 @@ def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[s
             while x < amount - len(needed_cases):
                 new_case = build_case(nodepool)
                 # not casename not already generated
-                if new_case.name not in already_generated and len(already_generated) < difficulty:
+                if new_case.name in already_generated and len(already_generated) < difficulty:
+                    continue
+                else:
                     all_cases.append(new_case)
                     already_generated.append(new_case.name)
                     # build_solution(new_case, sol)
@@ -119,7 +121,9 @@ def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[s
         x = 0
         while x < amount:
             new_case = build_case(nodepool)
-            if new_case.name not in already_generated and len(already_generated) < difficulty:
+            if new_case.name in already_generated and len(already_generated) < difficulty:
+                continue
+            else:
                 already_generated.append(new_case.name)
                 all_cases.append(new_case)
                 # build_solution(new_case, sol)
@@ -128,7 +132,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[s
     return all_cases
 
 
-def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.SPENDINGS)), amount: int = 5, needed: List[str] = []) -> List[Case]:
+def generate(difficulty: int=random.randrange(1, len(sen.EARNINGS) + len(sen.SPENDINGS)), amount: int=5, needed: List[str]=[]):
     """
     Generate all the tasks with the given Parameters.
     
