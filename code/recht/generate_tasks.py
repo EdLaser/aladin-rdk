@@ -35,7 +35,7 @@ def build_sent(case: Case):
     Parameters:
         case(Case): The case to build the sentence for.
     """
-    variation = var.build_variaton(case)
+    variation: str = var.build_variaton(case)
     if variation:
         return variation
     else:
@@ -95,7 +95,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
         nodepool(NodePool): The nodepool to pick the nodes from.
         sol(dict): Dictionary of the Solutions
     """
-    sentences = []
+    all_cases = []
     # generated cases, len should ultimately equal the difficulty
     already_generated: List[str] = []
     
@@ -103,16 +103,18 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
         for needed_case in needed_cases:
             new_case = build_case(nodepool, needed=needed_case)
             build_solution(new_case, sol)
-            sentences.append(build_sent(new_case))
+            # sentences.append(build_sent(new_case))
+            all_cases.append(new_case)
         if len(needed_cases) > amount:
-            return sentences
+            return all_cases
         else:
             x = 0
             while x < amount - len(needed_cases):
                 new_case = build_case(nodepool)
                 # not casename not already generated
                 if new_case.name not in already_generated and len(already_generated) < difficulty:
-                    sentences.append(build_sent(new_case))
+                    # sentences.append(build_sent(new_case))
+                    all_cases.append(new_case)
                     already_generated.append(new_case.name)
                     build_solution(new_case, sol)
                     x += 1
@@ -121,12 +123,13 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
         while x < amount:
             new_case = build_case(nodepool)
             if new_case.name not in already_generated and len(already_generated) < difficulty:
-                sentences.append(build_sent(new_case))
+                # sentences.append(build_sent(new_case))
                 already_generated.append(new_case.name)
+                all_cases.append(new_case)
                 build_solution(new_case, sol)
                 x += 1
         # nodepool.remove_node(random_case)
-    return sentences
+    return all_cases
 
 
 def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.SPENDINGS)), amount: int = 5, needed: List[str] = []) -> Dict:
@@ -158,9 +161,9 @@ def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.S
     for x, key in enumerate(solutions):
         opt_list[x] = {'name': key, 'value': solutions[key].number}
 
-    zve = calculate_zve(solutions)
+    # zve = calculate_zve(solutions)
 
-    return {'sentences': sentences, 'solution': solutions, 'sum': zve, 'cases_and_sums': opt_list}
+    return {'sentences': sentences, 'solution': solutions, 'cases_and_sums': opt_list}
 
 def show_all_cases():
     return { **sen.SPENDINGS, **sen.EARNINGS}
