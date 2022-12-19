@@ -61,3 +61,6 @@ class Case:
         '''
         self.number = number
         return self.number
+
+    def to_dict(self):
+        return {"name": self.name, "subject": self.subject, "verb": self.verb, "object": self.object, "number": self.number}
