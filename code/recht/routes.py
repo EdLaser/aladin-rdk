@@ -11,7 +11,7 @@ from generator_strategie import Context, WithDifficultyAndAmount, WithDifficulty
 bp = Blueprint('routes', __name__)
 ALLOWED_EXTENSIONS = {'json'}
 DIFF_MAP = {1: random.randrange(2, 4), 2: random.randrange(5, 8), 3: random.randrange(9, 11)}
-TASK: List[Task] = []
+TASKS: List[Task] = []
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -47,7 +47,10 @@ def return_template_with_values(generated_values, all_cases_to_choose):
 
 def determine_strategie(parameters, context: Context):
     if parameters.get('difficulty') and parameters.get('amount'):
-        context.set_strategy(WithDifficultyAndNeededAndAmount()) if parameters.get('needed') else context.set_strategy(WithDifficultyAndAmount())
+        if parameters.get('needed'):
+            context.strategy = WithDifficultyAndNeededAndAmount() 
+        else:
+            context.strategy = WithDifficultyAndAmount()
 
 
 @bp.route("/get-task", methods=['GET'])
@@ -57,7 +60,26 @@ def get_tasks():
     determine_strategie(args, context)
     generated_cases = context.generate_tasks(args)
     task = Task(cases = generated_cases)
+    TASKS.append(task)
     return json.dumps({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
+
+
+@bp.route("/solution", methods=['GET'])
+def get_solution():
+    solutions = {}
+    wanted_task = ""
+    id_of_task = int(request.args.get('id', 0))
+    for t in TASKS:
+        if t.id == id_of_task:
+            wanted_task = t
+    if not wanted_task:
+        return {"failure": "Task was not found"}
+
+    for c in wanted_task.cases:
+        solution = gen.build_solution(c)
+        solutions[solution.case_name] = solution.to_dict()
+
+    return json.dumps(solutions)
 
 
 @bp.route("/", methods=['GET', 'POST'])

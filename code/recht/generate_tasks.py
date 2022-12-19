@@ -63,12 +63,12 @@ def map_laws(solutions: Dict[str, Solution], config: Dict[str, List[str]]):
                 pass
 
 
-def build_solution(case: Case, solutions: Dict[str, Solution]):
+def build_solution(case: Case):
     if 'WK' in case.name or 'Abschreibung' in case.name:
-            solutions[case.name] = Solution(case_name=case.name, number=case.number,
+            return Solution(case_name=case.name, number=case.number,
                                             type_of_case='Ausgabe')
     else:
-        solutions[case.name] = Solution(case_name=case.name, number=case.number,
+        return Solution(case_name=case.name, number=case.number,
                                         type_of_case='Einnahme')
 
 
@@ -101,7 +101,6 @@ def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[s
     if needed_cases:
         for needed_case in needed_cases:
             new_case = build_case(nodepool, needed=needed_case)
-            # build_solution(new_case, sol)
             all_cases.append(new_case)
         if len(needed_cases) > amount:
             return all_cases
@@ -115,7 +114,6 @@ def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[s
                 else:
                     all_cases.append(new_case)
                     already_generated.append(new_case.name)
-                    # build_solution(new_case, sol)
                     x += 1
     else:
         x = 0
@@ -126,7 +124,6 @@ def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[s
             else:
                 already_generated.append(new_case.name)
                 all_cases.append(new_case)
-                # build_solution(new_case, sol)
                 x += 1
         # nodepool.remove_node(random_case)
     return all_cases
