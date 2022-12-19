@@ -84,9 +84,8 @@ def build_case(nodepool: NodePool, needed: str=""):
         case = nodepool.pick_random_node()
         return case
 
-
-
-def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Solution], needed_cases: List[str] = []) -> List[str]:
+# sol: Dict[str, Solution]
+def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[str] = []) -> List[str]:
     """
     Pick a node of the pool the given ammount of times.
 
@@ -102,7 +101,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
     if needed_cases:
         for needed_case in needed_cases:
             new_case = build_case(nodepool, needed=needed_case)
-            build_solution(new_case, sol)
+            # build_solution(new_case, sol)
             # sentences.append(build_sent(new_case))
             all_cases.append(new_case)
         if len(needed_cases) > amount:
@@ -116,7 +115,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
                     # sentences.append(build_sent(new_case))
                     all_cases.append(new_case)
                     already_generated.append(new_case.name)
-                    build_solution(new_case, sol)
+                    # build_solution(new_case, sol)
                     x += 1
     else:
         x = 0
@@ -126,7 +125,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool, sol: Dict[str, Soluti
                 # sentences.append(build_sent(new_case))
                 already_generated.append(new_case.name)
                 all_cases.append(new_case)
-                build_solution(new_case, sol)
+                # build_solution(new_case, sol)
                 x += 1
         # nodepool.remove_node(random_case)
     return all_cases
@@ -141,8 +140,8 @@ def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.S
         amount(int): The amount of tasks generated.
         needed(List[str]): Task that the client definitely wants to be generated.
     """
-    solutions: Dict[str, Solution] = {}
-    opt_list = {}
+    # solutions: Dict[str, Solution] = {}
+    # opt_list = {}
 
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
@@ -153,17 +152,17 @@ def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.S
     add_all(pool, spending_cases)
     
     # difficulty ist here bisschen komisch
-    sentences = pick(difficulty=difficulty, amount=amount, nodepool=pool, sol=solutions, needed_cases=needed)
+    all_cases = pick(difficulty=difficulty, amount=amount, nodepool=pool, needed_cases=needed)
 
-    for val in law.ALL.values():
-        map_laws(solutions, val)
+    # for val in law.ALL.values():
+    #     map_laws(solutions, val)
 
-    for x, key in enumerate(solutions):
-        opt_list[x] = {'name': key, 'value': solutions[key].number}
+    # for x, key in enumerate(solutions):
+    #     opt_list[x] = {'name': key, 'value': solutions[key].number}
 
     # zve = calculate_zve(solutions)
 
-    return {'sentences': sentences, 'solution': solutions, 'cases_and_sums': opt_list}
+    return {'all_cases': all_cases}
 
 def show_all_cases():
     return { **sen.SPENDINGS, **sen.EARNINGS}
