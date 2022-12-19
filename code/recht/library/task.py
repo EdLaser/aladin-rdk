@@ -1,4 +1,4 @@
-from nodepool.case import Case
+from library.nodepool.case import Case
 import itertools
 
 class Task():
