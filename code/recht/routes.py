@@ -55,7 +55,7 @@ def get_tasks():
     args = request.args
     context: Context = Context(Default())
     determine_strategie(args, context)
-    generated_cases = context.generate_tasks()
+    generated_cases = context.generate_tasks(args)
     task = Task(cases = generated_cases)
     return json.dumps({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
 
