@@ -85,7 +85,7 @@ def build_case(nodepool: NodePool, needed: str=""):
         return case
 
 # sol: Dict[str, Solution]
-def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[str] = []) -> List[str]:
+def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[str] = []) -> List[Case]:
     """
     Pick a node of the pool the given ammount of times.
 
@@ -131,7 +131,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[s
     return all_cases
 
 
-def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.SPENDINGS)), amount: int = 5, needed: List[str] = []) -> Dict:
+def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.SPENDINGS)), amount: int = 5, needed: List[str] = []) -> List[Case]:
     """
     Generate all the tasks with the given Parameters.
     
@@ -162,7 +162,7 @@ def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.S
 
     # zve = calculate_zve(solutions)
 
-    return {'all_cases': all_cases}
+    return all_cases
 
 def show_all_cases():
     return { **sen.SPENDINGS, **sen.EARNINGS}
