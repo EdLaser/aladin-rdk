@@ -3,6 +3,7 @@ import json
 from typing import List, Dict
 
 from flask import render_template, request, Blueprint
+from library.task import Task
 from werkzeug.utils import secure_filename
 import generate_tasks as gen
 from generator_strategie import Context, WithDifficultyAndAmount, WithDifficultyAndNeededAndAmount, Default
@@ -10,6 +11,7 @@ from generator_strategie import Context, WithDifficultyAndAmount, WithDifficulty
 bp = Blueprint('routes', __name__)
 ALLOWED_EXTENSIONS = {'json'}
 DIFF_MAP = {1: random.randrange(2, 4), 2: random.randrange(5, 8), 3: random.randrange(9, 11)}
+TASK: List[Task] = []
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -53,7 +55,9 @@ def get_tasks():
     args = request.args
     context: Context = Context(Default())
     determine_strategie(args, context)
-    return json.dumps(context.generate_tasks())
+    generated_cases = context.generate_tasks()
+    task = Task(cases = generated_cases)
+    return json.dumps({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
 
 
 @bp.route("/", methods=['GET', 'POST'])
