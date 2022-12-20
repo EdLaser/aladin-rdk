@@ -42,13 +42,12 @@ def build_sent(case: Case):
         return "Failure in Generation."
 
 
-def map_laws(solutions: Dict[str, Solution], config: Dict[str, List[str]]):
+def map_law(solution: Solution, config: Dict[str, List[str]]):
     for given_law, list_of_dep_cases in config.items():
-        for solution_name, sol in solutions.items():
-            if solution_name in list_of_dep_cases:
-                sol.law = given_law
-            else:
-                pass
+        if solution.case_name in list_of_dep_cases:
+            solution.law = given_law
+        else:
+            pass
 
 
 def build_solution(case: Case):
@@ -136,11 +135,6 @@ def generate(difficulty: int=random.randrange(1, len(sen.EARNINGS) + len(sen.SPE
     
     # difficulty ist here bisschen komisch
     all_cases = pick(difficulty=difficulty, amount=amount, nodepool=pool, needed_cases=needed)
-
-    # for val in law.ALL.values():
-    #     map_laws(solutions, val)
-
-    # zve = calculate_zve(solutions)
 
     return all_cases
 

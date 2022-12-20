@@ -1,10 +1,11 @@
 import random
 import json
 from typing import List, Dict
-
 from flask import render_template, request, Blueprint
-from library.task import Task
 from werkzeug.utils import secure_filename
+
+from library.task import Task
+from library.laws import ALL as all_laws
 import generate_tasks as gen
 from generator_strategie import Context, WithDifficultyAndAmount, WithDifficultyAndNeededAndAmount, Default
 
@@ -90,6 +91,8 @@ def get_solution(id_of_task):
 
     for c in wanted_task.cases:
         solution = gen.build_solution(c)
+        for law in all_laws:
+            gen.map_law(solution, law)
         if solution.type_of_case == 'Einnahme':
             zve += solution.number
         elif solution.type_of_case == 'Ausgabe':
