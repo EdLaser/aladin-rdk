@@ -186,14 +186,14 @@ export default {
                 </div>
                 <div class="d-flex flex-row m-3">
                     <div class="col">
-                        <button type="button" name="submitSolution" class="btn btn-primary" @click="solve">Aufgabe
+                        <button type="button" name="submitSolution" class="btn btn-primary" @click="solve()">Aufgabe
                             lösen</button>
                     </div>
                     <div class="col" id="warningOrSuccess">
 
                     </div>
                     <div class="col">
-                        <button id="addRow" type="button" class="btn btn-success" @click="addRow">Reihe
+                        <button id="addRow" type="button" class="btn btn-success" @click="addRow()">Reihe
                             hinzufügen</button>
                     </div>
                 </div>
