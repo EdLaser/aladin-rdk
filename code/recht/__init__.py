@@ -1,5 +1,5 @@
 import os
-
+from flask_cors import CORS
 from flask import (Flask, render_template)
 from flask import g
 
@@ -28,7 +28,7 @@ def create_app(test_config=None):
 
     import routes
     from flask import request
-
+    CORS(app, resources={r'/*': {'origins': '*'}})
     @app.before_request
     def log_request_info():
         app.logger.debug(f'Body: {request.form}')
