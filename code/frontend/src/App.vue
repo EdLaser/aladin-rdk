@@ -1,3 +1,13 @@
+<script>
+import MainAppComponent from "./components/MainAppComponent.vue"
+
+export default {
+    components: {
+        MainAppComponent
+    }
+}
+</script>
+
 <template>
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
@@ -13,15 +23,7 @@
             </div>
         </header>
         <main class="px-3">
-            <h1>Generierung einer Aufgabe</h1>
-            <p class="lead">
-                Hier werden Aufgaben zum Steuerrecht generiert!
-            </p>
-            <div class="container w-100 mb-5">
-                <div class="row justify-content-center">
-                    Test
-                </div>
-            </div>
+            <MainAppComponent />
         </main>
     </div>
 </template>
