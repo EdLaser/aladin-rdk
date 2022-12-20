@@ -107,32 +107,3 @@ def get_solution(id_of_task):
 @bp.route("/cases-to-chooose", methods=['GET'])
 def get_cases_to_choose():
     return json.dumps(gen.show_all_cases())
-
-
-def index():
-    all_cases_to_choose = gen.show_all_cases()
-    
-    # while not 'submitSolution' in request.form
-    selected_dif = int(request.form.get('difficulty'))
-    needed = request.form.getlist('needed')
-    amount = int(request.form.get('amount'))
-    
-    # BLOCK START
-    if selected_dif == 0 and needed and amount:
-        # needed cases are set use them
-        generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount, needed=needed)
-        return return_template_with_values(generated_values, all_cases_to_choose)
-    
-    if selected_dif == 0 and not needed and amount:
-        generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount)
-        return return_template_with_values(generated_values, all_cases_to_choose)
-
-    #BLOCK START
-    if selected_dif > 0 and needed and amount:
-        # ah certain cases are needed
-        generated_values = gen.generate(difficulty=DIFF_MAP[selected_dif], amount=amount, needed=needed)
-        return return_template_with_values(generated_values, all_cases_to_choose)
-
-    if selected_dif > 0 and not needed and amount:
-        generated_values = gen.generate(DIFF_MAP[selected_dif], amount=amount,)
-        return return_template_with_values(generated_values, all_cases_to_choose)
