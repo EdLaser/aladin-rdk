@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
 
-export const task_id = reactive({
+export let store = reactive({
     task_id: null
 })

@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import { task_id } from './store';
+import { store } from './store';
 
 export default {
     data() {
@@ -22,7 +22,7 @@ export default {
     },
     methods: {
         getOptions: function () {
-            const url = "http://localhost:8000/select-options/" + task_id;
+            const url = "http://localhost:8000/select-options/" + store.task_id;
             axios.get(url).then((res) => {
                 this.options = res.data;
             });
@@ -85,7 +85,7 @@ export default {
             }
         },
         solve: function () {
-            const url = 'http://localhost:8000/solution/' + task_id
+            const url = 'http://localhost:8000/solution/' + store.task_id
             axios.get(url).then((res) => {
                 this.allSolutions = res.data
             });
