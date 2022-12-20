@@ -138,9 +138,6 @@ def generate(difficulty: int=random.randrange(1, len(sen.EARNINGS) + len(sen.SPE
         amount(int): The amount of tasks generated.
         needed(List[str]): Task that the client definitely wants to be generated.
     """
-    # solutions: Dict[str, Solution] = {}
-    # opt_list = {}
-
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
     spending_cases = dep.generate_all_spending_cases(
@@ -161,6 +158,13 @@ def generate(difficulty: int=random.randrange(1, len(sen.EARNINGS) + len(sen.SPE
     # zve = calculate_zve(solutions)
 
     return all_cases
+
+
+def select_options(cases: List[Case]):
+    select_options_to_choose = {}
+    for index, case in enumerate(cases):
+        select_options_to_choose[index] = {'name': case.name, 'value': case.number}
+    return select_options_to_choose
 
 def show_all_cases():
     return { **sen.SPENDINGS, **sen.EARNINGS}

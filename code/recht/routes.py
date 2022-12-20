@@ -72,13 +72,13 @@ def get_tasks():
     return json.dumps({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
 
 
-@bp.route("/select_options/<int:id_of_task>", methods=['GET'])
+@bp.route("/select-options/<int:id_of_task>", methods=['GET'])
 def get_select_options(id_of_task):
     wanted_task = search_task(id_of_task)
     if not wanted_task:
         return json.dumps({"failure": "Task was not found"})
     
-    return json.dumps(gen.select_options(id_of_task))
+    return json.dumps(gen.select_options(wanted_task.cases))
 
 @bp.route("/solution/<int:id_of_task>", methods=['GET'])
 def get_solution(id_of_task):
