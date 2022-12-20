@@ -4,9 +4,9 @@ import UserSolutionComponent from './UserSolutionComponent.vue';
 
 export default {
     components: {
-    TaskSentenceComponent,
-    UserSolutionComponent
-}
+        TaskSentenceComponent,
+        UserSolutionComponent
+    }
 }
 </script>
 <template>
@@ -20,11 +20,14 @@ export default {
                 <TaskSentenceComponent />
             </div>
             <div class="col">
-                <UserSolutionComponent />
+                
             </div>
         </div>
     </div>
     <div class="container">
+        <div class="d-flex flex-row bd-highlight mb-3">
+            <UserSolutionComponent />
+        </div>
         <div class="d-flex flex-row bd-highlight mb-3">
             <!-- Solution table placholder -->
         </div>
