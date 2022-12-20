@@ -53,6 +53,14 @@ def determine_strategie(parameters, context: Context):
             context.strategy = WithDifficultyAndAmount()
 
 
+def search_task(id_of_task):
+    wanted_task = None
+    for t in TASKS:
+        if t.id == id_of_task:
+            wanted_task = t
+    return wanted_task
+
+
 @bp.route("/get-task", methods=['GET'])
 def get_tasks():
     args = request.args
@@ -64,16 +72,20 @@ def get_tasks():
     return json.dumps({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
 
 
-@bp.route("/solution", methods=['GET'])
-def get_solution():
-    solutions = {}
-    wanted_task = ""
-    id_of_task = int(request.args.get('id', 0))
-    for t in TASKS:
-        if t.id == id_of_task:
-            wanted_task = t
+@bp.route("/select_options/<int:id_of_task>", methods=['GET'])
+def get_select_options(id_of_task):
+    wanted_task = search_task(id_of_task)
     if not wanted_task:
-        return {"failure": "Task was not found"}
+        return json.dumps({"failure": "Task was not found"})
+    
+    return json.dumps(gen.select_options(id_of_task))
+
+@bp.route("/solution/<int:id_of_task>", methods=['GET'])
+def get_solution(id_of_task):
+    solutions = {}
+    wanted_task = search_task(id_of_task)
+    if not wanted_task:
+        return json.dumps({"failure": "Task was not found"})
 
     for c in wanted_task.cases:
         solution = gen.build_solution(c)

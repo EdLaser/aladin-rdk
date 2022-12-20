@@ -16,7 +16,7 @@ class WithDifficultyAndAmount(GeneratorStrategie):
         return gen.generate(difficulty=int(parameters.get('difficulty')), amount=int(parameters.get('amount')))
 
 class Default(GeneratorStrategie):
-    def generate(self) -> list[Case]:
+    def generate(self, parameters) -> list[Case]:
         return gen.generate()
 
 class Context:
