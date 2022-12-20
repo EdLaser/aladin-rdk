@@ -1,0 +1,3 @@
+Erhöhen des vue anteils durch ersetzen des frontends durch view
+Flask nur noch als REST-API mit json responses
+Trennen von Generierung Task und Lösungen
