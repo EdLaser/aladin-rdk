@@ -106,4 +106,4 @@ def get_solution(id_of_task):
 
 @bp.route("/cases-to-choose", methods=['GET'])
 def get_cases_to_choose():
-    return json.dumps(gen.show_all_cases())
+    return json.dumps(list(gen.show_all_cases()))
