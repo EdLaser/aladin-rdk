@@ -82,6 +82,7 @@ def get_select_options(id_of_task):
 
 @bp.route("/solution/<int:id_of_task>", methods=['GET'])
 def get_solution(id_of_task):
+    zve = 0
     solutions = {}
     wanted_task = search_task(id_of_task)
     if not wanted_task:
@@ -89,7 +90,14 @@ def get_solution(id_of_task):
 
     for c in wanted_task.cases:
         solution = gen.build_solution(c)
+        if solution.type_of_case == 'Einnahme':
+            zve += solution.number
+        elif solution.type_of_case == 'Ausgabe':
+            zve -= solution.number
+        else:
+            pass
         solutions[solution.case_name] = solution.to_dict()
+    solutions["zve"] = zve
 
     return json.dumps(solutions)
 

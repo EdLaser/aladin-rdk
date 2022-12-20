@@ -42,18 +42,6 @@ def build_sent(case: Case):
         return "Failure in Generation."
 
 
-def calculate_zve(solutions: Dict[str, Solution]) -> int:
-    zve = 0
-    for sol in solutions.values():
-        if sol.type_of_case == 'Einnahme':
-            zve += sol.number
-        elif sol.type_of_case == 'Ausgabe':
-            zve -= sol.number
-        else:
-            pass
-    return zve
-
-
 def map_laws(solutions: Dict[str, Solution], config: Dict[str, List[str]]):
     for given_law, list_of_dep_cases in config.items():
         for solution_name, sol in solutions.items():
