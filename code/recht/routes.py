@@ -11,7 +11,6 @@ from generator_strategie import Context, WithDifficultyAndAmount, WithDifficulty
 
 bp = Blueprint('routes', __name__)
 ALLOWED_EXTENSIONS = {'json'}
-DIFF_MAP = {1: random.randrange(2, 4), 2: random.randrange(5, 8), 3: random.randrange(9, 11)}
 TASKS: List[Task] = []
 
 def allowed_file(filename):
@@ -105,51 +104,35 @@ def get_solution(id_of_task):
     return json.dumps(solutions)
 
 
-@bp.route("/", methods=['GET', 'POST'])
+@bp.route("/cases-to-chooose", methods=['GET'])
+def get_cases_to_choose():
+    return json.dumps(gen.show_all_cases())
+
+
 def index():
     all_cases_to_choose = gen.show_all_cases()
     
-    if request.method == 'GET':
-        return render_template('index.html', all_cases_to_choose= all_cases_to_choose)
+    # while not 'submitSolution' in request.form
+    selected_dif = int(request.form.get('difficulty'))
+    needed = request.form.getlist('needed')
+    amount = int(request.form.get('amount'))
+    
+    # BLOCK START
+    if selected_dif == 0 and needed and amount:
+        # needed cases are set use them
+        generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount, needed=needed)
+        return return_template_with_values(generated_values, all_cases_to_choose)
+    
+    if selected_dif == 0 and not needed and amount:
+        generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount)
+        return return_template_with_values(generated_values, all_cases_to_choose)
 
-    if request.method == 'POST':
-            # while not 'submitSolution' in request.form
-            selected_dif = int(request.form.get('difficulty'))
-            needed = request.form.getlist('needed')
-            amount = int(request.form.get('amount'))
-            
-            # BLOCK START
-            if selected_dif == 0 and needed and amount:
-                # needed cases are set use them
-                generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount, needed=needed)
-                return return_template_with_values(generated_values, all_cases_to_choose)
-            
-            if selected_dif == 0 and not needed and amount:
-                generated_values = gen.generate(difficulty=DIFF_MAP[random.randrange(1, 3)], amount=amount)
-                return return_template_with_values(generated_values, all_cases_to_choose)
-            
-            if selected_dif == 0 and needed and not amount:
-                pass
+    #BLOCK START
+    if selected_dif > 0 and needed and amount:
+        # ah certain cases are needed
+        generated_values = gen.generate(difficulty=DIFF_MAP[selected_dif], amount=amount, needed=needed)
+        return return_template_with_values(generated_values, all_cases_to_choose)
 
-            if selected_dif == 0 and not needed and not amount:
-                pass
-            #BLOCK END
-
-            #BLOCK START
-            if selected_dif > 0 and needed and amount:
-                # ah certain cases are needed
-                generated_values = gen.generate(difficulty=DIFF_MAP[selected_dif], amount=amount, needed=needed)
-                return return_template_with_values(generated_values, all_cases_to_choose)
-
-            if selected_dif > 0 and not needed and amount:
-                generated_values = gen.generate(DIFF_MAP[selected_dif], amount=amount,)
-                return return_template_with_values(generated_values, all_cases_to_choose)
-
-            if selected_dif > 0 and needed and not amount:
-                pass
-
-            if selected_dif > 0 and not needed and not amount:
-                pass
-            #BLOCK END
-    else:
-        return render_template('index.html', all_cases_to_choose= all_cases_to_choose)
+    if selected_dif > 0 and not needed and amount:
+        generated_values = gen.generate(DIFF_MAP[selected_dif], amount=amount,)
+        return return_template_with_values(generated_values, all_cases_to_choose)
