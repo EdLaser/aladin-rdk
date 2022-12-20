@@ -1,10 +1,12 @@
 <script>
 import TaskSentenceComponent from './TaskSentenceComponent.vue';
+import UserSolutionComponent from './UserSolutionComponent.vue';
 
 export default {
     components: {
-        TaskSentenceComponent
-    }
+    TaskSentenceComponent,
+    UserSolutionComponent
+}
 }
 </script>
 <template>
@@ -18,7 +20,7 @@ export default {
                 <TaskSentenceComponent />
             </div>
             <div class="col">
-                <!-- Costumize placholder -->
+                <UserSolutionComponent />
             </div>
         </div>
     </div>
