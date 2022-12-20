@@ -1,12 +1,14 @@
 <script>
+import CostumizeTaskComponent from './CostumizeTaskComponent.vue';
 import TaskSentenceComponent from './TaskSentenceComponent.vue';
 import UserSolutionComponent from './UserSolutionComponent.vue';
 
 export default {
     components: {
-        TaskSentenceComponent,
-        UserSolutionComponent
-    }
+    TaskSentenceComponent,
+    UserSolutionComponent,
+    CostumizeTaskComponent
+}
 }
 </script>
 <template>
@@ -20,7 +22,7 @@ export default {
                 <TaskSentenceComponent />
             </div>
             <div class="col">
-                
+                <CostumizeTaskComponent />
             </div>
         </div>
     </div>
