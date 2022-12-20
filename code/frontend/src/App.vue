@@ -1,7 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
@@ -23,7 +19,7 @@ import { RouterLink, RouterView } from 'vue-router'
             </p>
             <div class="container w-100 mb-5">
                 <div class="row justify-content-center">
-                    
+                    Test
                 </div>
             </div>
         </main>
