@@ -65,7 +65,7 @@ def map_laws(solutions: Dict[str, Solution], config: Dict[str, List[str]]):
 
 def build_solution(case: Case):
     if 'WK' in case.name or 'Abschreibung' in case.name:
-            return Solution(case_name=case.name, number=case.number,
+        return Solution(case_name=case.name, number=case.number,
                                             type_of_case='Ausgabe')
     else:
         return Solution(case_name=case.name, number=case.number,
@@ -151,9 +151,6 @@ def generate(difficulty: int=random.randrange(1, len(sen.EARNINGS) + len(sen.SPE
 
     # for val in law.ALL.values():
     #     map_laws(solutions, val)
-
-    # for x, key in enumerate(solutions):
-    #     opt_list[x] = {'name': key, 'value': solutions[key].number}
 
     # zve = calculate_zve(solutions)
 
