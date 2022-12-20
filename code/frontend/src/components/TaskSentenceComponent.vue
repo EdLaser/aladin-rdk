@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import { task_id } from './store';
 
 export default {
     data() {
@@ -14,6 +15,7 @@ export default {
             axios.get(url)
                 .then((res) => {
                     this.sentences = res.data.sentences;
+                    task_id = res.data.id;
                 })
                 .catch((error) => {
                     console.log(error);
