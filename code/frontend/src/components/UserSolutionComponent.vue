@@ -19,6 +19,15 @@ export default {
     computed: {
         showMaxRows() {
             return Object.keys(this.options).length
+        },
+        task_id() {
+            return store.task_id;
+        }
+    },
+    watch: {
+        task_id() {
+            console.log(this.task_id);
+            this.getOptions();
         }
     },
     methods: {
@@ -38,6 +47,7 @@ export default {
             return maxRows > this.rows.length ? true : false;
         },
         addRow: function () {
+            let newId = 0;
             const warningOrSuccessDiv = document.getElementById('warningOrSuccess');
             try {
                 newId = this.rows[this.rows.length - 1]["id"] + 1
@@ -95,7 +105,7 @@ export default {
             axios.get(url).then((res) => {
                 this.allSolutions = res.data
             });
-            
+
             console.log(this.allSolutions);
             let areSolved = 0;
             this.createCorrectSolutions()
@@ -187,14 +197,15 @@ export default {
                                     @click="this.deleteRow(row)">Löschen</button>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <input type="number" class="form-control" id="zvE">
-                        </div>
                     </div>
+                </div>
+                <div class="row mb-3">
+                    <input type="number" class="form-control" id="zvE">
                 </div>
                 <div class="d-flex flex-row m-3">
                     <div class="col">
-                        <button type="button" name="submitSolution" class="btn btn-primary" @click="this.solve()">Aufgabe
+                        <button type="button" name="submitSolution" class="btn btn-primary"
+                            @click="this.solve()">Aufgabe
                             lösen</button>
                     </div>
                     <div class="col" id="warningOrSuccess">
