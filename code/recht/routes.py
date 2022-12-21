@@ -83,7 +83,7 @@ def get_select_options(id_of_task):
 @bp.route("/solution/<int:id_of_task>", methods=['GET'])
 def get_solution(id_of_task):
     zve = 0
-    solutions = {}
+    solutions = []
     wanted_task = search_task(id_of_task)
     if not wanted_task:
         return json.dumps({"failure": "Task was not found"})
@@ -98,8 +98,8 @@ def get_solution(id_of_task):
             zve -= solution.number
         else:
             pass
-        solutions[solution.case_name] = solution.to_dict()
-    solutions["zve"] = zve
+        solutions.append(solution.to_dict())
+    solutions.append({"zve": zve})
 
     return json.dumps(solutions)
 
