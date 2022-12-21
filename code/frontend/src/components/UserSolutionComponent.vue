@@ -199,8 +199,10 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <input type="number" class="form-control" id="zvE">
+                <div class="d-flex flex-row mb-3">
+                    <div class="col-xs-2">
+                        <input type="number" class="form-control" id="zvE" placeholder="zvE">
+                    </div>
                 </div>
                 <div class="d-flex flex-row m-3">
                     <div class="col">
