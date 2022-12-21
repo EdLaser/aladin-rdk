@@ -3,28 +3,15 @@ import axios from 'axios';
 import { store } from './store';
 
 export default {
-    data() {
-        return {
-            task_id: null,
-            sentences: []
-        };
-    },
-    methods: {
-        getTask() {
-            const url = 'http://localhost:8000/get-task';
-            axios.get(url)
-                .then((res) => {
-                    this.sentences = res.data.sentences;
-                    store.task_id = res.data.id;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+    computed: {
+        sentences() {
+            return store.sentences;
         }
     },
-    created() {
-        this.getTask();
-    }
+    watch: {
+        sentences() {
+        }
+    },
 }
 </script>
 <template>
