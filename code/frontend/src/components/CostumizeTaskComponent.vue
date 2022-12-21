@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-
+import { store } from './store';
 export default {
     data() {
         return {
@@ -18,11 +18,19 @@ export default {
             axios.get(url).then((res) => {
                 this.allCases = res.data;
             });
+        },
+        getTask() {
+            const url = 'http://localhost:8000/get-task';
+            axios.get(url)
+                .then((res) => {
+                    store.sentences = res.data.sentences;
+                    store.task_id = res.data.id;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     },
-    created() {
-        this.getCasesToChoose()
-    }
 }
 </script>
 <template>
@@ -69,7 +77,7 @@ export default {
         </div>
         <div class="row mb-3 justify-content-center">
             <div class="col-auto">
-                <button type="submit" value="generate" id="generateBtn"
+                <button @click="this.getTask()" type="button" value="generate" id="generateBtn"
                     class="btn btn-primary float-right">Generieren</button>
             </div>
         </div>
