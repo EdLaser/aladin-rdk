@@ -12,7 +12,8 @@ export default {
                     "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
                 }
             ],
-            allSolutions : []
+            allSolutions: {},
+            correctSolutions: []
         };
     },
     computed: {
@@ -26,6 +27,11 @@ export default {
             axios.get(url).then((res) => {
                 this.options = res.data;
             });
+        },
+        createCorrectSolutions: function () {
+            for (const solution in this.allSolutions) {
+                correctSolutions.push({ 'task': solution, 'solved_by': '', 'solved': false });
+            }
         },
         checkIfRowNecessary: function () {
             let maxRows = this.showMaxRows > 0 ? this.showMaxRows : null;
@@ -66,10 +72,10 @@ export default {
             }
         },
         checkCorrectInputs: function (row) {
-            if (row.select in allSolutions) {
+            if (row.select in this.allSolutions) {
                 // check if the Inputs match the correct solution inputs, set the elem of the row accordingly
                 row.isCorrect.case_name = true;
-                const correctSolution = allSolutions[row.select];
+                const correctSolution = this.allSolutions[row.select];
 
                 row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
                 row.num === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
@@ -80,7 +86,7 @@ export default {
         },
         // set which task is solved by which row
         setCorrespondingRows: function (row) {
-            for (let sol of correctSolutions) {
+            for (let sol of this.correctSolutions) {
                 row.select === sol.task ? sol.solved_by = row.id : null;
             }
         },
@@ -89,31 +95,33 @@ export default {
             axios.get(url).then((res) => {
                 this.allSolutions = res.data
             });
+            
             console.log(this.allSolutions);
             let areSolved = 0;
+            this.createCorrectSolutions()
             // initialize dict to check if all tasks are correct
             for (const row of this.rows) {
                 this.checkCorrectInputs(row);
                 this.setCorrespondingRows(row)
-                for (let sol of correctSolutions) {
+                for (let sol of this.correctSolutions) {
                     // check if all rows are solved
                     if (row.id === sol.solved_by) {
                         row.isCorrect.case_name && row.isCorrect.law && row.isCorrect.num ? sol.solved = true : sol.solved = false;
                     }
                 }
             }
-            for (let solution of correctSolutions) {
+            for (let solution of this.correctSolutions) {
                 if (solution.solved) {
                     areSolved += 1;
                 }
             }
             const successMsg = document.getElementById('warningOrSuccess');
             console.log(areSolved);
-            if (areSolved === correctSolutions.length) {
+            if (areSolved === this.correctSolutions.length) {
                 successMsg.innerHTML = "Alles gelöst";
                 successMsg.className = "alert alert-success"
             }
-            console.log(correctSolutions);
+            console.log(this.correctSolutions);
         },
         evaluateCorrectnessOfRow: function (isCorrect, row) {
             const caseInput = document.getElementById(row.id + "_case_name");
@@ -176,7 +184,7 @@ export default {
                             </div>
                             <div class="col">
                                 <button class="btn btn-danger" :id="row.id + '_del'"
-                                    @click="deleteRow(row)">Löschen</button>
+                                    @click="this.deleteRow(row)">Löschen</button>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -186,14 +194,14 @@ export default {
                 </div>
                 <div class="d-flex flex-row m-3">
                     <div class="col">
-                        <button type="button" name="submitSolution" class="btn btn-primary" @click="solve()">Aufgabe
+                        <button type="button" name="submitSolution" class="btn btn-primary" @click="this.solve()">Aufgabe
                             lösen</button>
                     </div>
                     <div class="col" id="warningOrSuccess">
 
                     </div>
                     <div class="col">
-                        <button id="addRow" type="button" class="btn btn-success" @click="addRow()">Reihe
+                        <button id="addRow" type="button" class="btn btn-success" @click="this.addRow()">Reihe
                             hinzufügen</button>
                     </div>
                 </div>
