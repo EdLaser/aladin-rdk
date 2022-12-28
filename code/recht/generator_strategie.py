@@ -4,21 +4,20 @@ from random import randrange
 from library.nodepool.case import Case
 
 class GeneratorStrategie(ABC):
-    DIFF_MAP = {1: randrange(2, 4), 2: randrange(5, 8), 3: randrange(9, 11)}
     @abstractmethod
-    def generate(self, parameters) -> list[Case]:
+    def generate(self, difficulty: int | None, amount: int, needed: list[str] | None) -> list[Case]:
         pass
 
 class WithDifficultyAndNeededAndAmount(GeneratorStrategie):
-    def generate(self, parameters) -> list[Case]:
-        return gen.generate(difficulty=self.DIFF_MAP[int(parameters.get('difficulty'))], amount=int(parameters.get('amount')), needed=parameters.get('needed'))
+    def generate(self, difficulty: int, amount: int, needed: list[str]) -> list[Case]:
+        return gen.generate(difficulty=difficulty, amount=amount, needed=needed)
 
 class WithDifficultyAndAmount(GeneratorStrategie):
-    def generate(self, parameters) -> list[Case]:
-        return gen.generate(difficulty=self.DIFF_MAP[int(parameters.get('difficulty'))], amount=int(parameters.get('amount')))
+    def generate(self, difficulty: int, amount: int, needed: list[str]) -> list[Case]:
+        return gen.generate(difficulty=difficulty, amount=amount)
 
 class Default(GeneratorStrategie):
-    def generate(self, parameters) -> list[Case]:
+    def generate(self) -> list[Case]:
         return gen.generate()
 
 class Context:
@@ -34,5 +33,5 @@ class Context:
         self._strategy = strategy
 
     # The Context delegates the execution of the algorithm to the strategy object.
-    def generate_tasks(self, parameters) -> list[Case]:
-        return self._strategy.generate(parameters)
+    def generate_tasks(self, difficulty: int | None, amount: int, needed: list[str] | None) -> list[Case]:
+        return self._strategy.generate(difficulty, amount, needed)
