@@ -47,10 +47,11 @@ app.add_middleware(
 )
 
 @app.get("/get-task")
-def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: list[str] | None = None):
+def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: str | None = None):
+    cases_needed = needed.split(',') if needed else []
     context: Context = Context(Default())
     determine_strategie(difficulty, amount, needed, context)
-    generated_cases = context.generate_tasks(difficulty, amount, needed)
+    generated_cases = context.generate_tasks(difficulty, amount, cases_needed)
     task = Task(cases = generated_cases)
     TASKS.append(task)
     return return_json({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
