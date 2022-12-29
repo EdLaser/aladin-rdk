@@ -28,6 +28,9 @@ export default {
         task_id() {
             console.log(this.task_id);
             this.getOptions();
+            const successMsg = document.getElementById('warningOrSuccess');
+            successMsg.innerHTML= "";
+            successMsg.className = ""
         }
     },
     methods: {
