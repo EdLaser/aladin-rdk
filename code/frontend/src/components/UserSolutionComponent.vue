@@ -5,14 +5,14 @@ import { store } from './store';
 export default {
     data() {
         return {
-            options: [],
+            options: [""],
+            allSolutions: [],
             rows: [
                 {
                     'id': 0, 'select': "Sachverhalt auswählen", "law": '',
                     "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
                 }
             ],
-            allSolutions: {},
             correctSolutions: []
         };
     },
@@ -35,6 +35,8 @@ export default {
             const url = "http://localhost:8000/select-options/" + store.task_id;
             axios.get(url).then((res) => {
                 this.options = res.data;
+            }).catch((error) => {
+                console.log(error);
             });
         },
         createCorrectSolutions: function () {
@@ -90,7 +92,6 @@ export default {
                 row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
                 row.num === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
 
-                console.log(row)
                 this.evaluateCorrectnessOfRow(row.isCorrect, row);
             }
         },
@@ -104,9 +105,11 @@ export default {
             const url = 'http://localhost:8000/solution/' + store.task_id
             axios.get(url).then((res) => {
                 this.allSolutions = res.data
+                console.log(res.data)
+                console.log(this.allSolutions)
+            }).catch((error) => {
+                console.log(error);
             });
-
-            console.log(this.allSolutions);
             let areSolved = 0;
             this.createCorrectSolutions()
             // initialize dict to check if all tasks are correct
@@ -126,12 +129,10 @@ export default {
                 }
             }
             const successMsg = document.getElementById('warningOrSuccess');
-            console.log(areSolved);
             if (areSolved === this.correctSolutions.length) {
                 successMsg.innerHTML = "Alles gelöst";
                 successMsg.className = "alert alert-success"
             }
-            console.log(this.correctSolutions);
         },
         evaluateCorrectnessOfRow: function (isCorrect, row) {
             const caseInput = document.getElementById(row.id + "_case_name");
@@ -179,8 +180,7 @@ export default {
                                 <select :name="row.id + '_case_name'" :id="row.id + '_case_name'" class="form-control"
                                     v-model="row.select">
                                     <option selected disabled>Sachverhalt auswählen</option>
-                                    <option :value="opt.name" v-for="opt in options">{% raw %} {{ opt.name }} {% endraw
-                                        %}
+                                    <option :value="opt.name" v-for="opt in options">{{ opt.name }}
                                     </option>
                                 </select>
                             </div>
