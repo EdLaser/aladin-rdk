@@ -5,7 +5,7 @@ from library.nodepool.case import Case
 
 class GeneratorStrategie(ABC):
     @abstractmethod
-    def generate(self, difficulty: int | None, amount: int, needed: list[str] | None) -> list[Case]:
+    def generate(self, difficulty: int | None, amount: int | None, needed: list[str] | None) -> list[Case]:
         pass
 
 class WithDifficultyAndNeededAndAmount(GeneratorStrategie):
@@ -17,7 +17,7 @@ class WithDifficultyAndAmount(GeneratorStrategie):
         return gen.generate(difficulty=difficulty, amount=amount)
 
 class Default(GeneratorStrategie):
-    def generate(self) -> list[Case]:
+    def generate(self, difficulty, amount, needed) -> list[Case]:
         return gen.generate()
 
 class Context:
@@ -33,5 +33,5 @@ class Context:
         self._strategy = strategy
 
     # The Context delegates the execution of the algorithm to the strategy object.
-    def generate_tasks(self, difficulty: int | None, amount: int, needed: list[str] | None) -> list[Case]:
+    def generate_tasks(self, difficulty: int | None, amount: int | None, needed: list[str] | None) -> list[Case]:
         return self._strategy.generate(difficulty, amount, needed)
