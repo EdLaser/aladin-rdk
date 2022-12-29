@@ -8,9 +8,9 @@ export default {
         }
     },
     methods: {
-        showValueOfSlider: function (value, label, description) {
+        showValueOfSlider: function (slider, label, description) {
             const labelForSlider = document.getElementById(label);
-            let sliderValue = document.getElementById('amountTasks').value
+            let sliderValue = document.getElementById(slider).value
             labelForSlider.innerHTML = `${sliderValue} ${description}`;
         }, getCasesToChoose: function () {
             const url = "http://localhost:8000/cases-to-choose";
@@ -30,6 +30,9 @@ export default {
                 });
         }
     },
+    mounted() {
+        this.getCasesToChoose();
+    }
 }
 </script>
 <template>
@@ -38,13 +41,13 @@ export default {
             <div class="col-6">
                 <label for="amountTasks" class="form-label" id="labelAmount"> Aufgaben</label>
                 <input type="range" min="1" max="15" step="1" name="amount" id="amountTasks" class="form-range"
-                    @input="this.showValueOfSlider(this.value, 'labelAmount', 'Aufgaben')">
+                    @input="this.showValueOfSlider('amountTasks', 'labelAmount', 'Aufgaben')">
             </div>
             <div class="col-6">
                 <label for="difficultyTasks" class="form-label" id="labelDifficulty"> Unterschiedliche
                     Sachverhalte</label>
                 <input type="range" min="1" max="15" step="1" name="difficulty" id="difficultyTasks" class="form-range"
-                    @input="this.showValueOfSlider(this.value, 'labelDifficulty', 'Unterschiedliche Sachverhalte')">
+                    @input="this.showValueOfSlider('difficultyTasks', 'labelDifficulty', 'Unterschiedliche Sachverhalte')">
             </div>
         </div>
         <div class="row mb-3 justify-content-center">
@@ -54,6 +57,10 @@ export default {
                     aria-expanded="false" aria-controls="neededSelect">
                     Muss enthalten sein
                 </button>
+            </div>
+            <div class="col-auto">
+                <button @click="this.getTask()" type="button" value="generate" id="generateBtn"
+                    class="btn btn-primary float-right">Generieren</button>
             </div>
         </div>
         <div class="row mb-3">
@@ -70,12 +77,6 @@ export default {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row mb-3 justify-content-center">
-            <div class="col-auto">
-                <button @click="this.getTask()" type="button" value="generate" id="generateBtn"
-                    class="btn btn-primary float-right">Generieren</button>
             </div>
         </div>
     </form>
