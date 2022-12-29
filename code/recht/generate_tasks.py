@@ -125,9 +125,6 @@ def generate(difficulty: int=random.randrange(1, len(sen.EARNINGS) + len(sen.SPE
         amount(int): The amount of tasks generated.
         needed(List[str]): Task that the client definitely wants to be generated.
     """
-    # Needs to be replaced
-    DIFF_MAP = {1: random.randrange(2, 4), 2: random.randrange(5, 8), 3: random.randrange(9, 11)}
-
     earning_cases = dep.generate_all_earning_cases(
         formulation_dict=sen.EARNINGS, verbs=sen.VERBS, numbers=num.ALL)
     spending_cases = dep.generate_all_spending_cases(
@@ -136,9 +133,7 @@ def generate(difficulty: int=random.randrange(1, len(sen.EARNINGS) + len(sen.SPE
     pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
     
-    # difficulty ist here bisschen komisch
-    diff_to_use = random.randrange(1, len(sen.EARNINGS) + len(sen.SPENDINGS)) if difficulty == 0 else DIFF_MAP[difficulty]
-    all_cases = pick(difficulty=diff_to_use, amount=amount, nodepool=pool, needed_cases=needed)
+    all_cases = pick(difficulty=difficulty, amount=amount, nodepool=pool, needed_cases=needed)
 
     return all_cases
 
