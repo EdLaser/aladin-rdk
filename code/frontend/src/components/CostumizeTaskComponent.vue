@@ -4,7 +4,10 @@ import { store } from './store';
 export default {
     data() {
         return {
-            allCases: []
+            allCases: [],
+            difficulty: 3,
+            amount: 8,
+            needed: []
         }
     },
     methods: {
@@ -32,6 +35,8 @@ export default {
     },
     mounted() {
         this.getCasesToChoose();
+        this.showValueOfSlider('amountTasks', 'labelAmount', 'Aufgaben');
+        this.showValueOfSlider('difficultyTasks', 'labelDifficulty', 'Unterschiedliche Sachverhalte')
     }
 }
 </script>
@@ -40,13 +45,13 @@ export default {
         <div class="row mb-3 justify-content-center">
             <div class="col-6">
                 <label for="amountTasks" class="form-label" id="labelAmount"> Aufgaben</label>
-                <input type="range" min="1" max="15" step="1" name="amount" id="amountTasks" class="form-range"
+                <input v-model="amount" type="range" min="1" max="15" step="1" name="amount" id="amountTasks" class="form-range"
                     @input="this.showValueOfSlider('amountTasks', 'labelAmount', 'Aufgaben')">
             </div>
             <div class="col-6">
                 <label for="difficultyTasks" class="form-label" id="labelDifficulty"> Unterschiedliche
                     Sachverhalte</label>
-                <input type="range" min="1" max="15" step="1" name="difficulty" id="difficultyTasks" class="form-range"
+                <input v-model="difficulty" type="range" min="1" max="15" step="1" name="difficulty" id="difficultyTasks" class="form-range"
                     @input="this.showValueOfSlider('difficultyTasks', 'labelDifficulty', 'Unterschiedliche Sachverhalte')">
             </div>
         </div>
@@ -69,7 +74,7 @@ export default {
                     <div class="row row-cols-3">
                         <div class="col" v-for="key in allCases">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" name="needed" type="checkbox" :value=key :id=key>
+                                <input v-model="needed" class="form-check-input" name="needed" type="checkbox" :value=key :id=key>
                                 <label class="form-check-label" :for=key>
                                     {{ key }}
                                 </label>
