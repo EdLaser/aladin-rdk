@@ -20,9 +20,29 @@ export default {
             axios.get(url).then((res) => {
                 this.allCases = res.data;
             });
+
+        }, 
+        isVariableAndNotEmpty(variable) {
+            if (Array.isArray(variable) && variable.length > 0 ) {
+                return true;
+            } else if (Number.isInteger(variable)) {
+                return true;
+            }
+        },
+        buildURL() {
+            const params = {
+                difficulty: this.difficulty,
+                amount: this.amount,
+                needed: this.needed
+            }
+            console.log(params['needed'])
+            const queryString = Object.keys(params).map(key => (this.isVariableAndNotEmpty(params[key]) ? `${key}=${params[key]}` : null)).filter(Boolean).join('&');
+            const url = `http://localhost:8000/get-task?${queryString}`;
+            return url;
         },
         getTask() {
-            const url = 'http://localhost:8000/get-task';
+            const url = this.buildURL();
+            console.log(url)
             axios.get(url)
                 .then((res) => {
                     store.sentences = res.data.sentences;
@@ -45,13 +65,14 @@ export default {
         <div class="row mb-3 justify-content-center">
             <div class="col-6">
                 <label for="amountTasks" class="form-label" id="labelAmount"> Aufgaben</label>
-                <input v-model="amount" type="range" min="1" max="15" step="1" name="amount" id="amountTasks" class="form-range"
-                    @input="this.showValueOfSlider('amountTasks', 'labelAmount', 'Aufgaben')">
+                <input v-model="amount" type="range" min="1" max="15" step="1" name="amount" id="amountTasks"
+                    class="form-range" @input="this.showValueOfSlider('amountTasks', 'labelAmount', 'Aufgaben')">
             </div>
             <div class="col-6">
                 <label for="difficultyTasks" class="form-label" id="labelDifficulty"> Unterschiedliche
                     Sachverhalte</label>
-                <input v-model="difficulty" type="range" min="1" max="15" step="1" name="difficulty" id="difficultyTasks" class="form-range"
+                <input v-model="difficulty" type="range" min="1" max="15" step="1" name="difficulty"
+                    id="difficultyTasks" class="form-range"
                     @input="this.showValueOfSlider('difficultyTasks', 'labelDifficulty', 'Unterschiedliche Sachverhalte')">
             </div>
         </div>
@@ -74,7 +95,8 @@ export default {
                     <div class="row row-cols-3">
                         <div class="col" v-for="key in allCases">
                             <div class="form-check form-check-inline">
-                                <input v-model="needed" class="form-check-input" name="needed" type="checkbox" :value=key :id=key>
+                                <input v-model="needed" class="form-check-input" name="needed" type="checkbox"
+                                    :value=key :id=key>
                                 <label class="form-check-label" :for=key>
                                     {{ key }}
                                 </label>
