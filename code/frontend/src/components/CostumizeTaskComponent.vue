@@ -5,17 +5,17 @@ export default {
     data() {
         return {
             allCases: [],
-            difficulty: 3,
-            amount: 8,
+            difficultyValue: 3,
+            amountValue: 8,
             needed: []
         }
     },
     computed: {
         amountSlider() {
-            return this.amount;
+            return this.amountValue;
         },
         difficultySlider() {
-            return this.difficulty
+            return this.difficultyValue
         }
     },
     methods: {
@@ -29,14 +29,14 @@ export default {
         isVariableAndNotEmpty(variable) {
             if (Array.isArray(variable) && variable.length > 0) {
                 return true;
-            } else if (Number.isInteger(variable)) {
+            } else if (Number.isInteger(variable) || typeof variable === "string") {
                 return true;
             }
         },
         buildURL() {
             const params = {
-                difficulty: this.difficulty,
-                amount: this.amount,
+                difficulty: this.difficultyValue,
+                amount: this.amountValue,
                 needed: this.needed
             }
             console.log(typeof (this.amount))
@@ -67,15 +67,13 @@ export default {
         <div class="row mb-3 justify-content-center">
             <div class="col-6">
                 <label for="amountTasks" class="form-label" id="labelAmount">{{ amountSlider }} Aufgaben</label>
-                <input v-model="amount" type="range" min="1" max="15" step="1" name="amount" id="amountTasks"
-                    class="form-range">
+                <input type="range" v-model="amountValue" min="1" max="15" step="1" id="amountTasks" class="form-range">
             </div>
             <div class="col-6">
                 <label for="difficultyTasks" class="form-label" id="labelDifficulty">{{ difficultySlider }}
-                    Unterschiedliche
-                    Sachverhalte</label>
-                <input v-model="difficulty" type="range" min="1" max="15" step="1" name="difficulty"
-                    id="difficultyTasks" class="form-range">
+                    Unterschiedliche Sachverhalte</label>
+                <input type="range" v-model="difficultyValue" min="1" max="15" step="1" id="difficultyTasks"
+                    class="form-range">
             </div>
         </div>
         <div class="row mb-3 justify-content-center">
