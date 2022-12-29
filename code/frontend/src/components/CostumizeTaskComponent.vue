@@ -4,15 +4,14 @@ import { store } from './store';
 export default {
     data() {
         return {
-            allCases: [],
-            value: 8
+            allCases: []
         }
     },
     methods: {
-        showValueOfSlider: function (value) {
-            const labelForSlider = document.getElementById('labelForSlider');
-            this.value = document.getElementById('amountTasks').value
-            labelForSlider.innerHTML = `${value} Aufgaben`;
+        showValueOfSlider: function (value, label, description) {
+            const labelForSlider = document.getElementById(label);
+            let sliderValue = document.getElementById('amountTasks').value
+            labelForSlider.innerHTML = `${sliderValue} ${description}`;
         }, getCasesToChoose: function () {
             const url = "http://localhost:8000/cases-to-choose";
             axios.get(url).then((res) => {
@@ -37,21 +36,19 @@ export default {
     <form action="" method="post">
         <div class="row mb-3 justify-content-center">
             <div class="col-6">
-                <label for="amountTasks" class="form-label" id="labelForSlider"> Aufgaben</label>
+                <label for="amountTasks" class="form-label" id="labelAmount"> Aufgaben</label>
                 <input type="range" min="1" max="15" step="1" name="amount" id="amountTasks" class="form-range"
-                    @input="showValueOfSlider(this.value)">
+                    @input="this.showValueOfSlider(this.value, 'labelAmount', 'Aufgaben')">
+            </div>
+            <div class="col-6">
+                <label for="difficultyTasks" class="form-label" id="labelDifficulty"> Unterschiedliche
+                    Sachverhalte</label>
+                <input type="range" min="1" max="15" step="1" name="difficulty" id="difficultyTasks" class="form-range"
+                    @input="this.showValueOfSlider(this.value, 'labelDifficulty', 'Unterschiedliche Sachverhalte')">
             </div>
         </div>
         <div class="row mb-3 justify-content-center">
-            <div class="col-auto">
-                <select class="form-select" aria-label="Schwierigkeit auswählen" name="difficulty" id="selectDif">
-                    <option selected value="0">Zufällig</option>
-                    <option value="1">Leicht</option>
-                    <option value="2">Mittel</option>
-                    <option value="3">Schwer</option>
-                </select>
-                <label for="selectDif" class="form-label">Schwierigkeit</label>
-            </div>
+
             <div class="col-auto">
                 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#neededSelect"
                     aria-expanded="false" aria-controls="neededSelect">
