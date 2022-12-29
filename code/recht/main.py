@@ -1,9 +1,11 @@
 import random
 import json
 from typing import List, Dict
+
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
+from fastapi.middleware.cors import CORSMiddleware
 
 from library.task import Task
 from library.laws import ALL as all_laws
@@ -11,11 +13,15 @@ import generate_tasks as gen
 from generator_strategie import Context, WithDifficultyAndAmount, WithDifficultyAndNeededAndAmount, Default
 
 TASKS: List[Task] = []
+origins = [
+    'http://localhost:8000',
+    'http://localhost:5173'
+]
 
 
-def determine_strategie(parameters, context: Context):
-    if parameters.get('difficulty') and parameters.get('amount'):
-        if parameters.get('needed'):
+def determine_strategie(difficulty, amount, needed, context: Context):
+    if difficulty and amount:
+        if needed:
             context.strategy = WithDifficultyAndNeededAndAmount() 
         else:
             context.strategy = WithDifficultyAndAmount()
@@ -34,11 +40,16 @@ def return_json(content):
 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=['*']
+)
 
 @app.get("/get-task")
-def get_tasks(difficulty: int, amount: int, needed: list[str] | None = None):
+def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: list[str] | None = None):
     context: Context = Context(Default())
-    context.strategy = WithDifficultyAndNeededAndAmount() if needed else WithDifficultyAndAmount()
+    determine_strategie(difficulty, amount, needed, context)
     generated_cases = context.generate_tasks(difficulty, amount, needed)
     task = Task(cases = generated_cases)
     TASKS.append(task)
