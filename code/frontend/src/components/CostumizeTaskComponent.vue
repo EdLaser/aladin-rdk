@@ -10,20 +10,24 @@ export default {
             needed: []
         }
     },
+    computed: {
+        amountSlider() {
+            return this.amount;
+        },
+        difficultySlider() {
+            return this.difficulty
+        }
+    },
     methods: {
-        showValueOfSlider: function (slider, label, description) {
-            const labelForSlider = document.getElementById(label);
-            let sliderValue = document.getElementById(slider).value
-            labelForSlider.innerHTML = `${sliderValue} ${description}`;
-        }, getCasesToChoose: function () {
+        getCasesToChoose: function () {
             const url = "http://localhost:8000/cases-to-choose";
             axios.get(url).then((res) => {
                 this.allCases = res.data;
             });
 
-        }, 
+        },
         isVariableAndNotEmpty(variable) {
-            if (Array.isArray(variable) && variable.length > 0 ) {
+            if (Array.isArray(variable) && variable.length > 0) {
                 return true;
             } else if (Number.isInteger(variable)) {
                 return true;
@@ -35,7 +39,7 @@ export default {
                 amount: this.amount,
                 needed: this.needed
             }
-            console.log(params['needed'])
+            console.log(typeof (this.amount))
             const queryString = Object.keys(params).map(key => (this.isVariableAndNotEmpty(params[key]) ? `${key}=${params[key]}` : null)).filter(Boolean).join('&');
             const url = `http://localhost:8000/get-task?${queryString}`;
             return url;
@@ -55,25 +59,23 @@ export default {
     },
     mounted() {
         this.getCasesToChoose();
-        this.showValueOfSlider('amountTasks', 'labelAmount', 'Aufgaben');
-        this.showValueOfSlider('difficultyTasks', 'labelDifficulty', 'Unterschiedliche Sachverhalte')
     }
 }
 </script>
 <template>
-    <form action="" method="post">
+    <form action="" method="">
         <div class="row mb-3 justify-content-center">
             <div class="col-6">
-                <label for="amountTasks" class="form-label" id="labelAmount"> Aufgaben</label>
+                <label for="amountTasks" class="form-label" id="labelAmount">{{ amountSlider }} Aufgaben</label>
                 <input v-model="amount" type="range" min="1" max="15" step="1" name="amount" id="amountTasks"
-                    class="form-range" @input="this.showValueOfSlider('amountTasks', 'labelAmount', 'Aufgaben')">
+                    class="form-range">
             </div>
             <div class="col-6">
-                <label for="difficultyTasks" class="form-label" id="labelDifficulty"> Unterschiedliche
+                <label for="difficultyTasks" class="form-label" id="labelDifficulty">{{ difficultySlider }}
+                    Unterschiedliche
                     Sachverhalte</label>
                 <input v-model="difficulty" type="range" min="1" max="15" step="1" name="difficulty"
-                    id="difficultyTasks" class="form-range"
-                    @input="this.showValueOfSlider('difficultyTasks', 'labelDifficulty', 'Unterschiedliche Sachverhalte')">
+                    id="difficultyTasks" class="form-range">
             </div>
         </div>
         <div class="row mb-3 justify-content-center">
