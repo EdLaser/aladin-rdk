@@ -126,6 +126,7 @@ export default {
                     }
                 }
             }
+            // says things are solved even when array is empty
             for (let solution of this.correctSolutions) {
                 if (solution.solved) {
                     areSolved += 1;
