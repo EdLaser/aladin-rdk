@@ -6,14 +6,12 @@ export default {
     data() {
         return {
             options: [""],
-            allSolutions: [],
             rows: [
                 {
                     'id': 0, 'select': "Sachverhalt auswählen", "law": '',
                     "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
                 }
             ],
-            correctSolutions: [],
             zve: 0
         };
     },
@@ -54,13 +52,6 @@ export default {
             }).catch((error) => {
                 console.log(error);
             });
-        },
-        createCorrectSolutions: function () {
-            this.correctSolutions = []
-            for (const solution of this.allSolutions) {
-                this.correctSolutions.push({ 'task': solution.case_name, 'solved_by': '', 'solved': false });
-            }
-            console.log(this.correctSolutions)
         },
         checkIfRowNecessary: function () {
             let maxRows = this.showMaxRows > 0 ? this.showMaxRows : null;
@@ -113,12 +104,6 @@ export default {
                 this.evaluateCorrectnessOfRow(row.isCorrect, row);
             }
         },
-        // set which task is solved by which row
-        setCorrespondingRows: function (row) {
-            for (let sol of this.correctSolutions) {
-                row.select === sol.task ? sol.solved_by = row.id : null;
-            }
-        },
         solve: function () {
             // after the second solve the inputs are set
             // get the rows and send them to the server for evaluation
@@ -132,22 +117,10 @@ export default {
             // only is set if default values are not set ?!
             let areSolved = 0;
             // initialize dict to check if all tasks are correct
-            for (const row of this.rows) {
-                this.checkCorrectInputs(row);
-                this.setCorrespondingRows(row)
-                for (let sol of this.correctSolutions) {
-                    // check if all rows are solved
-                    if (row.id === sol.solved_by) {
-                        row.isCorrect.case_name && row.isCorrect.law && row.isCorrect.num ? sol.solved = true : sol.solved = false;
-                    }
-                }
-            }
-
-            for (let solution of this.correctSolutions) {
-                if (solution.solved) {
-                    areSolved += 1;
-                }
-            }
+            // for (const row of this.rows) {
+            //     this.checkCorrectInputs(row);
+            // }
+            
             const successMsg = document.getElementById('warningOrSuccess');
             // length is zero so success 
             if (areSolved === this.correctSolutions.length) {

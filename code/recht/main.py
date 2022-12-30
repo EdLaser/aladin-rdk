@@ -3,6 +3,7 @@ import json
 from typing import List, Dict
 
 from pydantic import BaseModel
+import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -54,6 +55,10 @@ def return_json(content):
     return JSONResponse(jsonable_encoder(content))
 
 
+def check_rows(rows: AllRows, task: Task):
+    pass
+
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -67,7 +72,8 @@ def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: 
     context: Context = Context(Default())
     determine_strategie(difficulty, amount, needed, context)
     generated_cases = context.generate_tasks(difficulty, amount, cases_needed)
-    task = Task(cases = generated_cases)
+    solutions = [gen.build_solution(case) for case in generated_cases ]
+    task = Task(cases = generated_cases, solutions=solutions)
     TASKS.append(task)
     return return_json({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
 
@@ -80,9 +86,8 @@ def get_select_options(id_of_task: int):
     
     return return_json(gen.select_options(wanted_task.cases))
 
-@app.get("/solution/{id_of_task}")
-def get_solution(id_of_task: int):
-    zve = 0
+@app.post("/solve/{id_of_task}")
+def get_solution(id_of_task: int, rows: AllRows):
     solutions = []
     wanted_task = search_task(id_of_task)
     if not wanted_task:
@@ -113,3 +118,7 @@ def get_zve(id_of_task):
 @app.get("/cases-to-choose")
 def get_cases_to_choose():
     return return_json(list(gen.show_all_cases()))
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
