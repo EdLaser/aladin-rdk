@@ -39,7 +39,6 @@ export default {
                 amount: this.amountValue,
                 needed: this.needed
             }
-            console.log(typeof (this.amount))
             const queryString = Object.keys(params).map(key => (this.isVariableAndNotEmpty(params[key]) ? `${key}=${params[key]}` : null)).filter(Boolean).join('&');
             const url = `http://localhost:8000/get-task?${queryString}`;
             return url;
