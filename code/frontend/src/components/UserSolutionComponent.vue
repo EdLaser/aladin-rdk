@@ -121,6 +121,8 @@ export default {
         },
         solve: function () {
             // after the second solve the inputs are set
+            // get the rows and send them to the server for evaluation
+            // check the response and see which one is correct
             console.log("Rows")
             console.log(this.rows)
             console.log("Solutions")
