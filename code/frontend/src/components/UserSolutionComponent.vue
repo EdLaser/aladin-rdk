@@ -6,14 +6,15 @@ export default {
     data() {
         return {
             options: [""],
-            allSolutions: [{}],
+            allSolutions: [],
             rows: [
                 {
                     'id': 0, 'select': "Sachverhalt auswählen", "law": '',
                     "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
                 }
             ],
-            correctSolutions: []
+            correctSolutions: [],
+            zve: 0
         };
     },
     computed: {
@@ -28,9 +29,12 @@ export default {
         task_id() {
             console.log(this.task_id);
             this.getOptions();
+            this.getSolutions();
+            this.createCorrectSolutions();
+
             const successMsg = document.getElementById('warningOrSuccess');
             successMsg.innerHTML= "";
-            successMsg.className = ""
+            successMsg.className = "";
         }
     },
     methods: {
@@ -42,10 +46,21 @@ export default {
                 console.log(error);
             });
         },
+        getSolutions() {
+            const url = 'http://localhost:8000/solution/' + store.task_id
+            axios.get(url).then((res) => {
+                this.allSolutions = res.data
+                // res data is correct but assignemnt doesnt work
+            }).catch((error) => {
+                console.log(error);
+            });
+        },
         createCorrectSolutions: function () {
-            for (const solution in this.allSolutions) {
-                this.correctSolutions.push({ 'task': solution, 'solved_by': '', 'solved': false });
+            this.correctSolutions = []
+            for (const solution of this.allSolutions) {
+                this.correctSolutions.push({ 'task': solution.case_name, 'solved_by': '', 'solved': false });
             }
+            console.log(this.correctSolutions)
         },
         checkIfRowNecessary: function () {
             let maxRows = this.showMaxRows > 0 ? this.showMaxRows : null;
@@ -105,17 +120,15 @@ export default {
             }
         },
         solve: function () {
-            const url = 'http://localhost:8000/solution/' + store.task_id
-            axios.get(url).then((res) => {
-                this.allSolutions = res.data
-                // res data is correct but assignemnt doesnt work
-                console.log(res.data)
-            }).catch((error) => {
-                console.log(error);
-            });
+            // after the second solve the inputs are set
+            console.log("Rows")
+            console.log(this.rows)
+            console.log("Solutions")
             console.log(this.allSolutions)
+            console.log("Correct solutions")
+            console.log(this.correctSolutions)
+            // only is set if default values are not set ?!
             let areSolved = 0;
-            this.createCorrectSolutions()
             // initialize dict to check if all tasks are correct
             for (const row of this.rows) {
                 this.checkCorrectInputs(row);
@@ -127,15 +140,14 @@ export default {
                     }
                 }
             }
-            // says things are solved even when array is empty
+
             for (let solution of this.correctSolutions) {
                 if (solution.solved) {
                     areSolved += 1;
                 }
             }
-            console.log(this.correctSolutions)
             const successMsg = document.getElementById('warningOrSuccess');
-            // length is zero so success but solutions are not set correctly 
+            // length is zero so success 
             if (areSolved === this.correctSolutions.length) {
                 successMsg.innerHTML = "Alles gelöst";
                 successMsg.className = "alert alert-success"
