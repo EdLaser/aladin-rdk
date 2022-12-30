@@ -18,6 +18,9 @@ origins = [
     'http://localhost:5173'
 ]
 
+ERRORS = {
+    404: {"code": 404, "message": "Task not found."}
+}
 
 def determine_strategie(difficulty, amount, needed, context: Context):
     if difficulty and amount:
@@ -71,23 +74,29 @@ def get_solution(id_of_task: int):
     solutions = []
     wanted_task = search_task(id_of_task)
     if not wanted_task:
-        return return_json({"failure": "Task was not found"})
+        return return_json(ERRORS[404])
 
     for c in wanted_task.cases:
         solution = gen.build_solution(c)
         for law in all_laws:
             gen.map_law(solution, law)
         if solution.type_of_case == 'Einnahme':
-            zve += solution.number
+            wanted_task.zve += solution.number
         elif solution.type_of_case == 'Ausgabe':
-            zve -= solution.number
+            wanted_task.zve -= solution.number
         else:
             pass
         solutions.append(solution.to_dict())
-    solutions.append({"zve": zve})
 
     return return_json(solutions)
 
+@app.get("/zve/{id_of_task}")
+def get_zve(id_of_task):
+    wanted_task = search_task(id_of_task)
+    if wanted_task:
+        return wanted_task.zve
+    else:
+        return return_json(ERRORS[404])
 
 @app.get("/cases-to-choose")
 def get_cases_to_choose():
