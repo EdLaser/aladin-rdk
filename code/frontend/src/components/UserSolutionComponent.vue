@@ -6,7 +6,7 @@ export default {
     data() {
         return {
             options: [""],
-            allSolutions: [],
+            allSolutions: [{}],
             rows: [
                 {
                     'id': 0, 'select': "Sachverhalt auswählen", "law": '',
@@ -44,7 +44,7 @@ export default {
         },
         createCorrectSolutions: function () {
             for (const solution in this.allSolutions) {
-                correctSolutions.push({ 'task': solution, 'solved_by': '', 'solved': false });
+                this.correctSolutions.push({ 'task': solution, 'solved_by': '', 'solved': false });
             }
         },
         checkIfRowNecessary: function () {
@@ -108,11 +108,12 @@ export default {
             const url = 'http://localhost:8000/solution/' + store.task_id
             axios.get(url).then((res) => {
                 this.allSolutions = res.data
+                // res data is correct but assignemnt doesnt work
                 console.log(res.data)
-                console.log(this.allSolutions)
             }).catch((error) => {
                 console.log(error);
             });
+            console.log(this.allSolutions)
             let areSolved = 0;
             this.createCorrectSolutions()
             // initialize dict to check if all tasks are correct
@@ -132,7 +133,9 @@ export default {
                     areSolved += 1;
                 }
             }
+            console.log(this.correctSolutions)
             const successMsg = document.getElementById('warningOrSuccess');
+            // length is zero so success but solutions are not set correctly 
             if (areSolved === this.correctSolutions.length) {
                 successMsg.innerHTML = "Alles gelöst";
                 successMsg.className = "alert alert-success"
