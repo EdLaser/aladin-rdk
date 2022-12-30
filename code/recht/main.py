@@ -2,6 +2,7 @@ import random
 import json
 from typing import List, Dict
 
+from pydantic import BaseModel
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -21,6 +22,17 @@ origins = [
 ERRORS = {
     404: {"code": 404, "message": "Task not found."}
 }
+
+
+class Row(BaseModel):
+    id: int
+    select: str
+    law: str
+    num: str
+
+class AllRows(BaseModel):
+    rows: List[Row]
+
 
 def determine_strategie(difficulty, amount, needed, context: Context):
     if difficulty and amount:
