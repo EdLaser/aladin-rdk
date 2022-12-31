@@ -4,7 +4,7 @@ from typing import List, Dict
 
 from pydantic import BaseModel
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
@@ -31,8 +31,15 @@ class Row(BaseModel):
     law: str
     num: str
 
+    def __str__(self) -> str:
+        return f"{self.id} {self.select} {self.law} {self.num}"
+
 class AllRows(BaseModel):
     rows: List[Row]
+
+    def __str__(self):
+        for row in self.rows:
+            return str(row)
 
 
 def determine_strategie(difficulty, amount, needed, context: Context):
@@ -82,7 +89,7 @@ def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: 
 def get_select_options(id_of_task: int):
     wanted_task = search_task(id_of_task)
     if not wanted_task:
-        return return_json({"failure": "Task was not found"})
+        raise HTTPException(status_code=404, detail="Task not found.")
     
     return return_json(gen.select_options(wanted_task.cases))
 
@@ -91,7 +98,7 @@ def get_solution(id_of_task: int, rows: AllRows):
     solutions = []
     wanted_task = search_task(id_of_task)
     if not wanted_task:
-        return return_json(ERRORS[404])
+        raise HTTPException(status_code=404, detail="Task not found.")
 
     for c in wanted_task.cases:
         solution = gen.build_solution(c)
@@ -121,4 +128,4 @@ def get_cases_to_choose():
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", log_level="debug", port=8000)
