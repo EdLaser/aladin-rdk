@@ -26,16 +26,16 @@ ERRORS = {
 
 
 class Row(BaseModel):
-    id: int
-    select: str
-    law: str
-    num: str
+    id: int | None = 0
+    select: str | None = "test"
+    law: str| None = "hallo"
+    num: int | None = 0
 
     def __str__(self) -> str:
         return f"{self.id} {self.select} {self.law} {self.num}"
 
 class AllRows(BaseModel):
-    rows: List[Row]
+    rows: list[Row]
 
     def __str__(self):
         for row in self.rows:
@@ -94,7 +94,10 @@ def get_select_options(id_of_task: int):
     return return_json(gen.select_options(wanted_task.cases))
 
 @app.post("/solve/{id_of_task}")
-def get_solution(id_of_task: int, rows: AllRows):
+def get_solution(id_of_task: int, rows: Row):
+    with open("server.log", "w") as f:
+        f.write(str(rows)) 
+
     solutions = []
     wanted_task = search_task(id_of_task)
     if not wanted_task:
