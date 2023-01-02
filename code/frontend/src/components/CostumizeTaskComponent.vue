@@ -15,7 +15,10 @@ export default {
             return this.amountValue;
         },
         difficultySlider() {
-            return this.difficultyValue
+            return this.difficultyValue;
+        },
+        taskId() {
+             return store.task_id;
         }
     },
     methods: {
