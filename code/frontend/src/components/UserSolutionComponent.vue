@@ -9,7 +9,7 @@ export default {
             rows: [
                 {
                     'id': 0, 'select': "Sachverhalt auswählen", "law": '',
-                    "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
+                    "num": null
                 }
             ],
             zve: 0
@@ -27,11 +27,9 @@ export default {
         task_id() {
             console.log(this.task_id);
             this.getOptions();
-            this.getSolutions();
-            this.createCorrectSolutions();
 
             const successMsg = document.getElementById('warningOrSuccess');
-            successMsg.innerHTML= "";
+            successMsg.innerHTML = "";
             successMsg.className = "";
         }
     },
@@ -44,13 +42,15 @@ export default {
                 console.log(error);
             });
         },
-        getSolutions() {
-            const url = 'http://localhost:8000/solution/' + store.task_id
-            axios.get(url).then((res) => {
-                this.allSolutions = res.data
+        solveTask() {
+            const url = 'http://localhost:8000/solve/' + store.task_id
+            const data = JSON.stringify(this.rows[0]);
+            console.log(data)
+            axios.post(url, { data }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+                console.log(res)
                 // res data is correct but assignemnt doesnt work
             }).catch((error) => {
-                console.log(error);
+                console.log(error.response.data.detail);
             });
         },
         checkIfRowNecessary: function () {
@@ -68,7 +68,7 @@ export default {
             if (this.checkIfRowNecessary()) {
                 this.rows.push({
                     'id': newId, 'select': "Sachverhalt auswählen", "law": '',
-                    "num": '', "isCorrect": { "case_name": false, "law": false, "num": false }
+                    "num": null
                 });
             } else {
                 warningOrSuccessDiv.className = "alert alert-danger";
@@ -92,41 +92,20 @@ export default {
                 document.getElementById('addRow').disabled = true
             }
         },
-        checkCorrectInputs: function (row) {
-            if (row.select in this.allSolutions) {
-                // check if the Inputs match the correct solution inputs, set the elem of the row accordingly
-                row.isCorrect.case_name = true;
-                const correctSolution = this.allSolutions[row.select];
-
-                row.law === correctSolution.law ? row.isCorrect.law = true : row.isCorrect.law = false;
-                row.num === correctSolution.number ? row.isCorrect.num = true : row.isCorrect.num = false;
-
-                this.evaluateCorrectnessOfRow(row.isCorrect, row);
-            }
-        },
         solve: function () {
             // after the second solve the inputs are set
             // get the rows and send them to the server for evaluation
             // check the response and see which one is correct
-            console.log("Rows")
-            console.log(this.rows)
-            console.log("Solutions")
-            console.log(this.allSolutions)
-            console.log("Correct solutions")
-            console.log(this.correctSolutions)
+
+            this.solveTask()
             // only is set if default values are not set ?!
             let areSolved = 0;
-            // initialize dict to check if all tasks are correct
-            // for (const row of this.rows) {
-            //     this.checkCorrectInputs(row);
-            // }
-            
             const successMsg = document.getElementById('warningOrSuccess');
-            // length is zero so success 
-            if (areSolved === this.correctSolutions.length) {
-                successMsg.innerHTML = "Alles gelöst";
-                successMsg.className = "alert alert-success"
-            }
+
+            // if (areSolved === this.correctSolutions.length) {
+            //     successMsg.innerHTML = "Alles gelöst";
+            //     successMsg.className = "alert alert-success"
+            // }
         },
         evaluateCorrectnessOfRow: function (isCorrect, row) {
             const caseInput = document.getElementById(row.id + "_case_name");
@@ -213,6 +192,9 @@ export default {
                     </div>
                 </div>
             </form>
+            <div id="debug">
+
+            </div>
         </div>
     </div>
 </template>
