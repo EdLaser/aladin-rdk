@@ -1,0 +1,11 @@
+Erhöhen des vue anteils durch ersetzen des frontends durch view
+Flask nur noch als REST-API mit json responses. Endpunkt für das generieren eines Tasks, für die lösung des Tasks, sowie für auswählbare optionen an möglichen Aufgabentypen. Der Endpunkt hält eine Liste alle Generierten Tasks mit einer gegebenen ID.
+Trennen von Generierung Task und Lösungen
+Das Backend wurde auf FastAPI umgestellt um die Performance zu steigern.
+
+Das Vue Frontend ist in Componenten aufgeteilt. So wie vorher gibt es eine Komponente für das Darstellen der Aufgabe, das Ändern der Parameter zur Generierung sowie ein Main Layout. Der aktuelle Task wird hier in einem Vue Store gehalten um ihn zwischen allen Komponenten zu Synchronisieren. Dabei Liegt die Änderung der Task-ID im Store nur im CostumizeTaskComponent. Alle anderen Componenten beobachten die Task-ID und führen ihre Aktionen nach Ändern selbiger durch.
+Die Schwierigkeit ist jetzt ebenfalls ein Slider.
+Diese werden per computed auf das label element gemapt.
+die URL query string wird dynamisch mit diesen parametern gebaut.
+
+Input:
