@@ -1,10 +1,9 @@
-import random
-import json
 from typing import List, Dict
-
+import sys
 from pydantic import BaseModel
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from loguru import logger
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,6 +22,9 @@ origins = [
 ERRORS = {
     404: {"code": 404, "message": "Task not found."}
 }
+
+logger.remove()
+logger.add(sys.stdout, colorize=True, format="<green>{time:HH:mm:ss}</green> | {level} | <level>{message}</level>")
 
 
 class Row(BaseModel):
@@ -72,6 +74,11 @@ app.add_middleware(
     allow_origins=origins,
     allow_methods=['*']
 )
+
+app.middleware("http")
+async def log_request(request: Request):
+    logger.debug(f"{request.method} {request.url}")
+    logger.debug(f"Body: {request.body}")
 
 @app.get("/get-task")
 def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: str | None = None):
