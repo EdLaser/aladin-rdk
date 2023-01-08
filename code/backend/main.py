@@ -36,13 +36,6 @@ class Row(BaseModel):
     def __str__(self) -> str:
         return f"{self.id} {self.select} {self.law} {self.num}"
 
-class ListOfRows(BaseModel):
-    rows: list[Row]
-
-    def __str__(self):
-        for row in self.rows:
-            return str(row)
-
 
 def determine_strategie(difficulty, amount, needed, context: Context):
     if difficulty and amount:
@@ -64,7 +57,7 @@ def return_json(content):
     return JSONResponse(jsonable_encoder(content))
 
 
-def check_rows(rows: ListOfRows, task: Task):
+def check_rows(rows: List[Row], task: Task):
     pass
 
 
@@ -100,12 +93,10 @@ def get_select_options(id_of_task: int):
     
     return return_json(gen.select_options(wanted_task.cases))
 
-@app.post("/solve/{id_of_task}")
-async def get_solution(id_of_task: int, request: Request):
-    data = await request.body()
-    print(str(data))
-    # with open("server.log", "w") as f:
-    #     f.write(str(rows)) 
+@app.post( "/solve/{id_of_task}")
+def get_solution(id_of_task: int, user_rows: List[Row]):
+    print(user_rows)
+    
 
     solutions = []
     wanted_task = search_task(id_of_task)
