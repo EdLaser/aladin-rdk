@@ -115,15 +115,19 @@ def get_select_options(id_of_task: int):
 
 @app.post( "/solve/{id_of_task}")
 def get_solution(id_of_task: int, user_rows: List[Row]):
-    print(user_rows)
+    is_input_correct = {}
     wanted_task = search_task(id_of_task)
     if wanted_task:
         for row in user_rows:
             if row.select in wanted_task.solutions.keys():
-                wanted_task.solved[row.select] = check_row(row, wanted_task.solutions[row.select])
+                checked = check_row(row, wanted_task.solutions[row.select])
+                wanted_task.solved[row.select] = checked
+                is_input_correct[row.id] = checked
             else:
                 pass
         print(wanted_task.solved)
+
+        return return_json(is_input_correct)
     
     if not wanted_task:
         raise HTTPException(status_code=404, detail="Task not found.")
