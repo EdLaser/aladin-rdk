@@ -5,12 +5,12 @@ import itertools
 class Task:
     id_generated = itertools.count()
 
-    def __init__(self, cases: dict[int, Case] = {}, zve: int = 0, solutions: list[Solution] = []) -> None:
+    def __init__(self, cases: list[Case] = [], zve: int = 0, solutions: dict[int, Solution] = {}) -> None:
         self.id = next(Task.id_generated)
-        self.cases: dict[int, Case] = cases
-        self.solutions = solutions
+        self.cases: list[Case] = cases
+        self.solutions: dict[int, Solution] = solutions
         self.zve = zve
-        self.solved = {case_id: False for case_id in self.cases.keys()}
+        self.solved = {sol_id: False for sol_id in self.solutions.keys()}
 
     def to_dict(self):
-        return {"id": self.id, "cases": [case.to_dict() for case in self.cases.values()], "solved": self.solved}
+        return {"id": self.id, "case": [case.to_dict() for case in self.cases], "solved": self.solved}

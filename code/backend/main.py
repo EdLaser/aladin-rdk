@@ -17,14 +17,11 @@ import generate_tasks as gen
 from generator_strategie import Context, WithDifficultyAndAmount, WithDifficultyAndNeededAndAmount, Default
 
 TASKS: List[Task] = []
+
 origins = [
     'http://localhost:8000',
     'http://localhost:5173'
 ]
-
-ERRORS = {
-    404: {"code": 404, "message": "Task not found."}
-}
 
 logger.remove()
 logger.add(sys.stdout, colorize=True, format="<green>{time:HH:mm:ss}</green> | {level} | <level>{message}</level>")
@@ -48,11 +45,11 @@ def determine_strategie(difficulty, amount, needed, context: Context):
             context.strategy = WithDifficultyAndAmount()
 
 
-def cases_with_id(cases: List[Case]):
+def solutions_with_id(solution: List[Solution]):
     iterator = (count(start= 1, step = 1))
-    cases_and_id = {next(iterator): case for case in cases}
+    sol_and_id = {next(iterator): sol for sol in solution}
 
-    return cases_and_id
+    return sol_and_id
 
 
 def search_task(id_of_task):
@@ -102,10 +99,10 @@ def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: 
     for solution in solutions:
         zve = zve + solution.number if solution.type_of_case == "Einnahme" else zve - solution.number
 
-    task = Task(cases = cases_with_id(generated_cases), solutions=solutions, zve=zve)
+    task = Task(cases = generated_cases, solutions=solutions_with_id(solutions), zve=zve)
     TASKS.append(task)
 
-    return return_json({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases.values()]})
+    return return_json({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
 
 
 @app.get("/select-options/{id_of_task}")
@@ -114,16 +111,18 @@ def get_select_options(id_of_task: int):
     if not wanted_task:
         raise HTTPException(status_code=404, detail="Task not found.")
     
-    return return_json(gen.select_options(list(wanted_task.cases.values())))
+    return return_json(gen.select_options(list(wanted_task.cases)))
+
 
 @app.post( "/solve/{id_of_task}")
 def get_solution(id_of_task: int, user_rows: List[Row]):
     print(user_rows)
-    
-
     wanted_task = search_task(id_of_task)
+    if wanted_task:
+        print(wanted_task.solved)
     if not wanted_task:
         raise HTTPException(status_code=404, detail="Task not found.")
+    
 
 
 @app.get("/zve/{id_of_task}")
@@ -132,7 +131,8 @@ def get_zve(id_of_task):
     if wanted_task:
         return wanted_task.zve
     else:
-        return return_json(ERRORS[404])
+        raise HTTPException(status_code=404, detail="Task not found.")
+
 
 @app.get("/cases-to-choose")
 def get_cases_to_choose():
