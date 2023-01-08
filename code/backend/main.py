@@ -9,6 +9,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 
 from library.task import Task
+from library.solution import Solution
 from library.laws import ALL as all_laws
 import generate_tasks as gen
 from generator_strategie import Context, WithDifficultyAndAmount, WithDifficultyAndNeededAndAmount, Default
@@ -57,8 +58,12 @@ def return_json(content):
     return JSONResponse(jsonable_encoder(content))
 
 
-def check_rows(rows: List[Row], task: Task):
-    pass
+def check_row(row: Row, correct: Solution):
+    return {
+        'select': correct.case_name == row.select, 
+        'law': correct.law == row.law, 
+        'num': correct.number == row.num
+    }
 
 
 app = FastAPI()
@@ -68,10 +73,12 @@ app.add_middleware(
     allow_methods=['*']
 )
 
+
 app.middleware("http")
 async def log_request(request: Request):
     logger.debug(f"{request.method} {request.url}")
     logger.debug(f"Body: {request.body}")
+
 
 @app.get("/get-task")
 def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: str | None = None):
@@ -88,7 +95,7 @@ def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: 
 
     task = Task(cases = generated_cases, solutions=solutions, zve=zve)
     TASKS.append(task)
-    
+
     return return_json({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
 
 
