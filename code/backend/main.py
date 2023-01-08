@@ -75,13 +75,20 @@ async def log_request(request: Request):
 
 @app.get("/get-task")
 def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: str | None = None):
+    zve = 0
     cases_needed = needed.split(',') if needed else []
+
     context: Context = Context(Default())
     determine_strategie(difficulty, amount, needed, context)
+
     generated_cases = context.generate_tasks(difficulty, amount, cases_needed)
-    solutions = [gen.build_solution(case) for case in generated_cases ]
-    task = Task(cases = generated_cases, solutions=solutions)
+    solutions = [gen.build_solution(case) for case in generated_cases]
+    for solution in solutions:
+        zve = zve + solution.number if solution.type_of_case == "Einnahme" else zve - solution.number
+
+    task = Task(cases = generated_cases, solutions=solutions, zve=zve)
     TASKS.append(task)
+    
     return return_json({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
 
 
@@ -97,7 +104,6 @@ def get_select_options(id_of_task: int):
 def get_solution(id_of_task: int, user_rows: List[Row]):
     print(user_rows)
     
-
     solutions = []
     wanted_task = search_task(id_of_task)
     if not wanted_task:
