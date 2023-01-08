@@ -1,4 +1,5 @@
 from typing import List, Dict
+from itertools import count
 import sys
 from pydantic import BaseModel
 import uvicorn
@@ -9,6 +10,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 
 from library.task import Task
+from library.nodepool.case import Case
 from library.solution import Solution
 from library.laws import ALL as all_laws
 import generate_tasks as gen
@@ -44,6 +46,13 @@ def determine_strategie(difficulty, amount, needed, context: Context):
             context.strategy = WithDifficultyAndNeededAndAmount() 
         else:
             context.strategy = WithDifficultyAndAmount()
+
+
+def cases_with_id(cases: List[Case]):
+    iterator = (count(start= 1, step = 1))
+    cases_and_id = {next(iterator): case for case in cases}
+
+    return cases_and_id
 
 
 def search_task(id_of_task):
@@ -93,10 +102,10 @@ def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: 
     for solution in solutions:
         zve = zve + solution.number if solution.type_of_case == "Einnahme" else zve - solution.number
 
-    task = Task(cases = generated_cases, solutions=solutions, zve=zve)
+    task = Task(cases = cases_with_id(generated_cases), solutions=solutions, zve=zve)
     TASKS.append(task)
 
-    return return_json({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases]})
+    return return_json({"id": task.id, "sentences": [gen.build_sent(case) for case in task.cases.values()]})
 
 
 @app.get("/select-options/{id_of_task}")
@@ -105,30 +114,17 @@ def get_select_options(id_of_task: int):
     if not wanted_task:
         raise HTTPException(status_code=404, detail="Task not found.")
     
-    return return_json(gen.select_options(wanted_task.cases))
+    return return_json(gen.select_options(list(wanted_task.cases.values())))
 
 @app.post( "/solve/{id_of_task}")
 def get_solution(id_of_task: int, user_rows: List[Row]):
     print(user_rows)
     
-    solutions = []
+
     wanted_task = search_task(id_of_task)
     if not wanted_task:
         raise HTTPException(status_code=404, detail="Task not found.")
 
-    for c in wanted_task.cases:
-        solution = gen.build_solution(c)
-        for law in all_laws:
-            gen.map_law(solution, law)
-        if solution.type_of_case == 'Einnahme':
-            wanted_task.zve += solution.number
-        elif solution.type_of_case == 'Ausgabe':
-            wanted_task.zve -= solution.number
-        else:
-            pass
-        solutions.append(solution.to_dict())
-
-    return return_json(solutions)
 
 @app.get("/zve/{id_of_task}")
 def get_zve(id_of_task):
