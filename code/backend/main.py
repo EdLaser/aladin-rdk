@@ -28,10 +28,10 @@ logger.add(sys.stdout, colorize=True, format="<green>{time:HH:mm:ss}</green> | {
 
 
 class Row(BaseModel):
-    id: int | None = 0
-    select: str | None = "test"
-    law: str| None = "hallo"
-    num: int | None = 0
+    id: int = 0
+    select: str
+    law: str
+    num: int
 
     def __str__(self) -> str:
         return f"{self.id} {self.select} {self.law} {self.num}"
@@ -45,9 +45,8 @@ def determine_strategie(difficulty, amount, needed, context: Context):
             context.strategy = WithDifficultyAndAmount()
 
 
-def solutions_with_id(solution: List[Solution]):
-    iterator = (count(start= 1, step = 1))
-    sol_and_id = {next(iterator): sol for sol in solution}
+def solutions_with_id(solutions: List[Solution]):
+    sol_and_id = {sol.case_name: sol for sol in solutions}
 
     return sol_and_id
 
@@ -66,7 +65,7 @@ def return_json(content):
 
 def check_row(row: Row, correct: Solution):
     return {
-        'select': correct.case_name == row.select, 
+        'name': correct.case_name == row.select, 
         'law': correct.law == row.law, 
         'num': correct.number == row.num
     }
@@ -111,7 +110,7 @@ def get_select_options(id_of_task: int):
     if not wanted_task:
         raise HTTPException(status_code=404, detail="Task not found.")
     
-    return return_json(gen.select_options(list(wanted_task.cases)))
+    return return_json(gen.select_options(wanted_task.cases))
 
 
 @app.post( "/solve/{id_of_task}")
@@ -119,7 +118,13 @@ def get_solution(id_of_task: int, user_rows: List[Row]):
     print(user_rows)
     wanted_task = search_task(id_of_task)
     if wanted_task:
+        for row in user_rows:
+            if row.select in wanted_task.solutions.keys():
+                wanted_task.solved[row.select] = check_row(row, wanted_task.solutions[row.select])
+            else:
+                pass
         print(wanted_task.solved)
+    
     if not wanted_task:
         raise HTTPException(status_code=404, detail="Task not found.")
     
