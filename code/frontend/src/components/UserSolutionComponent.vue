@@ -46,7 +46,7 @@ export default {
             const url = 'http://localhost:8000/solve/' + store.task_id
             const data = JSON.stringify(this.rows);
             console.log(data)
-            axios.post(url, { data }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+            axios.post(url, data, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
                 console.log(res)
                 // res data is correct but assignemnt doesnt work
             }).catch((error) => {
