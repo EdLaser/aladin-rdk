@@ -36,7 +36,7 @@ class Row(BaseModel):
     def __str__(self) -> str:
         return f"{self.id} {self.select} {self.law} {self.num}"
 
-class AllRows(BaseModel):
+class ListOfRows(BaseModel):
     rows: list[Row]
 
     def __str__(self):
@@ -64,7 +64,7 @@ def return_json(content):
     return JSONResponse(jsonable_encoder(content))
 
 
-def check_rows(rows: AllRows, task: Task):
+def check_rows(rows: ListOfRows, task: Task):
     pass
 
 
@@ -101,9 +101,11 @@ def get_select_options(id_of_task: int):
     return return_json(gen.select_options(wanted_task.cases))
 
 @app.post("/solve/{id_of_task}")
-def get_solution(id_of_task: int, rows: Row):
-    with open("server.log", "w") as f:
-        f.write(str(rows)) 
+async def get_solution(id_of_task: int, request: Request):
+    data = await request.body()
+    print(str(data))
+    # with open("server.log", "w") as f:
+    #     f.write(str(rows)) 
 
     solutions = []
     wanted_task = search_task(id_of_task)
