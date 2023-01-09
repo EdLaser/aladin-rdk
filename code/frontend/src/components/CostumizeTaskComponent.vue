@@ -46,10 +46,10 @@ export default {
             const url = `http://localhost:8000/get-task?${queryString}`;
             return url;
         },
-        getTask() {
+        async getTask() {
             const url = this.buildURL();
             console.log(url)
-            axios.get(url)
+            await axios.get(url)
                 .then((res) => {
                     store.sentences = res.data.sentences;
                     store.task_id = res.data.id;
