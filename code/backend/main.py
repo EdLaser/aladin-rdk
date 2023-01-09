@@ -59,7 +59,7 @@ def search_task(id_of_task):
     return wanted_task
 
 
-def return_json(content):
+def return_json(content: Dict | List | str):
     return JSONResponse(jsonable_encoder(content))
 
 
@@ -113,8 +113,8 @@ def get_select_options(id_of_task: int):
     return return_json(gen.select_options(wanted_task.cases))
 
 
-@app.post( "/solve/{id_of_task}")
-def get_solution(id_of_task: int, user_rows: List[Row]):
+@app.post("/solve/{id_of_task}")
+def solve(id_of_task: int, user_rows: List[Row]):
     is_input_correct = {}
     wanted_task = search_task(id_of_task)
     if wanted_task:
@@ -125,11 +125,18 @@ def get_solution(id_of_task: int, user_rows: List[Row]):
                 is_input_correct[row.id] = checked
             else:
                 pass
-        print(wanted_task.solved)
-
+        print(is_input_correct)
         return return_json(is_input_correct)
     
     if not wanted_task:
+        raise HTTPException(status_code=404, detail="Task not found.")
+
+@app.get("/solution/{id_of_task}")
+def get_solution(id_of_task: int):
+    wanted_task = search_task(id_of_task)
+    if wanted_task:
+        return return_json([solution.to_dict() for solution in wanted_task.solutions.values()])
+    else:
         raise HTTPException(status_code=404, detail="Task not found.")
     
 
