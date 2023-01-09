@@ -95,7 +95,10 @@ def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: 
 
     generated_cases = context.generate_tasks(difficulty, amount, cases_needed)
     solutions = [gen.build_solution(case) for case in generated_cases]
+    
     for solution in solutions:
+        for laws in all_laws:
+            gen.map_law(solution, laws)
         zve = zve + solution.number if solution.type_of_case == "Einnahme" else zve - solution.number
 
     task = Task(cases = generated_cases, solutions=solutions_with_id(solutions), zve=zve)
@@ -142,7 +145,7 @@ def get_solution(id_of_task: int):
 
 
 @app.get("/zve/{id_of_task}")
-def get_zve(id_of_task):
+def get_zve(id_of_task: int):
     wanted_task = search_task(id_of_task)
     if wanted_task:
         return wanted_task.zve
