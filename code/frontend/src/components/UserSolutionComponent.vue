@@ -12,6 +12,7 @@ export default {
                     "num": null
                 }
             ],
+            correct: {},
             zve: 0
         };
     },
@@ -48,10 +49,11 @@ export default {
             console.log(data)
             axios.post(url, data, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
                 console.log(res)
-                // res data is correct but assignemnt doesnt work
+                this.correct = res
             }).catch((error) => {
                 console.log(error.response.data.detail);
             });
+            console.log(this.correct)
         },
         checkIfRowNecessary: function () {
             let maxRows = this.showMaxRows > 0 ? this.showMaxRows : null;
@@ -93,10 +95,6 @@ export default {
             }
         },
         solve: function () {
-            // after the second solve the inputs are set
-            // get the rows and send them to the server for evaluation
-            // check the response and see which one is correct
-
             this.solveTask()
             // only is set if default values are not set ?!
             let areSolved = 0;
