@@ -15,3 +15,10 @@ class Task:
 
     def to_dict(self):
         return {"id": self.id, "case": [case.to_dict() for case in self.cases], "solved": self.solved}
+
+    def all_solved(self):
+        correct = 0
+        for is_correct in self.solved.values():
+            if all(is_correct.values()):
+                correct +=1
+        return True if correct == len(self.solutions) else False
