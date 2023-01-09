@@ -40,7 +40,7 @@ export default {
             axios.get(url).then((res) => {
                 this.options = res.data;
             }).catch((error) => {
-                console.log(error);
+                store.error = error
             });
         },
         solveTask() {
@@ -51,7 +51,7 @@ export default {
                 console.log(res)
                 this.correct = res
             }).catch((error) => {
-                console.log(error.response.data.detail);
+                store.error = error.response.data.detail;
             });
             console.log(this.correct)
         },
