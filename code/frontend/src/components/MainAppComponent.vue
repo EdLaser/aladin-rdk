@@ -3,13 +3,15 @@ import CostumizeTaskComponent from './CostumizeTaskComponent.vue';
 import TaskSentenceComponent from './TaskSentenceComponent.vue';
 import UserSolutionComponent from './UserSolutionComponent.vue';
 import ErrorComponent from './ErrorComponent.vue';
+import GivenSolutionComponent from './GivenSolutionComponent.vue';
 
 export default {
     components: {
         TaskSentenceComponent,
         UserSolutionComponent,
         CostumizeTaskComponent,
-        ErrorComponent
+        ErrorComponent,
+        GivenSolutionComponent
     }
 }
 </script>
@@ -33,7 +35,7 @@ export default {
             <UserSolutionComponent />
         </div>
         <div class="d-flex flex-row bd-highlight mb-3">
-            <!-- Solution table placholder -->
+            <GivenSolutionComponent />
         </div>
     </div>
     <div class="container">
