@@ -14,7 +14,8 @@ export default {
             ],
             correct: {},
             allSolved: false,
-            zve: 0
+            zve: false,
+            zveValue: 0
         };
     },
     computed: {
@@ -37,13 +38,21 @@ export default {
         },
         correct() {
             for (const [key, value] of Object.entries(this.correct)) {
-                console.log(`${key}: ${value}`);
                 this.evaluateCorrectnessOfRow(key, value)
             }
 
             const successMsg = document.getElementById('warningOrSuccess');
+            this.checkZve()
 
-            if (this.allSolved === true) {
+            const zveElem = document.getElementById('zvE');
+            if (this.zve) {
+                zveElem.className = "form-control border-success border border-5";
+                zveElem.disabled = true;
+            } else {
+                zveElem.className = "form-control border-success border border-5"
+            }
+
+            if (this.allSolved === true && this.zveValue) {
                 successMsg.innerHTML = "Alles gelöst";
                 successMsg.className = "alert alert-success"
             }
@@ -60,7 +69,17 @@ export default {
                 ]
             this.correct = {}
             this.allSolved = false
-            this.zve = 0
+            this.zve = false
+            this.zveValue = 0
+        },
+        checkZve() {
+            axios.get("http://localhost:8000/zve/" + this.task_id)
+                .then((res) => {
+                    console.log(res)
+                    this.zve = this.zveValue === res.data ? true : false;
+                }).catch((error) => {
+                    store.error = error
+                });
         },
         getOptions: function () {
             const url = "http://localhost:8000/select-options/" + store.task_id;
@@ -76,10 +95,11 @@ export default {
             axios.post(url, data, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
                 this.correct = res.data.given
                 this.allSolved = res.data.all_solved
-                console.log(res.data)
             }).catch((error) => {
                 store.error = error.response.data.detail;
             });
+
+
         },
         checkIfRowNecessary: function () {
             let maxRows = this.showMaxRows > 0 ? this.showMaxRows : null;
@@ -187,7 +207,8 @@ export default {
                 </div>
                 <div class="d-flex flex-row mb-3">
                     <div class="col-xs-2">
-                        <input type="number" class="form-control" id="zvE" placeholder="zvE">
+                        <label for="zvE">zu versteuerndes Einkommen</label>
+                        <input type="number" v-model="zveValue" class="form-control" id="zvE" placeholder="zvE">
                     </div>
                 </div>
                 <div class="d-flex flex-row m-3">
