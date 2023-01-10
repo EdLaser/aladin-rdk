@@ -61,12 +61,12 @@ export default {
             const url = 'http://localhost:8000/solve/' + store.task_id
             const data = JSON.stringify(this.rows);
             axios.post(url, data, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-                this.correct = res.given
-                this.allSolved = res.all_solved
+                this.correct = res.data.given
+                this.allSolved = res.data.all_solved
+                console.log(res.data)
             }).catch((error) => {
                 store.error = error.response.data.detail;
             });
-            console.log(this.correct)
 
             // only is set if default values are not set ?!
             for (const [key, value] of Object.entries(this.correct)) {
@@ -123,9 +123,9 @@ export default {
         evaluateCorrectnessOfRow: function (id, isCorrect) {
             const caseInput = document.getElementById(id + "_case_name");
             const lawInput = document.getElementById(id + "_law");
-            const sumInput = document.getElementById(d + "_num");
+            const sumInput = document.getElementById(id + "_num");
 
-            if (isCorrect.case_name) {
+            if (isCorrect.name) {
                 caseInput.className = "form-control border-success border border-5";
                 caseInput.disabled = true;
             } else {
@@ -146,8 +146,8 @@ export default {
                 sumInput.className = "form-control border-danger border border-5";
             }
 
-            const delBtn = document.getElementById(row.id + '_del');
-            isCorrect.case_name && isCorrect.law && isCorrect.num ? delBtn.disabled = true : delBtn.disabled = false;
+            const delBtn = document.getElementById(id + '_del');
+            isCorrect.name && isCorrect.law && isCorrect.num ? delBtn.disabled = true : delBtn.disabled = false;
         }
     }
 }
