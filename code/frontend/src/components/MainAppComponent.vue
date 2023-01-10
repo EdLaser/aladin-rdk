@@ -4,6 +4,7 @@ import TaskSentenceComponent from './TaskSentenceComponent.vue';
 import UserSolutionComponent from './UserSolutionComponent.vue';
 import ErrorComponent from './ErrorComponent.vue';
 import GivenSolutionComponent from './GivenSolutionComponent.vue';
+import AllTasksComponent from './AllTasksComponent.vue';
 
 export default {
     components: {
@@ -11,7 +12,8 @@ export default {
         UserSolutionComponent,
         CostumizeTaskComponent,
         ErrorComponent,
-        GivenSolutionComponent
+        GivenSolutionComponent,
+        AllTasksComponent,
     }
 }
 </script>
@@ -21,6 +23,11 @@ export default {
         Hier werden Aufgaben zum Steuerrecht generiert!
     </p>
     <div class="container w-100 mb-5">
+        <div class="row justify-content-center">
+            <div class="col">
+                <AllTasksComponent />
+            </div>
+        </div>
         <div class="row justify-content-center">
             <div class="col">
                 <TaskSentenceComponent />
