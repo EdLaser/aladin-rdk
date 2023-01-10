@@ -34,6 +34,19 @@ export default {
             const successMsg = document.getElementById('warningOrSuccess');
             successMsg.innerHTML = "";
             successMsg.className = "";
+        },
+        correct() {
+            for (const [key, value] of Object.entries(this.correct)) {
+                console.log(`${key}: ${value}`);
+                this.evaluateCorrectnessOfRow(key, value)
+            }
+
+            const successMsg = document.getElementById('warningOrSuccess');
+
+            if (this.allSolved === true) {
+                successMsg.innerHTML = "Alles gelöst";
+                successMsg.className = "alert alert-success"
+            }
         }
     },
     methods: {
@@ -67,19 +80,6 @@ export default {
             }).catch((error) => {
                 store.error = error.response.data.detail;
             });
-
-            // only is set if default values are not set ?!
-            for (const [key, value] of Object.entries(this.correct)) {
-                console.log(`${key}: ${value}`);
-                this.evaluateCorrectnessOfRow(key, value)
-            }
-
-            const successMsg = document.getElementById('warningOrSuccess');
-
-            if (this.allSolved === true) {
-                successMsg.innerHTML = "Alles gelöst";
-                successMsg.className = "alert alert-success"
-            }
         },
         checkIfRowNecessary: function () {
             let maxRows = this.showMaxRows > 0 ? this.showMaxRows : null;
