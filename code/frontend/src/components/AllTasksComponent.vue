@@ -20,8 +20,15 @@ export default {
                 });
         }
     },
-    mounted() {
-        this.getGeneratedTasks()
+    computed: {
+        task_id() {
+            return store.task_id
+        }
+    },
+    watch: {
+        task_id() {
+            this.getGeneratedTasks()
+        }
     }
 }
 </script>
