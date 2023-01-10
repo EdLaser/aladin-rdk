@@ -128,8 +128,6 @@ def solve(id_of_task: int, user_rows: List[Row]):
                 is_input_correct[row.id] = checked
             else:
                 pass
-        print(is_input_correct)
-
         return return_json({'given': is_input_correct, 'all_solved': wanted_task.all_solved()})
     
     if not wanted_task:
@@ -157,6 +155,11 @@ def get_zve(id_of_task: int):
 @app.get("/cases-to-choose")
 def get_cases_to_choose():
     return return_json(list(gen.show_all_cases()))
+
+
+@app.get("/generated-cases")
+def get_cases_generated():
+    return return_json([t.id for t in TASKS])
 
 
 if __name__ == "__main__":
