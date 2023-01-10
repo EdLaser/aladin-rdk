@@ -13,6 +13,7 @@ export default {
                 }
             ],
             correct: {},
+            allSolved: false,
             zve: 0
         };
     },
@@ -27,6 +28,7 @@ export default {
     watch: {
         task_id() {
             console.log(this.task_id);
+            this.reset();
             this.getOptions();
 
             const successMsg = document.getElementById('warningOrSuccess');
@@ -35,6 +37,18 @@ export default {
         }
     },
     methods: {
+        reset() {
+            this.options = [""],
+                this.rows = [
+                    {
+                        'id': 0, 'select': "Sachverhalt auswählen", "law": '',
+                        "num": null
+                    }
+                ]
+            this.correct = {}
+            this.allSolved = false
+            this.zve = 0
+        },
         getOptions: function () {
             const url = "http://localhost:8000/select-options/" + store.task_id;
             axios.get(url).then((res) => {
@@ -46,14 +60,26 @@ export default {
         solveTask() {
             const url = 'http://localhost:8000/solve/' + store.task_id
             const data = JSON.stringify(this.rows);
-            console.log(data)
             axios.post(url, data, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-                console.log(res)
-                this.correct = res
+                this.correct = res.given
+                this.allSolved = res.all_solved
             }).catch((error) => {
                 store.error = error.response.data.detail;
             });
             console.log(this.correct)
+
+            // only is set if default values are not set ?!
+            for (const [key, value] of Object.entries(this.correct)) {
+                console.log(`${key}: ${value}`);
+                this.evaluateCorrectnessOfRow(key, value)
+            }
+
+            const successMsg = document.getElementById('warningOrSuccess');
+
+            if (this.allSolved === true) {
+                successMsg.innerHTML = "Alles gelöst";
+                successMsg.className = "alert alert-success"
+            }
         },
         checkIfRowNecessary: function () {
             let maxRows = this.showMaxRows > 0 ? this.showMaxRows : null;
@@ -94,21 +120,10 @@ export default {
                 document.getElementById('addRow').disabled = true
             }
         },
-        solve: function () {
-            this.solveTask()
-            // only is set if default values are not set ?!
-            let areSolved = 0;
-            const successMsg = document.getElementById('warningOrSuccess');
-
-            // if (areSolved === this.correctSolutions.length) {
-            //     successMsg.innerHTML = "Alles gelöst";
-            //     successMsg.className = "alert alert-success"
-            // }
-        },
-        evaluateCorrectnessOfRow: function (isCorrect, row) {
-            const caseInput = document.getElementById(row.id + "_case_name");
-            const lawInput = document.getElementById(row.id + "_law");
-            const sumInput = document.getElementById(row.id + "_num");
+        evaluateCorrectnessOfRow: function (id, isCorrect) {
+            const caseInput = document.getElementById(id + "_case_name");
+            const lawInput = document.getElementById(id + "_law");
+            const sumInput = document.getElementById(d + "_num");
 
             if (isCorrect.case_name) {
                 caseInput.className = "form-control border-success border border-5";
@@ -178,7 +193,7 @@ export default {
                 <div class="d-flex flex-row m-3">
                     <div class="col">
                         <button type="button" name="submitSolution" class="btn btn-primary"
-                            @click="this.solve()">Aufgabe
+                            @click="this.solveTask()">Aufgabe
                             lösen</button>
                     </div>
                     <div class="col" id="warningOrSuccess">
