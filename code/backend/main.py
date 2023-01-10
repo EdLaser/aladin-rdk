@@ -157,9 +157,9 @@ def get_cases_to_choose():
     return return_json(list(gen.show_all_cases()))
 
 
-@app.get("/generated-cases")
-def get_cases_generated():
-    return return_json([t.id for t in TASKS])
+@app.get("/generated-tasks")
+def get_tasks_generated():
+    return return_json({t.id: t.all_solved() for t in TASKS})
 
 
 if __name__ == "__main__":
