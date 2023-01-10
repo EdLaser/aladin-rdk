@@ -13,7 +13,7 @@ export default {
         CostumizeTaskComponent,
         ErrorComponent,
         GivenSolutionComponent,
-        AllTasksComponent,
+        AllTasksComponent
     }
 }
 </script>
