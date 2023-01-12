@@ -44,15 +44,15 @@ export default {
             const successMsg = document.getElementById('warningOrSuccess');
             this.checkZve()
 
-            const zveElem = document.getElementById('zvE');
             if (this.zve) {
+                const zveElem = document.getElementById('zvE');
                 zveElem.className = "form-control border-success border border-5";
                 zveElem.disabled = true;
             } else {
                 zveElem.className = "form-control border-success border border-5"
             }
 
-            if (this.allSolved === true && this.zveValue) {
+            if (this.allSolved === true && this.zve) {
                 successMsg.innerHTML = "Alles gelöst";
                 successMsg.className = "alert alert-success"
             }
@@ -70,7 +70,7 @@ export default {
             this.correct = {}
             this.allSolved = false
             this.zve = false
-            this.zveValue = 0
+            this.zveValue = null
         },
         checkZve() {
             axios.get("http://localhost:8000/zve/" + this.task_id)
