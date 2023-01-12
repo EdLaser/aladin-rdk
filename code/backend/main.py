@@ -129,9 +129,10 @@ def solve(id_of_task: int, user_rows: List[Row]):
             else:
                 pass
         return return_json({'given': is_input_correct, 'all_solved': wanted_task.all_solved()})
-    
+    # add zve and check if it is also solved
     if not wanted_task:
         raise HTTPException(status_code=404, detail="Task not found.")
+
 
 @app.get("/solution/{id_of_task}")
 def get_solution(id_of_task: int):
