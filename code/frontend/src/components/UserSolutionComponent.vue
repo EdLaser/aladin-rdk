@@ -15,7 +15,7 @@ export default {
             correct: {},
             allSolved: false,
             zve: false,
-            zveValue: 0
+            zveValue: null
         };
     },
     computed: {
