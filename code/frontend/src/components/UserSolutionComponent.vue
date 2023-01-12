@@ -44,12 +44,12 @@ export default {
             const successMsg = document.getElementById('warningOrSuccess');
             this.checkZve()
 
+            const zveElem = document.getElementById('zvE');
             if (this.zve) {
-                const zveElem = document.getElementById('zvE');
                 zveElem.className = "form-control border-success border border-5";
                 zveElem.disabled = true;
             } else {
-                zveElem.className = "form-control border-success border border-5"
+                zveElem.className = "form-control border-danger border border-5"
             }
 
             if (this.allSolved === true && this.zve) {
@@ -67,6 +67,13 @@ export default {
                         "num": null
                     }
                 ]
+            for(let row of this.rows) {
+                document.getElementById(row.id + "_case_name").className = "form-control"
+                document.getElementById(row.id + "_law").className = "form-control"
+                document.getElementById(row.id + "_num").className = "form-control"
+                document.getElementById("zvE").className = "form-control"
+
+            }
             this.correct = {}
             this.allSolved = false
             this.zve = false
