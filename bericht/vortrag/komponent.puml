@@ -1,0 +1,15 @@
+@startuml Komponentendiagram
+
+node "Client" {
+    [Vuejs]
+}
+
+node "Server" {
+    interface "Rest Endpoint" as re
+    [FastAPI] - re
+}
+
+Client .up.> re : REST Call
+Server .left.> Client : Response
+
+@enduml
