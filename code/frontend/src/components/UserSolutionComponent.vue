@@ -44,14 +44,6 @@ export default {
             const successMsg = document.getElementById('warningOrSuccess');
             this.checkZve()
 
-            const zveElem = document.getElementById('zvE');
-            if (this.zve) {
-                zveElem.className = "form-control border-success border border-5";
-                zveElem.disabled = true;
-            } else {
-                zveElem.className = "form-control border-danger border border-5"
-            }
-
             if (this.allSolved === true && this.zve) {
                 successMsg.innerHTML = "Alles gelöst";
                 successMsg.className = "alert alert-success"
@@ -172,6 +164,15 @@ export default {
             } else {
                 sumInput.className = "form-control border-danger border border-5";
             }
+
+            const zveElem = document.getElementById('zvE');
+            if (this.zve) {
+                zveElem.className = "form-control border-success border border-5";
+                zveElem.disabled = true;
+            } else {
+                zveElem.className = "form-control border-danger border border-5"
+            }
+
 
             const delBtn = document.getElementById(id + '_del');
             isCorrect.name && isCorrect.law && isCorrect.num ? delBtn.disabled = true : delBtn.disabled = false;
