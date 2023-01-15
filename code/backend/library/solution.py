@@ -9,7 +9,7 @@ class Solution:
         self.hint = hint
 
     def __str__(self) -> str:
-        return f"Casename: {self.case_name} | Law: {self.law} | Amount: {self.number}."
+        return f"Casename: {self.case_name} | Law: {self.law} | Amount: {self.number} | Type: {self.type_of_case}."
 
     def to_dict(self) -> Dict[str, str|int]:
         return {"case_name": self.case_name, "law": self.law, "number": self.number, "type_of_case": self.type_of_case, "hint": self.hint}
