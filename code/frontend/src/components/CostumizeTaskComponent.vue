@@ -68,7 +68,7 @@ export default {
     <form action="" method="">
         <div class="row mb-3 justify-content-center">
             <div class="col-6">
-                <label for="amountTasks" class="form-label" id="labelAmount">{{ amountSlider }} Aufgaben</label>
+                <label for="amountTasks" class="form-label" id="labelAmount">{{ amountSlider }} Sachverhalte</label>
                 <input type="range" v-model="amountValue" min="1" max="15" step="1" id="amountTasks" class="form-range">
             </div>
             <div class="col-6">
