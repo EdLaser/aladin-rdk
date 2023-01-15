@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios';
 import { store } from './store';
 
 export default {
@@ -18,7 +17,7 @@ export default {
     <div class="container">
         <p>
             <template v-for="sentence in sentences">
-                {{ sentence }}
+                {{ sentence }}{{ " " }}
             </template>
         </p>
     </div>
