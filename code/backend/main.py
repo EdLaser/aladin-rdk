@@ -95,8 +95,8 @@ def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: 
 
     generated_cases = context.generate_tasks(difficulty, amount, cases_needed)
     solutions = [gen.build_solution(case) for case in generated_cases]
-    
     for solution in solutions:
+        print(solution)
         for laws in all_laws:
             gen.map_law(solution, laws)
         zve = zve + solution.number if solution.type_of_case == "Einnahme" else zve - solution.number
