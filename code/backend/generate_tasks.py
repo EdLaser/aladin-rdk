@@ -53,13 +53,13 @@ def map_law(solution: Solution, config: Dict[str, List[str]]):
 def build_solution(case: Case):
     if 'WK' in case.name or 'Abschreibung' in case.name:
         return Solution(case_name=case.name, number=case.number,
-                                            type_of_case='Ausgabe')
+                        type_of_case='Ausgabe')
     else:
         return Solution(case_name=case.name, number=case.number,
-                                        type_of_case='Einnahme')
+                        type_of_case='Einnahme')
 
 
-def build_case(nodepool: NodePool, needed: str=""):
+def build_case(nodepool: NodePool, needed: str = ""):
     if needed:
         # if needed is given and case found, then append it, if not append random case
         case = nodepool.pick_node(needed)
@@ -71,8 +71,9 @@ def build_case(nodepool: NodePool, needed: str=""):
         case = nodepool.pick_random_node()
         return case
 
+
 # sol: Dict[str, Solution]
-def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[str] = []) -> List[Case]:
+def pick(difficulty: int, amount: int, nodepool: NodePool, needed_cases: List[str] = []) -> List[Case]:
     """
     Pick a node of the pool the given ammount of times.
 
@@ -84,7 +85,7 @@ def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[s
     all_cases = []
     # generated cases, len should ultimately equal the difficulty
     already_generated: List[str] = []
-    
+
     if needed_cases:
         for needed_case in needed_cases:
             new_case = build_case(nodepool, needed=needed_case)
@@ -116,7 +117,8 @@ def pick(difficulty: int, amount: int, nodepool: NodePool,  needed_cases: List[s
     return all_cases
 
 
-def generate(difficulty: int=random.randrange(1, len(sen.EARNINGS) + len(sen.SPENDINGS)), amount: int=5, needed: List[str]=[]):
+def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.SPENDINGS)), amount: int = 5,
+             needed: List[str] = []):
     """
     Generate all the tasks with the given Parameters.
     
@@ -132,7 +134,7 @@ def generate(difficulty: int=random.randrange(1, len(sen.EARNINGS) + len(sen.SPE
 
     pool = setup_pool('test_pool', earning_cases)
     add_all(pool, spending_cases)
-    
+
     all_cases = pick(difficulty=difficulty, amount=amount, nodepool=pool, needed_cases=needed)
 
     return all_cases
@@ -144,8 +146,9 @@ def select_options(cases: List[Case]):
         select_options_to_choose[index] = {'name': case.name, 'value': case.number}
     return select_options_to_choose
 
+
 def show_all_cases():
-    return { **sen.SPENDINGS, **sen.EARNINGS}
+    return {**sen.SPENDINGS, **sen.EARNINGS}
 
 
 if __name__ == '__main__':
