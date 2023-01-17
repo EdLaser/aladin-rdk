@@ -4,8 +4,8 @@ import torch
 from library.nodepool.case import Case
 from transformers import AutoModelForMaskedLM, AutoTokenizer, pipeline
 
-tokenizer = AutoTokenizer.from_pretrained("smanjil/German-MedBERT")
-model = AutoModelForMaskedLM.from_pretrained("smanjil/German-MedBERT")  # type: ignore
+tokenizer = AutoTokenizer.from_pretrained("bert-base-german-cased")
+model = AutoModelForMaskedLM.from_pretrained("bert-base-german-cased")  # type: ignore
 
 
 def multi_mask(text) -> str:
