@@ -1,0 +1,24 @@
+= 2. Steuerrecht
+
+== 2.a Aufgabenbeschreibung
+=== Gegebenheiten / Design der Aufgabe
+Meine Augfabe im Projektseminar war es, Aufgaben zum Steuerrecht umzusetzen. Dabei ging es darum, Aufgaben zu generieren bei denen die Studierenden das zu versteuernde Einkommen berechnet. Die Aufgaben sollen mit zufälligen Werten und Kombinationen aus einem Pool und Sachverhaltstypen generiert werden. Um die Lösung des Studenten zu prüfen, muss neben der Aufgabe auch noch die dazugehörige Lösung erstellt werden.
+Basis dieser Aufgaben bildet ein Text, mit unterschiedlichen steuerlichen Sachverhalten, welche die Studierenden herauslesen müssen. Die Sachverhalte sind dabei miteiander verwoben, können aber müssen nicht aufeinander aufbauen. Dies soll dazu führen, dass die Studierenden zum aktiven Kombinieren angeregt werden. Die Anzahl an unterschieldichen Sachverhaltstypen, soll stetig erweiterbar bleiben, im Moment werden Gehalt, Kapitalvermögen, Vermietung und für alle Typen Werbungskosten unterstützt.
+Um eine natürliche Satzstruktur zu wahren, muss der Text dabei unterschiedliche Satzkonstruktionen enhalten. Dazu sollen mehrere 'Versionen' des Satzes genutzt werden, welche dann zufällig ausgewählt werden. 
+Die Wertebereiche der Aufgaben müssen sich in einem realistischen Bereich bewegen, um nahezu an die Realtität zu kommen, sodass sich der Text umso mehr 'real' anfühlt.
+
+=== Anforderungen
+Aus diesen Gegebenheiten ergeben sich folgende Anforderungen an die Software:
+. Zufällige Generierung der Summen und Sachverhalte
+. Guter Lesefluss in der Aufgabe durch unterschiedliche Satzstrukturen
+. Generieren der Aufgabe und der Lösung
+. Realistische Wertebereiche
+. Trennung der Generierung und Lösung
+
+== Technische Umsetzung
+
+
+
+== Ergebnisse
+
+== Ausblick

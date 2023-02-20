@@ -6,7 +6,7 @@ class NodePool:
     """
     A class that represents a pool of nodes.
 
-    Attributes:
+    Parameters:
         name (str): The name of the node pool.
         nodes (List[Case]): A list of Case objects representing the nodes in the pool.
 
