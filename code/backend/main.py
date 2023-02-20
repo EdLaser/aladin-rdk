@@ -1,5 +1,4 @@
 from typing import List, Dict
-from itertools import count
 import sys
 from pydantic import BaseModel
 import uvicorn
@@ -10,7 +9,6 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 
 from library.task import Task
-from library.nodepool.case import Case
 from library.solution import Solution
 from library.laws import ALL as all_laws
 import generate_tasks as gen
