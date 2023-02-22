@@ -16,6 +16,16 @@ from library.nodepool.case import Case
 
 
 def setup_pool(name: str, cases: List[Case]) -> NodePool:
+    """
+    Setup a NodePool with the given name and Cases.
+
+    Parameters:
+        name(str): The name for the NodePool.
+        cases(List[Case]): The list of Cases to add to the NodePool.
+
+    Returns:
+        NodePool: The created NodePool.
+    """
     pool = NodePool(name)
     for c in cases:
         pool.add_node(c)
@@ -24,16 +34,26 @@ def setup_pool(name: str, cases: List[Case]) -> NodePool:
 
 
 def add_all(pool: NodePool, cases: List[Case]) -> None:
+    """
+    Add all the Cases in the list to the NodePool.
+
+    Parameters:
+        pool(NodePool): The NodePool to add the Cases to.
+        cases(List[Case]): The list of Cases to add to the NodePool.
+    """
     for c in cases:
         pool.add_node(c)
 
 
-def build_sent(case: Case):
+def build_sent(case: Case) -> str:
     """
     Build a sentence for the given case.
 
     Parameters:
         case(Case): The case to build the sentence for.
+
+     Returns:
+        str: The generated sentence.
     """
     variation: str = var.build_variaton(case)
     if variation:
@@ -43,6 +63,13 @@ def build_sent(case: Case):
 
 
 def map_law(solution: Solution, config: Dict[str, List[str]]):
+    """
+    Map a law to the solution based on the configuration.
+
+    Parameters:
+        solution(Solution): The Solution to map the law to.
+        config(Dict[str, List[str]]): The configuration to use for mapping the law.
+    """
     for given_law, list_of_dep_cases in config.items():
         if solution.case_name in list_of_dep_cases:
             solution.law = given_law
@@ -51,6 +78,15 @@ def map_law(solution: Solution, config: Dict[str, List[str]]):
 
 
 def build_solution(case: Case):
+    """
+    Build a Solution for the given Case.
+
+    Parameters:
+        case(Case): The Case to build the Solution for.
+
+    Returns:
+        Solution: The generated Solution.
+    """
     if 'WK' in case.name or 'Abschreibung' in case.name:
         return Solution(case_name=case.name, number=case.number,
                         type_of_case='Ausgabe')
@@ -60,6 +96,16 @@ def build_solution(case: Case):
 
 
 def build_case(nodepool: NodePool, needed: str = ""):
+    """
+    Build a Case chosen by name or random the NodePool.
+
+    Parameters:
+        nodepool(NodePool): The NodePool to use for generating the Case.
+        needed(str): A Case name that the generated Case should match, if possible.
+
+    Returns:
+        Case: The generated Case.
+    """
     if needed:
         # if needed is given and case found, then append it, if not append random case
         case = nodepool.pick_node(needed)
@@ -141,7 +187,16 @@ def generate(difficulty: int = random.randrange(1, len(sen.EARNINGS) + len(sen.S
 
 
 def select_options(cases: List[Case]):
-    select_options_to_choose = {}
+    """
+    Generate a dictionary of select options for the given Cases.
+
+    Parameters:
+        cases(List[Case]): The Cases to generate select options for.
+
+    Returns:
+        Dict[int, Dict[str, str| int]]: Cases for the select to choose from
+    """
+    select_options_to_choose: Dict[int, Dict[str, str | int]] = {}
     for index, case in enumerate(cases):
         select_options_to_choose[index] = {'name': case.name, 'value': case.number}
     return select_options_to_choose

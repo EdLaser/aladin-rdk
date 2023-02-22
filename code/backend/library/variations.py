@@ -9,9 +9,15 @@ model = AutoModelForMaskedLM.from_pretrained("bert-base-german-cased")  # type: 
 
 
 def multi_mask(text) -> str:
-    import torch
-    # text = "The capital of France [MASK] contains the Eiffel [MASK]."
-    # Converts a string to a sequence of ids (integer), using the tokenizer and vocabulary.
+    """
+    Returns the input text with replaced masked tokens.
+
+    Parameters:
+        text(str): The input text to replace masked tokens.
+
+    Returns:
+        str: The text with masked tokens replaced with the top predicted token.
+    """
     token_ids = tokenizer.encode(text, return_tensors='pt')
 
     token_ids_tk = tokenizer.tokenize(text, return_tensors='pt')
