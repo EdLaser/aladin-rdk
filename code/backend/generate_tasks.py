@@ -121,7 +121,7 @@ def build_case(nodepool: NodePool, needed: str = ""):
 # sol: Dict[str, Solution]
 def pick(difficulty: int, amount: int, nodepool: NodePool, needed_cases: List[str] = []) -> List[Case]:
     """
-    Pick a node of the pool the given ammount of times.
+    Pick a node of the pool the given ammount of times, but first generate the cases that are definitely wanted.
 
     Parameters:
         difficulty(int): Ammount of pickings from the nodepool.
