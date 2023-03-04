@@ -26,6 +26,15 @@ export default {
                 }).catch((error) => {
                     store.error = error.data
                 });
+        },
+        getTask(id) {
+            axios.get("http://localhost:8000/get-task/" + id)
+            .then((res) => {
+                store.sentences = res.data.sentences
+                store.task_id = res.data.id
+            }).catch((error) => {
+                store.error = error.data
+            });
         }
     },
     computed: {
@@ -45,7 +54,7 @@ export default {
     <div class="btn-group m-3" role="group" aria-label="Alle Aufgaben">
         <template v-for="(solved, id) in generatedTasks">
             <button v-if="solved === true" class="btn btn-success">Aufgabe: {{ id }}</button>
-            <button v-else class="btn btn-danger">Aufgabe: {{ id }}</button>
+            <button v-else class="btn btn-danger" @click="getTask(id)">Aufgabe: {{ id }}</button>
         </template>
     </div>
 </template>
