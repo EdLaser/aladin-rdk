@@ -10,6 +10,15 @@ export default {
         }
     },
     methods: {
+        /**
+         * Fetches the list of generated tasks from the server and updates the component's
+         * generatedTasks data property with the result.
+         * @function
+         * @name getGeneratedTasks
+         * @returns {void}
+         * @throws {Error} If an error occurs during the API request, the error message is stored
+         *                 in the store's error property.
+         */
         getGeneratedTasks() {
             axios.get("http://localhost:8000/generated-tasks")
                 .then((res) => {
@@ -19,7 +28,7 @@ export default {
                 });
         }
     },
-    computed: {
+    computed: {
         task_id() {
             return store.task_id
         }

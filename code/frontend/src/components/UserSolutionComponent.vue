@@ -36,6 +36,17 @@ export default {
             successMsg.innerHTML = "";
             successMsg.className = "";
         },
+        /**
+         * Iterates through the `correct` data property of the component and evaluates
+         * the correctness of each row using the `evaluateCorrectnessOfRow()` function.
+         * If all rows are correct, updates the `allSolved` data property to `true`.
+         * Also checks the `zve` data property of the component and, if it is present and
+         * all rows are correct, updates the UI to display a success message.
+         * @function
+         * @name correct
+         * @returns {void} This function does not return anything, but updates the component's
+         * `allSolved` and UI `successMsg` data properties if all rows are correct and `zve` is present.
+         */
         correct() {
             for (const [key, value] of Object.entries(this.correct)) {
                 this.evaluateCorrectnessOfRow(key, value)
@@ -51,6 +62,13 @@ export default {
         }
     },
     methods: {
+        /**
+         * Resets the component's data properties and UI elements to their initial state.
+         * @function
+         * @name reset
+         * @returns {void} This function does not return anything, but updates the component's
+         * data properties and UI elements to their initial state.
+         */
         reset() {
             this.options = [""],
                 this.rows = [
@@ -71,6 +89,15 @@ export default {
             this.zve = false
             this.zveValue = null
         },
+        /**
+         * Checks whether the user-entered ZVE value matches the correct ZVE for the current task,
+         * and updates the component's `zve` property accordingly.
+         * @function
+         * @name checkZve
+         * @returns {void} This function does not return anything, but updates the component's `zve`
+         * property based on the comparison of the user-entered ZVE value and the correct ZVE for the
+         * current task.
+         */
         checkZve() {
             axios.get("http://localhost:8000/zve/" + this.task_id)
                 .then((res) => {
@@ -80,6 +107,14 @@ export default {
                     store.error = error
                 });
         },
+        /**
+         * Retrieves the options (i.e., possible values) for the "law" dropdown menu in each row of the table
+         * based on the current task ID, and updates the component's `options` property accordingly.
+         * @function
+         * @name getOptions
+         * @returns {void} This function does not return anything, but updates the component's `options`
+         * property based on the options retrieved from the server.
+         */
         getOptions: function () {
             const url = "http://localhost:8000/select-options/" + store.task_id;
             axios.get(url).then((res) => {
@@ -88,6 +123,13 @@ export default {
                 store.error = error
             });
         },
+        /**
+         * Sends a POST request to solve a task with a given ID.
+         * 
+         * @function solveTask
+         * @throws Will throw an error if the request fails.
+         * @returns {Promise<void>} A promise that resolves if the request is successful.
+         */
         solveTask() {
             const url = 'http://localhost:8000/solve/' + store.task_id
             const data = JSON.stringify(this.rows);
@@ -97,13 +139,17 @@ export default {
             }).catch((error) => {
                 store.error = error.response.data.detail;
             });
-
-
         },
         checkIfRowNecessary: function () {
             let maxRows = this.showMaxRows > 0 ? this.showMaxRows : null;
             return maxRows > this.rows.length ? true : false;
         },
+        /**
+         * Adds a new row to a table if necessary, or displays a warning message if the maximum number of rows has already been reached.
+         *
+         * @param None
+         * @returns None
+         */
         addRow: function () {
             let newId = 0;
             const warningOrSuccessDiv = document.getElementById('warningOrSuccess');
@@ -128,6 +174,12 @@ export default {
                 document.getElementById('addRow').disabled = true
             }
         },
+        /**
+         * Deletes a row from a table and updates the table if necessary.
+         *
+         * @param {Object} row - The row to be deleted.
+         * @return None
+         */
         deleteRow: function (row) {
             const filteredRow = this.rows.filter(element => element !== row);
             this.rows = filteredRow;
@@ -139,6 +191,13 @@ export default {
                 document.getElementById('addRow').disabled = true
             }
         },
+        /**
+         * Evaluates the correctness of a row in a table and updates the row's appearance and functionality accordingly.
+         *
+         * @param {string} id - The ID of the row to be evaluated.
+         * @param {Object} isCorrect - An object containing Boolean values that indicate whether the case, law, and sum inputs in the row are correct.
+         * @return None
+         */
         evaluateCorrectnessOfRow: function (id, isCorrect) {
             const caseInput = document.getElementById(id + "_case_name");
             const lawInput = document.getElementById(id + "_law");

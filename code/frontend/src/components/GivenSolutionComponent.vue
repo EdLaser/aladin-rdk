@@ -10,6 +10,17 @@ export default {
         }
     },
     methods: {
+        /**
+         * Sends two HTTP GET requests to the server to fetch the solution and zve data
+         * for the current task specified by the `store.task_id` data property, and updates
+         * the component's `solutions` and `zve` data properties with the results.
+         * @function
+         * @name getSolution
+         * @returns {void} This function does not return anything, but updates the component's
+         * `solutions` and `zve` data properties with the result of the HTTP requests.
+         * @throws {Error} If an error occurs during the API request, the error message is logged to the console
+         * and the `store.error` data property is updated with the error object.
+         */
         getSolution() {
             if (store.task_id !== null) {
                 const url = "http://localhost:8000/";

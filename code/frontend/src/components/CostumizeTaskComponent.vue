@@ -22,6 +22,14 @@ export default {
         }
     },
     methods: {
+        /**
+         * Fetches a list of cases to choose from the server and updates the component's
+         * allCases data property with the result.
+         * @function
+         * @name fetchCasesToChoose
+         * @returns {void}
+         * @throws {Error} If an error occurs during the API request, the error message is not handled.
+         */
         getCasesToChoose: function () {
             const url = "http://localhost:8000/cases-to-choose";
             axios.get(url).then((res) => {
@@ -29,6 +37,13 @@ export default {
             });
 
         },
+        /**
+         * Checks if a given variable is not empty and of a valid type (array, integer, or string).
+         * @function
+         * @name isVariableAndNotEmpty
+         * @param {*} variable - The variable to be checked.
+         * @returns {boolean} True if the variable is not empty and of a valid type, false otherwise.
+         */
         isVariableAndNotEmpty(variable) {
             if (Array.isArray(variable) && variable.length > 0) {
                 return true;
@@ -36,6 +51,13 @@ export default {
                 return true;
             }
         },
+        /**
+         * Builds a URL string with the specified query parameters based on the component's
+         * difficultyValue, amountValue, and needed data properties.
+         * @function
+         * @name buildURL
+         * @returns {string} A URL string with the specified query parameters.
+         */
         buildURL() {
             const params = {
                 difficulty: this.difficultyValue,
@@ -46,6 +68,16 @@ export default {
             const url = `http://localhost:8000/get-task?${queryString}`;
             return url;
         },
+        /**
+         * Fetches a task from the server using the API endpoint constructed from the
+         * component's difficultyValue, amountValue, and needed data properties, and
+         * updates the component's sentences and task_id data properties with the result.
+         * @function
+         * @name getTask
+         * @returns {Promise<void>} A Promise that resolves when the task has been fetched and the
+         * component's data properties have been updated.
+         * @throws {Error} If an error occurs during the API request, the error message is logged to the console.
+         */
         async getTask() {
             const url = this.buildURL();
             console.log(url)
