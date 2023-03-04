@@ -29,12 +29,12 @@ export default {
         },
         getTask(id) {
             axios.get("http://localhost:8000/get-task/" + id)
-            .then((res) => {
-                store.sentences = res.data.sentences
-                store.task_id = res.data.id
-            }).catch((error) => {
-                store.error = error.data
-            });
+                .then((res) => {
+                    store.sentences = res.data.sentences
+                    store.task_id = res.data.id
+                }).catch((error) => {
+                    store.error = error.data
+                });
         }
     },
     computed: {
