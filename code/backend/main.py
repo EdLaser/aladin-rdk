@@ -140,15 +140,39 @@ app.add_middleware(
     allow_methods=['*']
 )
 
+def get_correct_solution_value(type: str, solution: Solution):
+    if type == "name":
+        return solution.case_name
+    elif type == "law":
+        return solution.law
+    elif type == "num":
+        return solution.number
+
 
 app.middleware("http")
 async def log_request(request: Request):
     logger.debug(f"{request.method} {request.url}")
     logger.debug(f"Body: {request.body}")
 
+@app.get("/get-task/{task_id}")
+def get_certain_task(task_id: int):
+    solved_with_solution = {}
+    wanted_task = search_task(task_id)
+    # get the task and get the solution for the already solved rows
+    if not wanted_task:
+        raise HTTPException(status_code=404, detail="Task not found.")
+    
+    for case, is_solved in wanted_task.solved.items():
+        for type, solved in is_solved.items():
+            if solved:
+                solved_with_solution[case] = get_correct_solution_value(type, wanted_task.solutions[case])
+            else:
+                solved_with_solution[case] = False
+
+    return return_json({"solved": solved_with_solution, "zve": wanted_task.zve, "sentences": [gen.build_sent(case) for case in wanted_task.cases]})
 
 @app.get("/get-task")
-def get_tasks(difficulty: int | None = None, amount: int | None = None, needed: str | None = None):
+def get_task(difficulty: int | None = None, amount: int | None = None, needed: str | None = None):
     """
     Returns a new task.
 
