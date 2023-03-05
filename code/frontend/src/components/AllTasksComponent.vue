@@ -32,9 +32,11 @@ export default {
                 .then((res) => {
                     store.sentences = res.data.sentences
                     store.task_id = res.data.id
+                    store.done_solutions = res.data.solved
                 }).catch((error) => {
                     store.error = error.data
                 });
+            store.is_new = false;
         }
     },
     computed: {

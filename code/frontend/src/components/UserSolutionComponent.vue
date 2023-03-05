@@ -35,6 +35,18 @@ export default {
             const successMsg = document.getElementById('warningOrSuccess');
             successMsg.innerHTML = "";
             successMsg.className = "";
+            // transform to rows
+            // "solved": {
+            //    "Beteiligung": 21000,
+            //    "Vermietung": false
+            // }
+            if (!store.is_new) {
+                for (const type in store.done_solutions) {
+                    if (store.done_solutions[type]) {
+
+                    }
+                }
+            }
         },
         /**
          * Iterates through the `correct` data property of the component and evaluates
@@ -77,7 +89,7 @@ export default {
                         "num": null
                     }
                 ]
-            for(let row of this.rows) {
+            for (let row of this.rows) {
                 document.getElementById(row.id + "_case_name").className = "form-control"
                 document.getElementById(row.id + "_law").className = "form-control"
                 document.getElementById(row.id + "_num").className = "form-control"

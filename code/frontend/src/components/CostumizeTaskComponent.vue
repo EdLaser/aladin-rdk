@@ -89,6 +89,7 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 });
+            store.is_new = true;
         }
     },
     mounted() {

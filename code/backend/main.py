@@ -165,7 +165,7 @@ def get_certain_task(task_id: int):
     for case, is_solved in wanted_task.solved.items():
         for type, solved in is_solved.items():
             if solved:
-                solved_with_solution[case] = get_correct_solution_value(type, wanted_task.solutions[case])
+                solved_with_solution[case] = {type: get_correct_solution_value(type, wanted_task.solutions[case])}
             else:
                 solved_with_solution[case] = False
 
