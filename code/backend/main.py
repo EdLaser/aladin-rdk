@@ -171,6 +171,7 @@ def get_certain_task(task_id: int):
 
     return return_json({"id": wanted_task.id, "solved": solved_with_solution, "zve": wanted_task.zve, "sentences": [gen.build_sent(case) for case in wanted_task.cases]})
 
+
 @app.get("/get-task")
 def get_task(difficulty: int | None = None, amount: int | None = None, needed: str | None = None):
     """

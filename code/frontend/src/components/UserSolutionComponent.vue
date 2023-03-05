@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
 import { store } from './store';
+import { toHandlers } from 'vue';
 
 export default {
     data() {
@@ -29,23 +30,25 @@ export default {
     watch: {
         task_id() {
             console.log(this.task_id);
+            console.log(store.is_new)
+            console.log(this.rows)
             this.reset();
             this.getOptions();
 
             const successMsg = document.getElementById('warningOrSuccess');
             successMsg.innerHTML = "";
             successMsg.className = "";
-            // transform to rows
-            // "solved": {
-            //    "Beteiligung": 21000,
-            //    "Vermietung": false
-            // }
+
             if (!store.is_new) {
+                let i = 0;
+                let rows = [];
                 for (const type in store.done_solutions) {
                     if (store.done_solutions[type]) {
-
+                        rows.push({ 'id': i, 'select': type, 'law': store.done_solutions[type].law, 'num': store.done_solutions[type].num })
                     }
+                    i++;
                 }
+                rows.length > 0 ? this.rows = rows : this.rows = [{ 'id': 0, 'select': "Sachverhalt auswählen", "law": '', "num": null }];
             }
         },
         /**
@@ -94,7 +97,6 @@ export default {
                 document.getElementById(row.id + "_law").className = "form-control"
                 document.getElementById(row.id + "_num").className = "form-control"
                 document.getElementById("zvE").className = "form-control"
-
             }
             this.correct = {}
             this.allSolved = false
@@ -113,7 +115,6 @@ export default {
         checkZve() {
             axios.get("http://localhost:8000/zve/" + this.task_id)
                 .then((res) => {
-                    console.log(res)
                     this.zve = this.zveValue === res.data ? true : false;
                 }).catch((error) => {
                     store.error = error
