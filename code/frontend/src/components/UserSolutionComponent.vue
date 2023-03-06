@@ -30,8 +30,6 @@ export default {
     watch: {
         task_id() {
             console.log(this.task_id);
-            console.log(store.is_new)
-            console.log(this.rows)
             this.reset();
             this.getOptions();
 
@@ -44,8 +42,9 @@ export default {
                 let rows = [];
                 for (const type in store.done_solutions) {
                     if (store.done_solutions[type]) {
-                        rows.push({ 'id': i, 'select': type, 'law': store.done_solutions[type].law, 'num': store.done_solutions[type].num })
+                        rows.push({ 'id': i, 'select': type, 'law': store.done_solutions[type].law ||= '', 'num': store.done_solutions[type].num ||= null })
                     }
+                    this.correct[i] = { 'name': store.done_solutions[type].name, 'law': store.done_solutions[type].law, 'num': store.done_solutions[type].num }
                     i++;
                 }
                 rows.length > 0 ? this.rows = rows : this.rows = [{ 'id': 0, 'select': "Sachverhalt auswählen", "law": '', "num": null }];
@@ -215,7 +214,6 @@ export default {
             const caseInput = document.getElementById(id + "_case_name");
             const lawInput = document.getElementById(id + "_law");
             const sumInput = document.getElementById(id + "_num");
-
             if (isCorrect.name) {
                 caseInput.className = "form-control border-success border border-5";
                 caseInput.disabled = true;
