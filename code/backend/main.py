@@ -157,17 +157,23 @@ async def log_request(request: Request):
 @app.get("/get-task/{task_id}")
 def get_certain_task(task_id: int):
     solved_with_solution = {}
+    solved_variables = {}
+    
     wanted_task = search_task(task_id)
     # get the task and get the solution for the already solved rows
     if not wanted_task:
         raise HTTPException(status_code=404, detail="Task not found.")
     
+    # {sol_id: {'name': False, 'law': False, 'num': False} for sol_id in self.solutions.keys()}
     for case, is_solved in wanted_task.solved.items():
+        # {'name': False, 'law': False, 'num': False}
         for type, solved in is_solved.items():
             if solved:
-                solved_with_solution[case] = {type: get_correct_solution_value(type, wanted_task.solutions[case])}
+                solved_variables[type] = get_correct_solution_value(type, wanted_task.solutions[case])
             else:
-                solved_with_solution[case] = False
+                solved_variables[type] = False
+            
+        solved_with_solution[case] = solved_variables
 
     return return_json({"id": wanted_task.id, "solved": solved_with_solution, "zve": wanted_task.zve, "sentences": [gen.build_sent(case) for case in wanted_task.cases]})
 
